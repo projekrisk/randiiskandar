@@ -48,7 +48,7 @@
                 <span class="text-[11px] text-zinc-400 font-normal">Otomatis diselaraskan dari judul bila dikosongkan</span>
             </div>
             <div class="flex items-center rounded-xs border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/80 px-3 py-2 focus-within:border-zinc-900 dark:focus-within:border-white transition-colors">
-                <span class="text-xs text-zinc-400 select-none mr-1 font-mono">{{ url('/baca') }}/</span>
+                <span class="text-xs text-zinc-400 select-none mr-1 font-mono">{{ url('/') }}/</span>
                 <input 
                     type="text" 
                     name="slug" 

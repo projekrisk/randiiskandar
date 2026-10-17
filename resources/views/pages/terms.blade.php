@@ -19,35 +19,41 @@
                 {!! $page->body !!}
             @else
                 <p>
-                    Selamat datang di blog <strong>Randi Iskandar</strong>. Dengan mengakses dan menggunakan situs web ini, Anda menerima dan setuju untuk terikat oleh Syarat dan Ketentuan Penggunaan Layanan ini. Jika Anda tidak setuju dengan ketentuan ini, harap tidak menggunakan situs web ini.
+                    Dengan mengakses dan menggunakan situs ini, Anda dianggap telah memahami dan menyetujui ketentuan penggunaan yang berlaku. Jika tidak menyetujui ketentuan ini, Anda dapat berhenti menggunakan situs.
                 </p>
 
-                <h3>Hak Kekayaan Intelektual</h3>
+                <h3>Penggunaan Konten</h3>
                 <p>
-                    Kecuali dinyatakan lain secara eksplisit, seluruh konten yang ada di blog ini—termasuk tulisan opini, materi teknologi, tutorial, dan dokumentasi adalah milik <strong>Randi Iskandar</strong> dan dilindungi oleh ketentuan hak cipta.
+                    Artikel, opini, tutorial, dan konten lainnya yang dipublikasikan di blog ini merupakan karya yang dilindungi oleh ketentuan hak cipta, kecuali dinyatakan lain.
                 </p>
                 <p>
-                    Anda diberikan izin untuk membaca dan membagikan konten ini untuk tujuan edukasi atau non-komersial dengan tetap mencantumkan atribusi yang jelas serta tautan ke sumber asli. Penggunaan kembali kode sumber contoh mengikuti lisensi terbuka yang relevan.
+                    Anda boleh membaca, membagikan tautan, atau mengutip sebagian konten untuk keperluan pribadi dan edukasi, dengan tetap mencantumkan nama penulis serta tautan menuju sumber aslinya.
+                </p>
+                <p>
+                    Penyalinan atau publikasi ulang seluruh konten, maupun penggunaan untuk tujuan komersial, harus mendapatkan izin dari pemilik hak cipta.
                 </p>
 
-                <h3>Perilaku Pengguna</h3>
+                <h3>Perilaku Pengunjung</h3>
                 <p>
-                    Dalam menggunakan situs web ini, khususnya saat meninggalkan komentar atau berinteraksi melalui formulir kontak, Anda setuju untuk tidak:
+                    Pengunjung diharapkan menggunakan fasilitas komentar dan formulir kontak dengan baik, antara lain dengan:
                 </p>
                 <ul>
-                    <li>Memposting komentar yang mengandung ujaran kebencian, pelecehan, ancaman, atau konten yang melanggar hukum.</li>
-                    <li>Melakukan aktivitas spam, menyebarkan tautan promosi yang tidak relevan, atau mengirimkan skrip berbahaya.</li>
-                    <li>Mengganggu kenyamanan atau privasi pembaca lain.</li>
+                    <li>Tidak mengirimkan spam atau tautan promosi yang tidak relevan.</li>
+                    <li>Tidak menyebarkan konten yang melanggar hukum, mengandung ujaran kebencian, atau merugikan pihak lain.</li>
+                    <li>Menghargai pendapat orang lain dan menjaga komunikasi yang baik.</li>
                 </ul>
 
-                <h3>Ketersediaan Layanan</h3>
+                <h3>Ketersediaan Situs</h3>
                 <p>
-                    Pengelola berupaya menjaga situs ini agar dapat diakses setiap saat, namun tidak bertanggung jawab atas gangguan sementara karena pemeliharaan teknis atau masalah jaringan di luar kendali.
+                    Saya berupaya menjaga agar blog ini dapat diakses dengan baik. Namun, gangguan teknis, pemeliharaan, atau kendala lain dapat menyebabkan situs tidak tersedia untuk sementara waktu.
                 </p>
 
-                <h3>Hubungi Saya</h3>
+                <h3>Perubahan Ketentuan</h3>
                 <p>
-                    Jika Anda memiliki pertanyaan mengenai ketentuan layanan ini, silakan ajukan pesan melalui <a href="{{ route('contact') }}">Halaman Kontak</a>.
+                    Ketentuan penggunaan ini dapat diperbarui sewaktu-waktu sesuai kebutuhan. Perubahan akan ditampilkan pada halaman ini.
+                </p>
+                <p>
+                    Jika Anda memiliki pertanyaan mengenai ketentuan penggunaan blog ini, silakan hubungi saya melalui <a href="{{ route('contact') }}">Halaman Kontak</a> yang tersedia di situs..
                 </p>
             @endif
         </article>

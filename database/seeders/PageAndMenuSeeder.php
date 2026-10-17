@@ -86,18 +86,18 @@ class PageAndMenuSeeder extends Seeder
                 'slug' => 'about',
                 'meta_description' => 'Blog personal Randi Iskandar yang membagikan proyek, opini teknologi, dan tutorial pemrograman.',
                 'is_published' => true,
-                'body' => '<p>Halo! Perkenalkan, saya <strong>Randi Iskandar</strong>, Saya senang mengeksplorasi teknologi digital, mencoba hal-hal baru, dan berbagi cerita tentang apa saja yang menarik untuk dibahas.</p>
+                'body' => '<p>Halo! Perkenalkan, saya <strong>Randi Iskandar</strong>, saya senang mengeksplorasi teknologi digital, mencoba hal-hal baru, dan berbagi cerita tentang apa saja yang menarik untuk dibahas.</p>
 
 <h3>Tentang Blog Ini</h3>
-<p>Situs ini merupakan ruang personal tempat saya berbagi pemikiran, informasi, dan hal-hal yang saya pelajari dari perjalanan mengeksplorasi dunia digital. Blog ini menjadi ruang untuk menuangkan ide, berbagi pengetahuan, dan mendokumentasikan berbagai catatan yang mungkin bermanfaat bagi pembaca.</p>
+<p>Situs ini merupakan ruang personal tempat saya berbagi pemikiran, informasi, dan hal-hal yang saya pelajari. Blog ini menjadi ruang untuk menuangkan ide, berbagi pengetahuan, dan mendokumentasikan berbagai catatan yang mungkin bermanfaat bagi pembaca.</p>
 
 <h3>Apa yang Saya Tulis</h3>
 <p>Di sini Anda dapat menemukan berbagai tulisan, di antaranya:</p>
 <ul>
-    <li><strong>Opini:</strong> Pandangan dan pemikiran tentang berbagai hal dalam kehidupan.</li>
+    <li><strong>Opini:</strong> Pandangan dan pemikiran tentang berbagai hal.</li>
     <li><strong>Teknologi:</strong> Informasi dan pembahasan seputar perkembangan teknologi digital.</li>
     <li><strong>Tutorial:</strong> Panduan praktis untuk membantu menyelesaikan berbagai kebutuhan teknis.</li>
-    <li><strong>Eksplorasi Digital:</strong> Catatan, pengalaman, dan hal-hal menarik dari proses mempelajari serta mencoba berbagai teknologi dan layanan digital.</li>
+    <li><strong>Eksplorasi:</strong> Catatan, pengalaman, dan hal-hal menarik dari proses mempelajari serta mencoba berbagai teknologi dan layanan digital.</li>
 </ul>
 
 <p>Semoga ada hal menarik yang bisa Anda temukan di sini. Selamat membaca, dan semoga tulisan-tulisan di blog ini bisa menambah wawasan atau memberikan inspirasi baru.</p>',
