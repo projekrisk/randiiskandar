@@ -96,4 +96,21 @@ class BookmarkAndOptimizationTest extends TestCase
         $response->assertSee('<urlset', false);
         $response->assertSee(url('/'), false);
     }
+
+    public function test_public_filesystem_disk_points_to_public_storage(): void
+    {
+        $root = config('filesystems.disks.public.root');
+        $this->assertNotEmpty($root);
+        $this->assertStringContainsString('storage', $root);
+    }
+
+    public function test_layout_renders_successfully(): void
+    {
+        $response = $this->get('/');
+        $response->assertStatus(200);
+        $this->assertTrue(
+            str_contains($response->getContent(), 'css/app.css') ||
+            str_contains($response->getContent(), '/build/assets/')
+        );
+    }
 }

@@ -123,4 +123,11 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Custom Public Path (Shared Hosting)
+    |--------------------------------------------------------------------------
+    */
+    'public_path' => env('PUBLIC_PATH'),
+
 ];

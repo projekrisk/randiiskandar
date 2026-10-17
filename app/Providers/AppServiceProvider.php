@@ -13,7 +13,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Sesuaikan public_path ke public_html jika berada di lingkungan shared hosting
+        $customPublic = config('app.public_path');
+
+        if ($customPublic && is_dir($customPublic)) {
+            $this->app->usePublicPath($customPublic);
+        } elseif (is_dir(base_path('../public_html'))) {
+            $this->app->usePublicPath(base_path('../public_html'));
+        } elseif (is_dir(base_path('public_html'))) {
+            $this->app->usePublicPath(base_path('public_html'));
+        }
     }
 
     /**

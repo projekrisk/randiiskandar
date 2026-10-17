@@ -55,8 +55,12 @@
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" crossorigin="anonymous"></script>
     @endif
 
-    <!-- Vite Assets (Tailwind CSS v4 & JS) -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- Styles: Vite jika tersedia, atau Static CSS untuk Shared Hosting tanpa NPM/Build -->
+    @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @else
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    @endif
 
     <!-- Dark Mode Init Script (Mencegah FOUC - Flash of Unstyled Content) -->
     <script>
