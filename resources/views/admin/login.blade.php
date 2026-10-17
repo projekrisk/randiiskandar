@@ -84,10 +84,6 @@
 
         </div>
 
-        <p class="text-center text-xs text-zinc-400 mt-6">
-            Default kredensial demo: <code>randi@example.com</code> / <code>password</code>
-        </p>
-
     </div>
 
 </body>

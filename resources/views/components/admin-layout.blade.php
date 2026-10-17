@@ -127,9 +127,6 @@
                 <span class="sidebar-expanded truncate">Pengaturan</span>
                 <span class="sidebar-tooltip">Pengaturan</span>
             </a>
-
-            <div class="sidebar-expanded my-4 border-t border-zinc-200 dark:border-zinc-800"></div>
-            <p class="sidebar-expanded px-3 text-xs font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-2 font-sans">Aksi Cepat</p>
         </div>
 
         <div class="p-3 border-t border-zinc-200 dark:border-zinc-800 flex flex-col gap-1.5 shrink-0">
