@@ -1,6 +1,6 @@
 <x-layout 
     title="Arsip Lengkap Tulisan - Randi Iskandar"
-    description="Indeks kronologis lengkap dari seluruh tulisan opini, teknologi, tutorial, dan portofolio."
+    description="Indeks kronologis lengkap dari seluruh tulisan opini, teknologi, dan tutorial."
 >
     <main class="w-full max-w-5xl mx-auto px-5 sm:px-8 flex-grow pt-32 pb-20">
         
@@ -12,7 +12,7 @@
                 Arsip Tulisan
             </h1>
             <p class="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl leading-relaxed font-sans">
-                Kumpulan tulisan seputar portofolio proyek, opini teknologi, tutorial pemrograman, dan catatan eksplorasi digital.
+                Kumpulan tulisan seputar opini teknologi, tutorial, dan catatan digital.
             </p>
 
             <div class="flex flex-wrap gap-2 mt-8">

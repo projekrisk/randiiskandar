@@ -63,7 +63,7 @@ if ($post) {
         '@type' => 'WebSite',
         'url' => route('home'),
         'name' => 'Randi Iskandar Workspace',
-        'description' => 'Portofolio dan blog yang berisi tulisan bebas seputar opini, teknologi, tutorial, dan catatan pemrograman.',
+        'description' => 'Blog yang berisi tulisan bebas seputar opini, teknologi, tutorial, dan catatan pemrograman.',
         'potentialAction' => [
             '@type' => 'SearchAction',
             'target' => [

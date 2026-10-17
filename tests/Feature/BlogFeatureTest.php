@@ -1106,4 +1106,44 @@ class BlogFeatureTest extends TestCase
             Hash::check('new-secret-secure-password', $admin->fresh()->password)
         );
     }
+
+    public function test_admin_can_set_custom_published_at_date_and_time_on_create_and_edit(): void
+    {
+        $admin = User::first();
+        $category = Category::first();
+
+        $createPageResponse = $this->actingAs($admin)->get(route('admin.posts.create'));
+        $createPageResponse->assertStatus(200);
+        $createPageResponse->assertSee('name="published_at"', false);
+
+        $customDate = '2026-05-20T14:30';
+        $storeResponse = $this->actingAs($admin)->post(route('admin.posts.store'), [
+            'title' => 'Artikel Terbit Terjadwal '.uniqid(),
+            'category_id' => $category->id,
+            'status' => 'published',
+            'published_at' => $customDate,
+            'body' => '<p>Konten artikel dengan waktu terbit khusus.</p>',
+        ]);
+        $storeResponse->assertRedirect(route('admin.posts.index'));
+
+        $post = Post::latest('id')->first();
+        $this->assertEquals('2026-05-20 14:30:00', $post->published_at->format('Y-m-d H:i:s'));
+
+        $editPageResponse = $this->actingAs($admin)->get(route('admin.posts.edit', $post));
+        $editPageResponse->assertStatus(200);
+        $editPageResponse->assertSee('2026-05-20T14:30');
+
+        $updatedDate = '2026-06-15T09:15';
+        $updateResponse = $this->actingAs($admin)->put(route('admin.posts.update', $post), [
+            'title' => $post->title,
+            'slug' => $post->slug,
+            'category_id' => $category->id,
+            'status' => 'published',
+            'published_at' => $updatedDate,
+            'body' => '<p>Konten diperbarui.</p>',
+        ]);
+        $updateResponse->assertRedirect(route('admin.posts.index'));
+
+        $this->assertEquals('2026-06-15 09:15:00', $post->fresh()->published_at->format('Y-m-d H:i:s'));
+    }
 }

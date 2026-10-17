@@ -271,7 +271,7 @@
                     {{ $post->author?->name ?: 'Randi Iskandar' }}
                 </h4>
                 <p class="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-3">
-                    {{ $post->author?->bio ?: 'Pengembang web dan penulis lepas. Membagikan portofolio, opini seputar teknologi, tutorial pemrograman, dan catatan eksplorasi digital.' }}
+                    {{ $post->author?->bio ?: 'Pengembang web dan penulis lepas. Berbagi opini seputar teknologi, tutorial, dan catatan digital.' }}
                 </p>
                 <a href="{{ route('about') }}" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-zinc-900 dark:text-white hover:underline group">
                     <span>Tentang Penulis</span>

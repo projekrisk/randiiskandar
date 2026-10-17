@@ -19,7 +19,7 @@
                 {!! $page->body !!}
             @else
                 <p>
-                    Informasi yang disajikan di situs <strong>Randi Iskandar</strong> ditujukan untuk tujuan edukasi, dokumentasi teknologi, opini independen, tutorial, dan referensi portofolio umum.
+                    Informasi yang disajikan di situs <strong>Randi Iskandar</strong> ditujukan untuk tujuan edukasi, dokumentasi teknologi, opini independen, tutorial, dan referensi  umum.
                 </p>
 
                 <h3>Opini Pribadi</h3>

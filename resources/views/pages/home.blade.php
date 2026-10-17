@@ -23,7 +23,7 @@
                         {{ $author?->name ?: 'Randi Iskandar' }}
                     </h1>
                     <p class="text-zinc-600 dark:text-zinc-400 font-sans text-base sm:text-lg leading-relaxed mb-6 font-normal">
-                        {{ $author?->bio ?: 'Pengembang web dan penulis lepas. Membagikan portofolio, opini seputar teknologi, tutorial pemrograman, dan catatan eksplorasi digital.' }}
+                        {{ $author?->bio ?: 'Pengembang web dan penulis lepas. Berbagi opini seputar teknologi, tutorial, dan catatan digital.' }}
                     </p>
                     <div class="flex flex-wrap items-center justify-center sm:justify-start gap-3">
                         <a 

@@ -16,8 +16,8 @@
     <link rel="apple-touch-icon" href="{{ asset('icon.png') }}">
     
     <x-seo-meta 
-        :title="$title ?: ($post ? $post->title . ' - Randi Iskandar' : 'Randi Iskandar - Portofolio & Catatan Pemrograman')"
-        :description="$description ?: ($post ? $post->meta_description : 'Portofolio dan blog personal oleh Randi Iskandar berisi tulisan seputar opini, teknologi, tutorial, dan catatan pemrograman.')"
+        :title="$title ?: ($post ? $post->title . ' - Randi Iskandar' : 'Randi Iskandar')"
+        :description="$description ?: ($post ? $post->meta_description : 'Blog personal oleh Randi Iskandar berisi tulisan seputar opini, teknologi, tutorial, dan catatan pemrograman.')"
         :image="$image ?: ($post?->featured_image ?: asset('og-image.jpg'))"
         :type="$type"
         :publishedTime="$post?->published_at?->toIso8601String()"
@@ -162,7 +162,7 @@
                     Randi Iskandar.
                 </a>
                 <span class="text-[11px] text-zinc-400 dark:text-zinc-500 font-sans block mt-0.5">
-                    Portofolio & Catatan Digital
+                    Catatan Digital
                 </span>
             </div>
             <button id="close-sidebar" class="w-8 h-8 rounded-full flex items-center justify-center text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer" aria-label="Tutup Menu">

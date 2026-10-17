@@ -1,6 +1,6 @@
 <x-layout 
     :title="($page?->title ?: 'Penggunaan Layanan') . ' - Randi Iskandar'"
-    :description="$page?->meta_description ?: 'Syarat dan ketentuan penggunaan situs portofolio dan blog Randi Iskandar.'"
+    :description="$page?->meta_description ?: 'Syarat dan ketentuan penggunaan blog Randi Iskandar.'"
     :image="$page?->featured_image"
 >
     <main class="w-full max-w-3xl mx-auto px-5 sm:px-8 flex-grow pt-32 pb-20">
@@ -19,12 +19,12 @@
                 {!! $page->body !!}
             @else
                 <p>
-                    Selamat datang di situs <strong>Randi Iskandar</strong>. Dengan mengakses dan menggunakan situs web ini, Anda menerima dan setuju untuk terikat oleh Syarat dan Ketentuan Penggunaan Layanan ini. Jika Anda tidak setuju dengan ketentuan ini, harap tidak menggunakan situs web ini.
+                    Selamat datang di blog <strong>Randi Iskandar</strong>. Dengan mengakses dan menggunakan situs web ini, Anda menerima dan setuju untuk terikat oleh Syarat dan Ketentuan Penggunaan Layanan ini. Jika Anda tidak setuju dengan ketentuan ini, harap tidak menggunakan situs web ini.
                 </p>
 
                 <h3>Hak Kekayaan Intelektual</h3>
                 <p>
-                    Kecuali dinyatakan lain secara eksplisit, seluruh konten yang ada di blog ini—termasuk tulisan opini, materi teknologi, tutorial pemrograman, dan dokumentasi proyek portofolio—adalah milik <strong>Randi Iskandar</strong> dan dilindungi oleh ketentuan hak cipta.
+                    Kecuali dinyatakan lain secara eksplisit, seluruh konten yang ada di blog ini—termasuk tulisan opini, materi teknologi, tutorial, dan dokumentasi adalah milik <strong>Randi Iskandar</strong> dan dilindungi oleh ketentuan hak cipta.
                 </p>
                 <p>
                     Anda diberikan izin untuk membaca dan membagikan konten ini untuk tujuan edukasi atau non-komersial dengan tetap mencantumkan atribusi yang jelas serta tautan ke sumber asli. Penggunaan kembali kode sumber contoh mengikuti lisensi terbuka yang relevan.

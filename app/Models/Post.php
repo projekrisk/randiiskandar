@@ -406,7 +406,7 @@ class Post extends Model
             ->pluck('tags');
 
         $tagMap = [];
-        $defaultTags = ['Opini', 'Teknologi', 'Tutorial', 'Portofolio', 'Laravel', 'PHP', 'JavaScript', 'Web'];
+        $defaultTags = ['Opini', 'Teknologi', 'Tutorial', 'Laravel', 'PHP', 'JavaScript', 'Web'];
 
         foreach ($defaultTags as $dt) {
             $tagMap[trim($dt)] = true;

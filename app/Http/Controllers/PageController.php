@@ -18,7 +18,7 @@ class PageController extends Controller
             $page = new Page([
                 'title' => 'Tentang Randi Iskandar',
                 'slug' => 'about',
-                'body' => '<p>Halo! Saya <strong>Randi Iskandar</strong>, seorang pengembang web dan penulis lepas. Situs ini adalah portofolio proyek dan blog yang membagikan tulisan seputar opini, teknologi, tutorial pemrograman, dan eksplorasi digital.</p>',
+                'body' => '<p>Halo! Perkenalkan, saya <strong>Randi Iskandar</strong>, Saya senang mengeksplorasi teknologi digital, mencoba hal-hal baru, dan berbagi cerita tentang apa saja yang menarik untuk dibahas.</p>',
                 'is_published' => true,
             ]);
         }

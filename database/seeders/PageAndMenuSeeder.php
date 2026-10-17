@@ -14,12 +14,12 @@ class PageAndMenuSeeder extends Seeder
             [
                 'title' => 'Penggunaan Layanan',
                 'slug' => 'terms',
-                'meta_description' => 'Syarat dan ketentuan penggunaan blog dan portofolio Randi Iskandar.',
+                'meta_description' => 'Syarat dan ketentuan penggunaan blog Randi Iskandar.',
                 'is_published' => true,
                 'body' => '<p>Selamat datang di situs <strong>Randi Iskandar</strong>. Dengan mengakses dan menggunakan situs web ini, Anda menerima dan menyetujui syarat dan ketentuan penggunaan yang berlaku. Jika Anda tidak menyetujui ketentuan ini, Anda disarankan untuk tidak melanjutkan penggunaan situs ini.</p>
 
 <h3>Hak Kekayaan Intelektual</h3>
-<p>Kecuali dinyatakan lain, seluruh konten yang dipublikasikan pada situs ini—termasuk artikel, opini, tutorial pemrograman, dokumentasi proyek, dan materi portofolio—merupakan karya dari <strong>Randi Iskandar</strong> dan dilindungi oleh ketentuan hak cipta yang berlaku.</p>
+<p>Kecuali dinyatakan lain, seluruh konten yang dipublikasikan pada situs ini—termasuk artikel, opini, tutorial, dokumentasi, dan materi merupakan karya dari <strong>Randi Iskandar</strong> dan dilindungi oleh ketentuan hak cipta yang berlaku.</p>
 <p>Anda diperbolehkan membaca, mempelajari, dan membagikan kutipan dari konten ini untuk keperluan edukasi dan non-komersial, dengan tetap mencantumkan atribusi nama penulis serta menyertakan tautan aktif menuju artikel asli. Penggandaan massal atau penggunaan materi untuk tujuan komersial tanpa izin tertulis dari pemilik situs tidak diperkenankan.</p>
 
 <h3>Perilaku Pengunjung</h3>
@@ -39,7 +39,7 @@ class PageAndMenuSeeder extends Seeder
             [
                 'title' => 'Kebijakan Privasi',
                 'slug' => 'privacy',
-                'meta_description' => 'Kebijakan privasi dan perlindungan data pengunjung blog dan portofolio Randi Iskandar.',
+                'meta_description' => 'Kebijakan privasi dan perlindungan data pengunjung blog Randi Iskandar.',
                 'is_published' => true,
                 'body' => '<p>Privasi Anda sebagai pengunjung situs <strong>Randi Iskandar</strong> adalah hal yang diutamakan. Dokumen ini menjelaskan jenis data yang dicatat serta bagaimana informasi tersebut dikelola.</p>
 
@@ -68,9 +68,9 @@ class PageAndMenuSeeder extends Seeder
             [
                 'title' => 'Sanggahan (Disclaimer)',
                 'slug' => 'disclaimer',
-                'meta_description' => 'Sanggahan dan batasan tanggung jawab konten pada blog dan portofolio Randi Iskandar.',
+                'meta_description' => 'Sanggahan dan batasan tanggung jawab konten pada blog Randi Iskandar.',
                 'is_published' => true,
-                'body' => '<p>Seluruh materi dan artikel yang dipublikasikan di blog <strong>Randi Iskandar</strong> disajikan untuk tujuan edukasi, dokumentasi teknis, portofolio karya, dan opini umum seputar dunia teknologi.</p>
+                'body' => '<p>Seluruh materi dan artikel yang dipublikasikan di blog <strong>Randi Iskandar</strong> disajikan untuk tujuan edukasi, dokumentasi teknis, dan opini umum seputar dunia teknologi.</p>
 
 <h3>Tanggung Jawab Teknis</h3>
 <p>Kode pemrograman, tutorial, konfigurasi server, dan panduan teknis yang dibagikan telah diuji pada lingkungan pengembangan penulis saat penulisan dilakukan. Namun, perkembangan ekosistem perangkat lunak berlangsung sangat cepat. Penulis tidak bertanggung jawab atas kerugian atau kerusakan sistem yang timbul dari penerapan instruksi tanpa penyesuaian pada lingkungan kerja masing-masing pengguna.</p>
@@ -84,23 +84,23 @@ class PageAndMenuSeeder extends Seeder
             [
                 'title' => 'Tentang Randi Iskandar',
                 'slug' => 'about',
-                'meta_description' => 'Portofolio dan blog personal Randi Iskandar yang membagikan proyek, opini teknologi, dan tutorial pemrograman.',
+                'meta_description' => 'Blog personal Randi Iskandar yang membagikan proyek, opini teknologi, dan tutorial pemrograman.',
                 'is_published' => true,
-                'body' => '<p>Halo! Saya <strong>Randi Iskandar</strong>, seorang pengembang web (web developer) dan penulis yang gemar mengeksplorasi teknologi digital serta membangun solusi berbasis web yang efisien.</p>
+                'body' => '<p>Halo! Perkenalkan, saya <strong>Randi Iskandar</strong>, Saya senang mengeksplorasi teknologi digital, mencoba hal-hal baru, dan berbagi cerita tentang apa saja yang menarik untuk dibahas.</p>
 
-<h3>Portofolio & Catatan Digital</h3>
-<p>Situs ini merupakan ruang personal sekaligus portofolio saya untuk mendokumentasikan karya, proses rekayasa perangkat lunak, serta catatan pemikiran seputar dunia digital yang terus berkembang.</p>
+<h3>Tentang Blog Ini</h3>
+<p>Situs ini merupakan ruang personal tempat saya berbagi pemikiran, informasi, dan hal-hal yang saya pelajari dari perjalanan mengeksplorasi dunia digital. Blog ini menjadi ruang untuk menuangkan ide, berbagi pengetahuan, dan mendokumentasikan berbagai catatan yang mungkin bermanfaat bagi pembaca.</p>
 
 <h3>Apa yang Saya Tulis</h3>
-<p>Di sini Anda dapat menemukan tulisan bebas yang mencakup berbagai topik:</p>
+<p>Di sini Anda dapat menemukan berbagai tulisan, di antaranya:</p>
 <ul>
-    <li><strong>Portofolio & Proyek:</strong> Cerita di balik perancangan dan implementasi aplikasi atau platform web.</li>
-    <li><strong>Teknologi:</strong> Pembahasan tren arsitektur perangkat lunak, infrastruktur, dan ekosistem open-source.</li>
-    <li><strong>Tutorial & Panduan Teknis:</strong> Panduan langkah demi langkah memecahkan masalah pemrograman praktis.</li>
-    <li><strong>Opini & Esai Bebas:</strong> Catatan perenungan, etos kerja, serta pandangan kritis mengenai perkembangan lanskap teknologi informasi.</li>
+    <li><strong>Opini:</strong> Pandangan dan pemikiran tentang berbagai hal dalam kehidupan.</li>
+    <li><strong>Teknologi:</strong> Informasi dan pembahasan seputar perkembangan teknologi digital.</li>
+    <li><strong>Tutorial:</strong> Panduan praktis untuk membantu menyelesaikan berbagai kebutuhan teknis.</li>
+    <li><strong>Eksplorasi Digital:</strong> Catatan, pengalaman, dan hal-hal menarik dari proses mempelajari serta mencoba berbagai teknologi dan layanan digital.</li>
 </ul>
 
-<p>Jika Anda tertarik untuk berkolaborasi, mendiskusikan peluang proyek, atau sekadar bertukar gagasan, silakan hubungi saya melalui halaman kontak.</p>',
+<p>Semoga ada hal menarik yang bisa Anda temukan di sini. Selamat membaca, dan semoga tulisan-tulisan di blog ini bisa menambah wawasan atau memberikan inspirasi baru.</p>',
             ],
         ];
 

@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Randi Iskandar',
                 'password' => Hash::make('password'),
                 'avatar' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=300&auto=format&fit=crop',
-                'bio' => 'Pengembang web dan penulis lepas. Membagikan portofolio, opini seputar teknologi, tutorial pemrograman, dan catatan eksplorasi digital.',
+                'bio' => 'Pengembang web dan penulis lepas. Berbagi opini, artikel seputar teknologi, tutorial, dan catatan eksplorasi digital.',
             ]
         );
 

@@ -6,7 +6,7 @@
     <channel>
         <title>{{ config('app.name', 'Randi Iskandar Workspace') }}</title>
         <link>{{ url('/') }}</link>
-        <description>Portofolio dan blog personal berisi tulisan seputar opini, teknologi, tutorial, dan catatan pemrograman oleh Randi Iskandar.</description>
+        <description>Blog personal berisi tulisan seputar opini, teknologi, tutorial, dan catatan oleh Randi Iskandar.</description>
         <language>id</language>
         <lastBuildDate>{{ $lastBuildDate->toRfc2822String() }}</lastBuildDate>
         <atom:link href="{{ url('/feed') }}" rel="self" type="application/rss+xml" />

@@ -54,6 +54,7 @@ class PostController extends Controller
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['nullable', 'string', 'max:255', 'unique:posts,slug', Rule::notIn(['admin', 'login', 'baca', 'kategori', 'arsip', 'cari', 'kontak', 'up', 'tentang', 'about', 'term', 'terms', 'disclaimer', 'privasi'])],
             'category_id' => ['required', 'exists:categories,id'],
+            'published_at' => ['nullable', 'date'],
             'excerpt' => ['nullable', 'string', 'max:500'],
             'body' => ['required', 'string'],
             'featured_image' => ['nullable', 'string', 'max:500'],
@@ -82,6 +83,13 @@ class PostController extends Controller
             $counter++;
         }
 
+        $publishedAt = null;
+        if ($request->filled('published_at')) {
+            $publishedAt = Carbon::parse($validated['published_at']);
+        } elseif ($validated['status'] === 'published') {
+            $publishedAt = Carbon::now();
+        }
+
         $post = Post::create([
             'user_id' => Auth::id(),
             'category_id' => $validated['category_id'],
@@ -95,7 +103,7 @@ class PostController extends Controller
             'tags' => $request->filled('tags') ? trim($request->input('tags')) : null,
             'status' => $validated['status'],
             'is_featured' => $request->boolean('is_featured'),
-            'published_at' => $validated['status'] === 'published' ? Carbon::now() : null,
+            'published_at' => $publishedAt,
             'claps_count' => 0,
             'views_count' => 0,
         ]);
@@ -121,6 +129,7 @@ class PostController extends Controller
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['required', 'string', 'max:255', 'unique:posts,slug,'.$post->id, Rule::notIn(['admin', 'login', 'baca', 'kategori', 'arsip', 'cari', 'kontak', 'up', 'tentang', 'about', 'term', 'terms', 'disclaimer', 'privasi'])],
             'category_id' => ['required', 'exists:categories,id'],
+            'published_at' => ['nullable', 'date'],
             'excerpt' => ['nullable', 'string', 'max:500'],
             'body' => ['required', 'string'],
             'featured_image' => ['nullable', 'string', 'max:500'],
@@ -141,9 +150,11 @@ class PostController extends Controller
         }
 
         $publishedAt = $post->published_at;
-        if ($validated['status'] === 'published' && is_null($publishedAt)) {
+        if ($request->filled('published_at')) {
+            $publishedAt = Carbon::parse($validated['published_at']);
+        } elseif ($validated['status'] === 'published' && is_null($publishedAt)) {
             $publishedAt = Carbon::now();
-        } elseif ($validated['status'] === 'draft') {
+        } elseif ($validated['status'] === 'draft' && ! $request->filled('published_at')) {
             $publishedAt = null;
         }
 

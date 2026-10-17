@@ -24,47 +24,22 @@
 
     
     <div class="space-y-6">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            
-            <div class="md:col-span-2">
-                <label for="title" class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
-                    Judul Artikel <span class="text-red-500">*</span>
-                </label>
-                <input 
-                    type="text" 
-                    name="title" 
-                    id="title" 
-                    required 
-                    value="{{ old('title', $post?->title) }}"
-                    class="w-full bg-zinc-50 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700 rounded-xs px-3.5 py-2.5 text-base text-zinc-900 dark:text-white font-medium focus:outline-none focus:border-zinc-900 dark:focus:border-white transition-colors"
-                    placeholder="Contoh: Harmoni dalam Kekosongan: Memaksimalkan Whitespace"
-                >
-                @error('title') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
-            </div>
-
-            
-            <div>
-                <label for="category_id" class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
-                    Kategori <span class="text-red-500">*</span>
-                </label>
-                <select 
-                    name="category_id" 
-                    id="category_id" 
-                    required 
-                    class="w-full bg-zinc-50 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700 rounded-xs px-3.5 py-2.5 text-sm text-zinc-900 dark:text-white focus:outline-none focus:border-zinc-900 dark:focus:border-white transition-colors cursor-pointer"
-                >
-                    <option value="">Pilih Kategori</option>
-                    @foreach($categories as $category)
-                        <option value="{{ $category->id }}" {{ old('category_id', $post?->category_id) == $category->id ? 'selected' : '' }}>
-                            {{ $category->name }}
-                        </option>
-                    @endforeach
-                </select>
-                @error('category_id') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
-            </div>
+        <div>
+            <label for="title" class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
+                Judul Artikel <span class="text-red-500">*</span>
+            </label>
+            <input 
+                type="text" 
+                name="title" 
+                id="title" 
+                required 
+                value="{{ old('title', $post?->title) }}"
+                class="w-full bg-zinc-50 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700 rounded-xs px-3.5 py-2.5 text-base text-zinc-900 dark:text-white font-medium focus:outline-none focus:border-zinc-900 dark:focus:border-white transition-colors"
+                placeholder="Contoh: Mengoptimalkan Performa Query pada Aplikasi Laravel"
+            >
+            @error('title') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
         </div>
 
-        
         <div>
             <div class="flex items-center justify-between mb-1.5">
                 <label for="slug" class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400">
@@ -80,168 +55,181 @@
                     id="slug" 
                     value="{{ old('slug', $post?->slug) }}"
                     class="w-full bg-transparent text-sm text-zinc-900 dark:text-white font-mono focus:outline-none"
-                    placeholder="harmoni-dalam-kekosongan"
+                    placeholder="mengoptimalkan-performa-query"
                 >
             </div>
             @error('slug') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
         </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+                <label for="category_id" class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
+                    Kategori <span class="text-red-500">*</span>
+                </label>
+                <select 
+                    name="category_id" 
+                    id="category_id" 
+                    required 
+                    class="w-full bg-zinc-50 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700 rounded-xs px-3.5 py-2 text-xs sm:text-sm text-zinc-900 dark:text-white focus:outline-none focus:border-zinc-900 dark:focus:border-white transition-colors cursor-pointer"
+                >
+                    <option value="">Pilih Kategori</option>
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}" {{ old('category_id', $post?->category_id) == $category->id ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('category_id') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
+            </div>
+
+            <div>
+                <label for="published_at" class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
+                    Tanggal & Jam Terbit
+                </label>
+                <input 
+                    type="datetime-local" 
+                    name="published_at" 
+                    id="published_at" 
+                    value="{{ old('published_at', $post?->published_at ? $post->published_at->format('Y-m-d\TH:i') : now()->format('Y-m-d\TH:i')) }}"
+                    class="w-full bg-zinc-50 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700 rounded-xs px-3.5 py-2 text-xs sm:text-sm text-zinc-900 dark:text-white font-sans focus:outline-none focus:border-zinc-900 dark:focus:border-white transition-colors cursor-pointer"
+                >
+                @error('published_at') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
+            </div>
+        </div>
     </div>
 
-    
-    <div class="p-5 border border-zinc-200 dark:border-zinc-800 rounded-xs bg-zinc-50/50 dark:bg-zinc-950/30 space-y-4">
+    <div class="p-4 sm:p-5 border border-zinc-200 dark:border-zinc-800 rounded-xs bg-zinc-50/50 dark:bg-zinc-950/30 space-y-3.5">
         <div class="flex items-center justify-between">
             <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
                     Gambar Utama (Featured Image / Thumbnail)
                 </label>
-                <p class="text-xs text-zinc-400 mt-0.5">Unggah berkas foto dari komputer Anda atau sematkan URL gambar eksternal.</p>
+                <p class="text-[11px] text-zinc-400 mt-0.5">Unggah berkas foto atau sematkan URL gambar eksternal.</p>
             </div>
             
             <div class="flex items-center bg-zinc-200 dark:bg-zinc-800 p-0.5 rounded-xs text-xs font-medium">
-                <button type="button" id="tab-feat-upload" class="px-3 py-1 rounded-xs transition-colors bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white font-bold shadow-xs">
+                <button type="button" id="tab-feat-upload" class="px-2.5 py-1 rounded-xs transition-colors bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white font-bold shadow-xs">
                     <i class="ph ph-upload-simple mr-1"></i> Unggah File
                 </button>
-                <button type="button" id="tab-feat-url" class="px-3 py-1 rounded-xs transition-colors text-zinc-500 hover:text-zinc-900 dark:hover:text-white">
+                <button type="button" id="tab-feat-url" class="px-2.5 py-1 rounded-xs transition-colors text-zinc-500 hover:text-zinc-900 dark:hover:text-white">
                     <i class="ph ph-link mr-1"></i> Tautan URL
                 </button>
             </div>
         </div>
 
-        
-        <div id="feat-upload-box" class="space-y-3">
-            <div 
-                id="feat-dropzone" 
-                class="border-2 border-dashed border-zinc-300 dark:border-zinc-700 hover:border-zinc-400 dark:hover:border-zinc-600 rounded-xs p-6 text-center cursor-pointer transition-colors bg-white dark:bg-zinc-900"
-            >
-                <input 
-                    type="file" 
-                    name="featured_image_file" 
-                    id="featured_image_file" 
-                    accept="image/*" 
-                    class="hidden"
-                >
-                <i class="ph ph-image text-3xl text-zinc-400 mb-2 block"></i>
-                <p class="text-xs sm:text-sm font-semibold text-zinc-700 dark:text-zinc-300">
-                    Klik untuk memilih gambar atau seret & lepas berkas ke sini
-                </p>
-                <p class="text-[11px] text-zinc-400 mt-1">
-                    Mendukung JPG, PNG, WEBP, GIF (Maks. 10MB). Resolusi saran: 1200x630 piksel.
-                </p>
-            </div>
-        </div>
-
-        
-        <div id="feat-url-box" class="hidden">
-            <input 
-                type="text" 
-                name="featured_image" 
-                id="featured_image" 
-                value="{{ old('featured_image', $post?->featured_image) }}"
-                class="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-xs px-3.5 py-2 text-sm text-zinc-900 dark:text-white focus:outline-none focus:border-zinc-900 dark:focus:border-white transition-colors"
-                placeholder="https://images.unsplash.com/photo-..."
-            >
-        </div>
-
-        
-        <input type="hidden" name="remove_featured_image" id="remove_featured_image" value="0">
-
-        
-        <div id="feat-preview-wrapper" class="{{ !empty(old('featured_image', $post?->featured_image)) ? '' : 'hidden' }} mt-3">
-            <div class="flex items-center gap-4 p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xs">
-                <img 
-                    id="feat-preview-img" 
-                    src="{{ old('featured_image', $post?->featured_image) ?: '' }}" 
-                    alt="Pratinjau Gambar Utama" 
-                    class="w-24 h-16 object-cover rounded-xs border border-zinc-200 dark:border-zinc-700 bg-zinc-100"
-                >
-                <div class="flex-grow min-w-0">
-                    <p class="text-xs font-bold text-zinc-800 dark:text-zinc-200 truncate" id="feat-preview-title">
-                        Gambar Utama Terpilih
-                    </p>
-                    <p class="text-[11px] text-zinc-400" id="feat-preview-size">
-                        Siap digunakan saat publikasi artikel
-                    </p>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
+            <div class="lg:col-span-5 space-y-2">
+                <div id="feat-upload-box">
+                    <div 
+                        id="feat-dropzone" 
+                        class="border border-dashed border-zinc-300 dark:border-zinc-700 hover:border-zinc-400 dark:hover:border-zinc-500 rounded-xs p-3.5 text-center cursor-pointer transition-colors bg-white dark:bg-zinc-900 flex flex-col items-center justify-center min-h-[88px]"
+                    >
+                        <input 
+                            type="file" 
+                            name="featured_image_file" 
+                            id="featured_image_file" 
+                            accept="image/*" 
+                            class="hidden"
+                        >
+                        <i class="ph ph-image text-xl text-zinc-400 mb-1"></i>
+                        <p class="text-xs font-semibold text-zinc-700 dark:text-zinc-300">Pilih gambar atau seret berkas</p>
+                        <p class="text-[10px] text-zinc-400 mt-0.5">JPG, PNG, WEBP, GIF (Maks. 10MB)</p>
+                    </div>
                 </div>
-                <button 
-                    type="button" 
-                    id="btn-remove-feat-img" 
-                    class="text-xs text-red-500 hover:text-red-700 dark:hover:text-red-400 font-semibold flex items-center gap-1 px-3 py-1.5 border border-red-200 dark:border-red-900/60 rounded-xs hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
-                >
-                    <i class="ph ph-trash"></i> Hapus Gambar
-                </button>
-            </div>
-        </div>
-        
-        <div class="pt-2 border-t border-zinc-200/60 dark:border-zinc-800">
-            <label for="featured_image_caption" class="block text-xs font-semibold text-zinc-600 dark:text-zinc-400 mb-1">
-                Keterangan Gambar Utama (Caption) <span class="font-normal text-zinc-400">(Opsional, muncul di bawah thumbnail di halaman baca)</span>
-            </label>
-            <input 
-                type="text" 
-                name="featured_image_caption" 
-                id="featured_image_caption" 
-                value="{{ old('featured_image_caption', $post?->featured_image_caption) }}"
-                class="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-xs px-3.5 py-2 text-xs text-zinc-900 dark:text-white focus:outline-none focus:border-zinc-900 dark:focus:border-white transition-colors"
-                placeholder="Contoh: Ilustrasi ruang kerja minimalis dengan pencahayaan alami..."
-            >
-            @error('featured_image_caption') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
-        </div>
 
-        
-        <div class="pt-3 border-t border-zinc-200/60 dark:border-zinc-800 space-y-2">
-            <div class="flex items-center justify-between">
+                <div id="feat-url-box" class="hidden">
+                    <input 
+                        type="text" 
+                        name="featured_image" 
+                        id="featured_image" 
+                        value="{{ old('featured_image', $post?->featured_image) }}"
+                        class="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-xs px-3 py-2 text-xs text-zinc-900 dark:text-white focus:outline-none focus:border-zinc-900 dark:focus:border-white transition-colors"
+                        placeholder="https://images.unsplash.com/photo-..."
+                    >
+                </div>
+
+                <input type="hidden" name="remove_featured_image" id="remove_featured_image" value="0">
+
+                <div id="feat-preview-wrapper" class="{{ !empty(old('featured_image', $post?->featured_image)) ? '' : 'hidden' }}">
+                    <div class="flex items-center gap-3 p-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xs">
+                        <img 
+                            id="feat-preview-img" 
+                            src="{{ old('featured_image', $post?->featured_image) ?: '' }}" 
+                            alt="Pratinjau Gambar Utama" 
+                            class="w-14 h-10 object-cover rounded-xs border border-zinc-200 dark:border-zinc-700 bg-zinc-100 shrink-0"
+                        >
+                        <div class="flex-grow min-w-0 text-left">
+                            <p class="text-xs font-bold text-zinc-800 dark:text-zinc-200 truncate" id="feat-preview-title">
+                                Gambar Terpilih
+                            </p>
+                            <p class="text-[10px] text-zinc-400 truncate" id="feat-preview-size">
+                                Siap digunakan
+                            </p>
+                        </div>
+                        <button 
+                            type="button" 
+                            id="btn-remove-feat-img" 
+                            class="text-[11px] text-red-500 hover:text-red-700 dark:hover:text-red-400 font-semibold p-1 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-xs transition-colors shrink-0"
+                            title="Hapus Gambar"
+                        >
+                            <i class="ph ph-trash text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 space-y-3">
                 <div>
-                    <label class="block text-xs font-semibold text-zinc-700 dark:text-zinc-300">
-                        Lebar Tampilan Gambar Utama di Halaman Baca
+                    <label for="featured_image_caption" class="block text-xs font-semibold text-zinc-600 dark:text-zinc-400 mb-1">
+                        Keterangan Gambar (Caption) <span class="font-normal text-zinc-400 text-[11px]">(Opsional)</span>
                     </label>
-                    <p class="text-[11px] text-zinc-400">
-                        Pilih tata letak ukuran gambar utama pada halaman baca artikel publik.
-                    </p>
+                    <input 
+                        type="text" 
+                        name="featured_image_caption" 
+                        id="featured_image_caption" 
+                        value="{{ old('featured_image_caption', $post?->featured_image_caption) }}"
+                        class="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-xs px-3 py-1.5 text-xs text-zinc-900 dark:text-white focus:outline-none focus:border-zinc-900 dark:focus:border-white transition-colors"
+                        placeholder="Contoh: Ilustrasi ruang kerja minimalis..."
+                    >
+                    @error('featured_image_caption') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
+                </div>
+
+                <div>
+                    <span class="block text-xs font-semibold text-zinc-600 dark:text-zinc-400 mb-1.5">
+                        Lebar Tampilan Gambar Utama di Halaman Baca
+                    </span>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <label class="flex items-center gap-2 p-2 rounded-xs border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 cursor-pointer hover:border-zinc-400 dark:hover:border-zinc-500 has-[:checked]:border-zinc-900 dark:has-[:checked]:border-white has-[:checked]:ring-1 has-[:checked]:ring-zinc-900 dark:has-[:checked]:ring-white transition-all">
+                            <input 
+                                type="radio" 
+                                name="is_featured_image_wide" 
+                                value="0" 
+                                {{ !old('is_featured_image_wide', $post?->is_featured_image_wide) ? 'checked' : '' }}
+                                class="text-zinc-900 focus:ring-0 cursor-pointer"
+                            >
+                            <div class="min-w-0">
+                                <span class="font-bold text-xs text-zinc-900 dark:text-zinc-100 block truncate">Standar (Lebar Artikel)</span>
+                                <span class="text-[10px] text-zinc-400 block truncate">Sejajar teks artikel (768px)</span>
+                            </div>
+                        </label>
+
+                        <label class="flex items-center gap-2 p-2 rounded-xs border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 cursor-pointer hover:border-zinc-400 dark:hover:border-zinc-500 has-[:checked]:border-zinc-900 dark:has-[:checked]:border-white has-[:checked]:ring-1 has-[:checked]:ring-zinc-900 dark:has-[:checked]:ring-white transition-all">
+                            <input 
+                                type="radio" 
+                                name="is_featured_image_wide" 
+                                value="1" 
+                                {{ old('is_featured_image_wide', $post?->is_featured_image_wide) ? 'checked' : '' }}
+                                class="text-zinc-900 focus:ring-0 cursor-pointer"
+                            >
+                            <div class="min-w-0">
+                                <span class="font-bold text-xs text-zinc-900 dark:text-zinc-100 block truncate">Lebar Penuh (Header)</span>
+                                <span class="text-[10px] text-zinc-400 block truncate">Sejajar navbar (1024px)</span>
+                            </div>
+                        </label>
+                    </div>
+                    @error('is_featured_image_wide') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                 </div>
             </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-                
-                <label class="relative flex items-start gap-3 p-3 rounded-xs border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 cursor-pointer hover:border-zinc-400 dark:hover:border-zinc-500 has-[:checked]:border-zinc-900 dark:has-[:checked]:border-white has-[:checked]:ring-1 has-[:checked]:ring-zinc-900 dark:has-[:checked]:ring-white transition-all group">
-                    <input 
-                        type="radio" 
-                        name="is_featured_image_wide" 
-                        value="0" 
-                        {{ !old('is_featured_image_wide', $post?->is_featured_image_wide) ? 'checked' : '' }}
-                        class="mt-0.5 text-zinc-900 dark:text-zinc-100 focus:ring-0 cursor-pointer"
-                    >
-                    <div class="flex-grow min-w-0">
-                        <div class="flex items-center gap-1.5 font-bold text-xs text-zinc-900 dark:text-zinc-100">
-                            <i class="ph ph-article text-sm text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
-                            <span>Standar (Lebar Artikel)</span>
-                        </div>
-                        <p class="text-[11px] text-zinc-500 dark:text-zinc-400 mt-0.5 leading-snug">
-                            Sejajar dengan kolom baca teks artikel (maksimal 768px).
-                        </p>
-                    </div>
-                </label>
-
-                
-                <label class="relative flex items-start gap-3 p-3 rounded-xs border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 cursor-pointer hover:border-zinc-400 dark:hover:border-zinc-500 has-[:checked]:border-zinc-900 dark:has-[:checked]:border-white has-[:checked]:ring-1 has-[:checked]:ring-zinc-900 dark:has-[:checked]:ring-white transition-all group">
-                    <input 
-                        type="radio" 
-                        name="is_featured_image_wide" 
-                        value="1" 
-                        {{ old('is_featured_image_wide', $post?->is_featured_image_wide) ? 'checked' : '' }}
-                        class="mt-0.5 text-zinc-900 dark:text-zinc-100 focus:ring-0 cursor-pointer"
-                    >
-                    <div class="flex-grow min-w-0">
-                        <div class="flex items-center gap-1.5 font-bold text-xs text-zinc-900 dark:text-zinc-100">
-                            <i class="ph ph-arrows-out-line-horizontal text-sm text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-white"></i>
-                            <span>Lebar Penuh (Sejajar Header)</span>
-                        </div>
-                        <p class="text-[11px] text-zinc-500 dark:text-zinc-400 mt-0.5 leading-snug">
-                            Membentang lebar penuh sejajar dengan navbar header (maksimal 1024px).
-                        </p>
-                    </div>
-                </label>
-            </div>
-            @error('is_featured_image_wide') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
         </div>
 
         @error('featured_image') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror

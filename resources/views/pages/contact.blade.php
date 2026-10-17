@@ -64,7 +64,7 @@
                     <ul class="space-y-3 text-sm">
                         <li>
                             <a 
-                                href="https://github.com" 
+                                href="https://github.com/randiiskandar" 
                                 target="_blank" 
                                 rel="noopener noreferrer" 
                                 class="inline-flex items-center gap-1.5 text-zinc-800 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-white font-medium hover:underline underline-offset-4 group"
@@ -76,7 +76,7 @@
                         </li>
                         <li>
                             <a 
-                                href="https://x.com" 
+                                href="https://x.com/randi_iskandar" 
                                 target="_blank" 
                                 rel="noopener noreferrer" 
                                 class="inline-flex items-center gap-1.5 text-zinc-800 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-white font-medium hover:underline underline-offset-4 group"
@@ -88,7 +88,7 @@
                         </li>
                         <li>
                             <a 
-                                href="https://instagram.com" 
+                                href="https://instagram.com/r.and.i" 
                                 target="_blank" 
                                 rel="noopener noreferrer" 
                                 class="inline-flex items-center gap-1.5 text-zinc-800 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-white font-medium hover:underline underline-offset-4 group"

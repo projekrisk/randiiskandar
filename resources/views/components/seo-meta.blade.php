@@ -1,6 +1,6 @@
 @props([
-    'title' => 'Randi Iskandar - Portofolio & Catatan Digital',
-    'description' => 'Portofolio dan blog personal oleh Randi Iskandar berisi tulisan seputar opini, teknologi, tutorial pemrograman, dan catatan digital.',
+    'title' => 'Randi Iskandar - Catatan Digital',
+    'description' => 'Blog personal oleh Randi Iskandar berisi tulisan seputar opini, teknologi, tutorial, dan catatan digital.',
     'image' => null,
     'canonical' => url()->current(),
     'type' => 'website',
