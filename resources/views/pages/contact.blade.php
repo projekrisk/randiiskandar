@@ -46,7 +46,7 @@
                 </span>
                 <div class="sm:col-span-2 space-y-1">
                     <p class="text-base font-medium text-zinc-900 dark:text-white">
-                        Jakarta Selatan, DKI Jakarta, Indonesia
+                        Lebak, Banten, Indonesia
                     </p>
                     <p class="text-xs text-zinc-500 dark:text-zinc-400 leading-normal">
                         Waktu Indonesia Barat (WIB, UTC+07:00). Terbuka untuk kolaborasi jarak jauh (<em>remote</em>).
@@ -76,25 +76,13 @@
                         </li>
                         <li>
                             <a 
-                                href="https://linkedin.com" 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
-                                class="inline-flex items-center gap-1.5 text-zinc-800 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-white font-medium hover:underline underline-offset-4 group"
-                            >
-                                <span>LinkedIn</span>
-                                <span class="text-xs text-zinc-400 font-mono">(Randi Iskandar)</span>
-                                <i class="ph ph-arrow-up-right text-xs text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors"></i>
-                            </a>
-                        </li>
-                        <li>
-                            <a 
                                 href="https://x.com" 
                                 target="_blank" 
                                 rel="noopener noreferrer" 
                                 class="inline-flex items-center gap-1.5 text-zinc-800 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-white font-medium hover:underline underline-offset-4 group"
                             >
                                 <span>X (Twitter)</span>
-                                <span class="text-xs text-zinc-400 font-mono">(@randiiskandar)</span>
+                                <span class="text-xs text-zinc-400 font-mono">(@randi_iskandar)</span>
                                 <i class="ph ph-arrow-up-right text-xs text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors"></i>
                             </a>
                         </li>
@@ -106,7 +94,7 @@
                                 class="inline-flex items-center gap-1.5 text-zinc-800 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-white font-medium hover:underline underline-offset-4 group"
                             >
                                 <span>Instagram</span>
-                                <span class="text-xs text-zinc-400 font-mono">(@randi.iskandar)</span>
+                                <span class="text-xs text-zinc-400 font-mono">(@r.and.i)</span>
                                 <i class="ph ph-arrow-up-right text-xs text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors"></i>
                             </a>
                         </li>

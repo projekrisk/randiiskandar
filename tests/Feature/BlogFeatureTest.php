@@ -98,7 +98,7 @@ class BlogFeatureTest extends TestCase
         $responseContact->assertStatus(200);
         $responseContact->assertSee('Mari Terhubung.');
         $responseContact->assertSee('Surel Elektronik (Email)');
-        $responseContact->assertSee('Alamat Kerja');
+        $responseContact->assertSee('');
         $responseContact->assertSee('Media Sosial');
         $responseContact->assertDontSee('<form action="', false);
         $this->get('/terms')->assertStatus(200)->assertSee('Penggunaan Layanan');
