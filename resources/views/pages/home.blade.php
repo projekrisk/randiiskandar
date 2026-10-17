@@ -1,7 +1,6 @@
 <x-layout>
     <main class="w-full flex-grow pt-32 pb-20">
 
-        <!-- Section Profil Penulis & Media Sosial -->
         <section class="w-full max-w-5xl mx-auto px-5 sm:px-8 mb-14 sm:mb-18 font-sans">
             <div class="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-6 sm:gap-8 pb-12 sm:pb-16 border-b border-zinc-200 dark:border-zinc-800">
                 <div class="relative shrink-0">
@@ -17,14 +16,14 @@
                     <div class="flex items-center justify-center sm:justify-start gap-2 mb-2">
                         <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300">
                             <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                            Penulis & Desainer
+                            Pengembang & Penulis
                         </span>
                     </div>
                     <h1 class="font-sans font-extrabold text-3xl sm:text-4xl text-zinc-900 dark:text-white tracking-tight leading-tight mb-3">
                         {{ $author?->name ?: 'Randi Iskandar' }}
                     </h1>
                     <p class="text-zinc-600 dark:text-zinc-400 font-sans text-base sm:text-lg leading-relaxed mb-6 font-normal">
-                        {{ $author?->bio ?: 'Desainer antarmuka dan penulis lepas. Mencatat eksplorasi tentang tipografi, arsitektur web modern, dan pengalaman pengguna dalam format esai panjang.' }}
+                        {{ $author?->bio ?: 'Pengembang web dan penulis lepas. Membagikan portofolio, opini seputar teknologi, tutorial pemrograman, dan catatan eksplorasi digital.' }}
                     </p>
                     <div class="flex flex-wrap items-center justify-center sm:justify-start gap-3">
                         <a 
@@ -39,7 +38,7 @@
                             <i class="ph ph-arrow-up-right text-xs opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></i>
                         </a>
                         <a 
-                            href="{{ \App\Models\Setting::get('social_instagram', 'https://instagram.com/randi.iskandar') }}" 
+                            href="{{ \App\Models\Setting::get('social_instagram', 'https://instagram.com/r.and.i') }}" 
                             target="_blank" 
                             rel="noopener noreferrer" 
                             class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold font-sans bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-900 dark:text-white transition-all duration-200 shadow-2xs hover:shadow-xs group cursor-pointer"
@@ -61,28 +60,29 @@
             </div>
         </section>
 
-        <!-- Featured Post (Sorotan) -->
         @if($featuredPost)
-            <section class="w-full max-w-5xl mx-auto px-5 sm:px-8 mb-20">
-                <div class="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-zinc-900 dark:text-white mb-8 border-b border-zinc-900 dark:border-white pb-2 inline-flex font-sans">
-                    <i class="ph ph-star text-lg"></i> Sorotan
+            <section class="w-full max-w-5xl mx-auto px-0 sm:px-8 mb-16 sm:mb-20">
+                <div class="px-5 sm:px-0 mb-6 sm:mb-8">
+                    <div class="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-zinc-900 dark:text-white border-b border-zinc-900 dark:border-white pb-2 inline-flex font-sans">
+                        <i class="ph ph-star text-lg"></i> Sorotan
+                    </div>
                 </div>
                 
-                <article class="group relative overflow-hidden rounded-sm bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-100 dark:border-zinc-800 flex flex-col md:flex-row">
+                <article class="group relative flex flex-col md:flex-row items-center gap-6 md:gap-10">
                     @if($featuredPost->featured_image)
-                        <a href="{{ route('post.show', $featuredPost->slug) }}" class="md:w-1/2 block overflow-hidden bg-zinc-200 dark:bg-zinc-800">
+                        <a href="{{ route('post.show', $featuredPost->slug) }}" class="w-full md:w-1/2 block overflow-hidden bg-zinc-100 dark:bg-zinc-800 rounded-none sm:rounded-sm">
                             <img 
                                 src="{{ $featuredPost->featured_image }}" 
                                 alt="{{ $featuredPost->title }}" 
-                                class="w-full h-64 md:h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                class="w-full h-64 sm:h-80 md:h-[380px] object-cover transition-transform duration-700 group-hover:scale-105"
                                 fetchpriority="high"
                                 loading="eager"
                                 decoding="async"
                             >
                         </a>
                     @endif
-                    <div class="{{ $featuredPost->featured_image ? 'md:w-1/2' : 'w-full' }} p-6 sm:p-10 flex flex-col justify-center">
-                        <div class="flex items-center gap-3 text-xs font-bold text-zinc-500 dark:text-zinc-400 mb-4 uppercase tracking-wider font-sans">
+                    <div class="{{ $featuredPost->featured_image ? 'w-full md:w-1/2' : 'w-full' }} px-5 sm:px-0 py-2 sm:py-6 flex flex-col justify-center">
+                        <div class="flex items-center gap-3 text-xs font-bold text-zinc-500 dark:text-zinc-400 mb-3 sm:mb-4 uppercase tracking-wider font-sans">
                             @if($featuredPost->category)
                                 <a href="{{ route('category.show', $featuredPost->category->slug) }}" class="hover:underline">
                                     {{ $featuredPost->category->name }}
@@ -91,7 +91,7 @@
                             @endif
                             <span>{{ $featuredPost->formatted_published_at }}</span>
                         </div>
-                        <h2 class="font-sans font-bold text-2xl sm:text-3xl text-zinc-900 dark:text-white leading-tight mb-4 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
+                        <h2 class="font-sans font-bold text-2xl sm:text-3xl text-zinc-900 dark:text-white leading-tight mb-3 sm:mb-4 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition-colors">
                             <a href="{{ route('post.show', $featuredPost->slug) }}">
                                 {{ $featuredPost->title }}
                             </a>
@@ -122,7 +122,6 @@
             </section>
         @endif
 
-        <!-- Daftar Terbitan Terbaru -->
         <section class="w-full max-w-3xl mx-auto px-5 sm:px-8">
             <div class="flex items-center justify-between mb-8 border-b border-zinc-200 dark:border-zinc-800 pb-4">
                 <h2 class="font-sans font-bold text-2xl text-zinc-900 dark:text-white">Terbitan Terbaru</h2>
@@ -139,7 +138,6 @@
                 @endforelse
             </div>
 
-            <!-- Muat Lainnya -->
             @if($latestPosts->hasMorePages())
                 <div id="load-more-container" class="mt-12 text-center">
                     <button 

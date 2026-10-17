@@ -9,9 +9,6 @@ use Illuminate\View\View;
 
 class SearchController extends Controller
 {
-    /**
-     * Pencarian artikel cepat (AJAX JSON untuk laci pencarian & HTML view fallback)
-     */
     public function __invoke(Request $request): JsonResponse|View
     {
         $query = trim((string) $request->input('q', ''));

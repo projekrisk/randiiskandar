@@ -10,7 +10,7 @@
             </a>
         </div>
 
-        <!-- Filter & Pencarian -->
+        
         <div class="bg-white dark:bg-zinc-900 p-4 border border-zinc-200 dark:border-zinc-800 rounded-xs mb-6 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans">
             <div class="flex items-center gap-2 text-xs font-medium">
                 <a href="{{ route('admin.posts.index') }}" class="px-3 py-1.5 rounded-xs {{ !request('status') ? 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 font-bold' : 'text-zinc-500 hover:text-zinc-900 dark:hover:text-white' }}">
@@ -35,7 +35,7 @@
             </form>
         </div>
 
-        <!-- Tabel Post -->
+        
         <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xs overflow-x-auto font-sans">
             <table class="w-full text-left text-sm whitespace-nowrap">
                 <thead class="border-b border-zinc-200 dark:border-zinc-800 text-zinc-500 text-xs">

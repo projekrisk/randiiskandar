@@ -8,104 +8,99 @@ use Illuminate\Database\Seeder;
 
 class PageAndMenuSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        // 1. Seed Default Static Pages
         $pages = [
             [
                 'title' => 'Penggunaan Layanan',
                 'slug' => 'terms',
-                'meta_description' => 'Syarat dan ketentuan penggunaan blog editorial Randi Iskandar Workspace.',
+                'meta_description' => 'Syarat dan ketentuan penggunaan blog dan portofolio Randi Iskandar.',
                 'is_published' => true,
-                'body' => '<p>Selamat datang di blog <strong>Randi Iskandar</strong>. Dengan mengakses dan menggunakan situs web ini, Anda menerima dan setuju untuk terikat oleh Syarat dan Ketentuan Penggunaan Layanan ini. Jika Anda tidak setuju dengan ketentuan ini, harap tidak menggunakan situs web ini.</p>
+                'body' => '<p>Selamat datang di situs <strong>Randi Iskandar</strong>. Dengan mengakses dan menggunakan situs web ini, Anda menerima dan menyetujui syarat dan ketentuan penggunaan yang berlaku. Jika Anda tidak menyetujui ketentuan ini, Anda disarankan untuk tidak melanjutkan penggunaan situs ini.</p>
 
 <h3>Hak Kekayaan Intelektual</h3>
-<p>Kecuali dinyatakan lain secara eksplisit, seluruh konten yang ada di blog ini—termasuk namun tidak terbatas pada teks, artikel, esai, desain antarmuka, tata letak, dan grafis tertentu—adalah milik eksklusif <strong>Randi Iskandar</strong> dan dilindungi oleh undang-undang hak cipta dan kekayaan intelektual.</p>
-<p>Anda diberikan lisensi terbatas untuk melihat dan membagikan konten ini untuk penggunaan pribadi dan non-komersial, asalkan Anda selalu memberikan atribusi yang tepat berupa penyebutan nama penulis dan menyertakan tautan kembali (<em>hyperlink</em>) ke artikel asli. Reproduksi keseluruhan, modifikasi, atau pendistribusian konten untuk tujuan komersial tanpa izin tertulis dari penulis sangat dilarang.</p>
+<p>Kecuali dinyatakan lain, seluruh konten yang dipublikasikan pada situs ini—termasuk artikel, opini, tutorial pemrograman, dokumentasi proyek, dan materi portofolio—merupakan karya dari <strong>Randi Iskandar</strong> dan dilindungi oleh ketentuan hak cipta yang berlaku.</p>
+<p>Anda diperbolehkan membaca, mempelajari, dan membagikan kutipan dari konten ini untuk keperluan edukasi dan non-komersial, dengan tetap mencantumkan atribusi nama penulis serta menyertakan tautan aktif menuju artikel asli. Penggandaan massal atau penggunaan materi untuk tujuan komersial tanpa izin tertulis dari pemilik situs tidak diperkenankan.</p>
 
-<h3>Perilaku Pengguna</h3>
-<p>Dalam menggunakan situs web ini, khususnya saat meninggalkan komentar atau berinteraksi melalui formulir kontak, Anda setuju untuk tidak:</p>
+<h3>Perilaku Pengunjung</h3>
+<p>Saat menggunakan fasilitas komentar maupun formulir kontak di situs ini, Anda diharapkan untuk:</p>
 <ul>
-    <li>Memposting komentar yang mengandung ujaran kebencian, pelecehan, ancaman, atau konten yang melanggar hukum.</li>
-    <li>Melakukan aktivitas <em>spamming</em>, menyebarkan tautan promosi yang tidak relevan, atau mengirimkan perangkat lunak berbahaya.</li>
-    <li>Mengumpulkan data atau informasi pribadi pengguna lain secara sistematis tanpa izin.</li>
+    <li>Tidak mempublikasikan konten yang mengandung ujaran kebencian, pencemaran nama baik, atau materi yang melanggar hukum.</li>
+    <li>Tidak menyebarkan spam, tautan promosi tidak relevan, atau kode berbahaya.</li>
+    <li>Menghargai sesama pengguna dalam ruang diskusi.</li>
 </ul>
 
 <h3>Ketersediaan Layanan</h3>
-<p>Saya berusaha keras untuk memastikan blog ini dapat diakses setiap saat. Namun, saya tidak bertanggung jawab apabila situs ini menjadi tidak tersedia sementara waktu karena masalah teknis di luar kendali saya atau pemeliharaan server.</p>
+<p>Situs ini diupayakan dapat diakses secara optimal setiap saat. Namun demikian, ketersediaan situs dapat sewaktu-waktu mengalami gangguan akibat pemeliharaan sistem atau kendala teknis di luar kendali.</p>
 
-<h3>Hubungi Saya</h3>
-<p>Jika Anda memiliki pertanyaan mengenai Ketentuan Penggunaan Layanan ini, silakan ajukan pesan Anda melalui formulir Kontak kami.</p>',
+<h3>Kontak</h3>
+<p>Pertanyaan terkait ketentuan layanan ini dapat disampaikan melalui formulir kontak yang tersedia di situs ini.</p>',
             ],
             [
                 'title' => 'Kebijakan Privasi',
                 'slug' => 'privacy',
-                'meta_description' => 'Kebijakan privasi dan perlindungan data pengunjung blog editorial Randi Iskandar Workspace.',
+                'meta_description' => 'Kebijakan privasi dan perlindungan data pengunjung blog dan portofolio Randi Iskandar.',
                 'is_published' => true,
-                'body' => '<p>Privasi Anda sebagai pengunjung adalah hal yang sangat saya hargai di <strong>Randi Iskandar Workspace</strong>. Dokumen Kebijakan Privasi ini menguraikan jenis informasi pribadi yang dikumpulkan dan dicatat oleh situs web ini serta bagaimana informasi tersebut digunakan.</p>
+                'body' => '<p>Privasi Anda sebagai pengunjung situs <strong>Randi Iskandar</strong> adalah hal yang diutamakan. Dokumen ini menjelaskan jenis data yang dicatat serta bagaimana informasi tersebut dikelola.</p>
 
-<h3>Informasi yang Kami Kumpulkan</h3>
-<p>Saat Anda mengunjungi blog ini, Anda mungkin secara sukarela memberikan informasi pribadi, seperti:</p>
+<h3>Informasi yang Dikumpulkan</h3>
+<p>Informasi yang dapat dicatat saat Anda berinteraksi dengan situs ini meliputi:</p>
 <ul>
-    <li><strong>Komentar Artikel:</strong> Nama, alamat email, dan isi komentar yang Anda tinggalkan pada kolom diskusi.</li>
-    <li><strong>Formulir Kontak:</strong> Nama, email, subjek, dan pesan saat Anda menghubungi saya secara langsung.</li>
-    <li><strong>Data Teknis Otomatis:</strong> Alamat IP, jenis peramban (browser), penyedia layanan internet (ISP), cap waktu kunjungan, dan halaman rujukan yang dikumpulkan secara anonim melalui sistem log server dan analitik internal untuk meningkatkan kualitas bacaan.</li>
+    <li><strong>Komentar Artikel:</strong> Nama, alamat email, situs web opsional, dan isi tanggapan yang Anda kirimkan.</li>
+    <li><strong>Formulir Kontak:</strong> Nama, alamat email, subjek, serta pesan yang dikirimkan langsung kepada penulis.</li>
+    <li><strong>Data Akses Server:</strong> Alamat IP, jenis peramban, dan waktu kunjungan yang dicatat untuk keperluan keamanan dan analitik dasar kinerja situs.</li>
 </ul>
 
-<h3>Penggunaan Informasi</h3>
-<p>Informasi yang terkumpul digunakan semata-mata untuk keperluan berikut:</p>
+<h3>Tujuan Penggunaan Informasi</h3>
+<p>Informasi yang terkumpul digunakan untuk keperluan berikut:</p>
 <ul>
-    <li>Menayangkan dan memoderasi komentar publik yang relevan dan membangun.</li>
-    <li>Membalas pesan atau pertanyaan yang Anda kirimkan melalui formulir kontak.</li>
-    <li>Menganalisis tren bacaan artikel dan keterlibatan pengguna demi menyajikan konten editorial yang lebih bernilai.</li>
-    <li>Mencegah aktivitas spam atau serangan keamanan siber terhadap infrastruktur situs.</li>
+    <li>Menayangkan dan memoderasi tanggapan pada kolom komentar artikel.</li>
+    <li>Menjawab pertanyaan atau pesan kerja sama yang dikirimkan pengunjung.</li>
+    <li>Memantau stabilitas server dan mencegah aktivitas spam atau penyalahgunaan situs.</li>
 </ul>
 
-<h3>Penggunaan Cookie & Layanan Pihak Ketiga</h3>
-<p>Blog ini menggunakan <em>cookies</em> untuk menyimpan preferensi tampilan pembaca (seperti mode tema gelap atau terang dan daftar artikel baca nanti). Kami juga dapat menampilkan layanan analitik dan jaringan periklanan resmi pihak ketiga (seperti Google AdSense) yang menggunakan cookie untuk menyajikan iklan yang relevan berdasarkan riwayat penjelajahan Anda.</p>
+<h3>Penggunaan Cookie</h3>
+<p>Situs ini menggunakan penyimpanan lokal (local storage) dan cookie untuk mengingat preferensi antarmuka Anda, seperti mode tampilan terang atau gelap dan daftar baca nanti.</p>
 
-<h3>Hak Pengunjung</h3>
-<p>Anda berhak meminta penghapusan riwayat komentar atau data kontak yang pernah Anda kirimkan kapan saja dengan menghubungi kami melalui saluran kontak resmi.</p>',
+<h3>Permintaan Penghapusan Data</h3>
+<p>Anda dapat mengajukan permohonan penghapusan riwayat komentar atau pesan yang pernah Anda kirimkan dengan menghubungi kami melalui halaman kontak.</p>',
             ],
             [
                 'title' => 'Sanggahan (Disclaimer)',
                 'slug' => 'disclaimer',
-                'meta_description' => 'Sanggahan dan batasan tanggung jawab konten pada blog editorial Randi Iskandar Workspace.',
+                'meta_description' => 'Sanggahan dan batasan tanggung jawab konten pada blog dan portofolio Randi Iskandar.',
                 'is_published' => true,
-                'body' => '<p>Seluruh informasi dan tulisan yang dipublikasikan di blog <strong>Randi Iskandar</strong> disajikan dengan itikad baik semata-mata untuk tujuan informasi umum, inspirasi desain, dan edukasi seputar teknologi web modern.</p>
+                'body' => '<p>Seluruh materi dan artikel yang dipublikasikan di blog <strong>Randi Iskandar</strong> disajikan untuk tujuan edukasi, dokumentasi teknis, portofolio karya, dan opini umum seputar dunia teknologi.</p>
 
-<h3>Bukan Nasihat Finansial atau Profesional</h3>
-<p>Tulisan, esai, dan opini di blog ini merupakan pandangan pribadi penulis berdasarkan pengalaman langsung dan eksplorasi profesional. Pandangan tersebut tidak boleh dianggap sebagai nasihat hukum, finansial, atau bisnis formal. Setiap tindakan yang Anda ambil berdasarkan informasi di situs ini sepenuhnya menjadi risiko dan tanggung jawab pribadi Anda.</p>
+<h3>Tanggung Jawab Teknis</h3>
+<p>Kode pemrograman, tutorial, konfigurasi server, dan panduan teknis yang dibagikan telah diuji pada lingkungan pengembangan penulis saat penulisan dilakukan. Namun, perkembangan ekosistem perangkat lunak berlangsung sangat cepat. Penulis tidak bertanggung jawab atas kerugian atau kerusakan sistem yang timbul dari penerapan instruksi tanpa penyesuaian pada lingkungan kerja masing-masing pengguna.</p>
 
-<h3>Akurasi dan Kelengkapan Informasi</h3>
-<p>Meskipun saya berupaya semaksimal mungkin untuk menyajikan informasi yang akurat dan relevan pada saat artikel diterbitkan, dunia teknologi dan desain bergerak dengan sangat cepat. Saya tidak memberikan jaminan dalam bentuk apa pun mengenai kelengkapan, ketepatan, atau keandalan informasi yang tertulis.</p>
+<h3>Pandangan Pribadi</h3>
+<p>Artikel opini dan esai yang dimuat di blog ini merupakan refleksi dan pandangan pribadi penulis, serta tidak mewakili entitas bisnis atau organisasi lain mana pun.</p>
 
-<h3>Tautan Keluar (External Links)</h3>
-<p>Blog ini mungkin memuat tautan menuju situs web eksternal milik pihak ketiga. Meskipun saya berusaha hanya menautkan ke sumber yang terpercaya dan bermanfaat, saya tidak memiliki kendali atas isi atau perubahan konten pada situs-situs eksternal tersebut.</p>',
+<h3>Tautan Pihak Ketiga</h3>
+<p>Artikel dapat memuat tautan menuju situs atau repositori eksternal sebagai referensi tambahan. Penulis tidak memiliki kendali atas perubahan isi maupun kebijakan privasi pada situs-situs pihak ketiga tersebut.</p>',
             ],
             [
                 'title' => 'Tentang Randi Iskandar',
                 'slug' => 'about',
-                'meta_description' => 'Mengenal Randi Iskandar, desainer antarmuka dan penulis esai editorial seputar tipografi dan web modern.',
+                'meta_description' => 'Portofolio dan blog personal Randi Iskandar yang membagikan proyek, opini teknologi, dan tutorial pemrograman.',
                 'is_published' => true,
-                'body' => '<p>Halo! Saya <strong>Randi Iskandar</strong>, seorang desainer antarmuka (UI/UX) dan pengembang web yang memiliki kecintaan mendalam terhadap seni tipografi, ritme visual, dan arsitektur perangkat lunak yang bersih.</p>
+                'body' => '<p>Halo! Saya <strong>Randi Iskandar</strong>, seorang pengembang web (web developer) dan penulis yang gemar mengeksplorasi teknologi digital serta membangun solusi berbasis web yang efisien.</p>
 
-<h3>Filosofi Ruang & Tipografi</h3>
-<p>Blog editorial ini dirancang sebagai ruang jeda kontemplatif di tengah riuhnya arus informasi digital yang serba cepat. Saya percaya bahwa sebuah halaman bacaan yang bermartabat berakar pada penghormatan terhadap ruang kosong (<em>whitespace</em>), kontras tipografi yang teliti, dan kejelasan pesan di atas ornamen yang berlebihan.</p>
+<h3>Portofolio & Catatan Digital</h3>
+<p>Situs ini merupakan ruang personal sekaligus portofolio saya untuk mendokumentasikan karya, proses rekayasa perangkat lunak, serta catatan pemikiran seputar dunia digital yang terus berkembang.</p>
 
 <h3>Apa yang Saya Tulis</h3>
-<p>Di blog ini, saya secara berkala mendokumentasikan pemikiran, catatan teknis, dan esai seputar:</p>
+<p>Di sini Anda dapat menemukan tulisan bebas yang mencakup berbagai topik:</p>
 <ul>
-    <li>Prinsip desain antarmuka berbasis empati dan keterbacaan mata manusia.</li>
-    <li>Arsitektur frontend dan performa komputasi web modern.</li>
-    <li>Eksplorasi hierarki tipografi editorial digital.</li>
-    <li>Catatan perenungan personal mengenai etos kerja dan produktivitas kreatif.</li>
+    <li><strong>Portofolio & Proyek:</strong> Cerita di balik perancangan dan implementasi aplikasi atau platform web.</li>
+    <li><strong>Teknologi:</strong> Pembahasan tren arsitektur perangkat lunak, infrastruktur, dan ekosistem open-source.</li>
+    <li><strong>Tutorial & Panduan Teknis:</strong> Panduan langkah demi langkah memecahkan masalah pemrograman praktis.</li>
+    <li><strong>Opini & Esai Bebas:</strong> Catatan perenungan, etos kerja, serta pandangan kritis mengenai perkembangan lanskap teknologi informasi.</li>
 </ul>
 
-<p>Jika Anda tertarik untuk berdiskusi, bertukar gagasan, atau sekadar menyapa hangat, jangan ragu untuk menghubungi saya melalui formulir kontak.</p>',
+<p>Jika Anda tertarik untuk berkolaborasi, mendiskusikan peluang proyek, atau sekadar bertukar gagasan, silakan hubungi saya melalui halaman kontak.</p>',
             ],
         ];
 
@@ -113,11 +108,9 @@ class PageAndMenuSeeder extends Seeder
             Page::updateOrCreate(['slug' => $p['slug']], $p);
         }
 
-        // 2. Seed Default Navigation Menus
         $menus = [
-            // Header Menus
             [
-                'label' => 'Esai',
+                'label' => 'Beranda',
                 'url' => '/',
                 'location' => 'header',
                 'order' => 1,
@@ -140,7 +133,6 @@ class PageAndMenuSeeder extends Seeder
                 'target' => '_self',
                 'is_active' => true,
             ],
-            // Footer Menus
             [
                 'label' => 'Tentang',
                 'url' => '/tentang',

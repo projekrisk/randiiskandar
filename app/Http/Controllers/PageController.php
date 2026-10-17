@@ -18,7 +18,7 @@ class PageController extends Controller
             $page = new Page([
                 'title' => 'Tentang Randi Iskandar',
                 'slug' => 'about',
-                'body' => '<p>Halo! Saya <strong>Randi Iskandar</strong>, seorang desainer antarmuka (UI/UX) dan pengembang web.</p>',
+                'body' => '<p>Halo! Saya <strong>Randi Iskandar</strong>, seorang pengembang web dan penulis lepas. Situs ini adalah portofolio proyek dan blog yang membagikan tulisan seputar opini, teknologi, tutorial pemrograman, dan eksplorasi digital.</p>',
                 'is_published' => true,
             ]);
         }
@@ -46,7 +46,6 @@ class PageController extends Controller
             'message' => ['required', 'string', 'min:10', 'max:5000'],
         ]);
 
-        // Simpan atau kirim email di sini bila diperlukan
         return back()->with('success', 'Pesan Anda telah berhasil dikirim. Terima kasih telah menghubungi saya!');
     }
 

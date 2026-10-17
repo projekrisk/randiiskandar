@@ -1,10 +1,9 @@
 <x-layout 
-    :title="($page?->title ?: 'Sanggahan (Disclaimer)') . ' - Randi Iskandar Workspace'"
-    :description="$page?->meta_description ?: 'Sanggahan legalitas, opini independen, dan batasan tanggung jawab blog Randi Iskandar Workspace.'"
+    :title="($page?->title ?: 'Sanggahan (Disclaimer)') . ' - Randi Iskandar'"
+    :description="$page?->meta_description ?: 'Sanggahan legalitas, opini independen, dan batasan tanggung jawab blog Randi Iskandar.'"
     :image="$page?->featured_image"
 >
     <main class="w-full max-w-3xl mx-auto px-5 sm:px-8 flex-grow pt-32 pb-20">
-        
         <header class="mb-12 border-b border-zinc-200 dark:border-zinc-800 pb-10">
             <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 mb-4 font-sans">
                 <i class="ph ph-shield-check text-base"></i> Transparansi
@@ -20,25 +19,24 @@
                 {!! $page->body !!}
             @else
                 <p>
-                    Informasi yang disajikan di <strong>Randi Iskandar Workspace</strong> ditujukan semata-mata untuk tujuan edukasi, eksplorasi desain, dan referensi umum.
+                    Informasi yang disajikan di situs <strong>Randi Iskandar</strong> ditujukan untuk tujuan edukasi, dokumentasi teknologi, opini independen, tutorial, dan referensi portofolio umum.
                 </p>
 
-            <h3>Opini Pribadi</h3>
-            <p>
-                Seluruh opini, analisis teknis, ulasan alat, dan perspektif desain yang tertulis di blog ini merupakan pandangan pribadi saya sebagai penulis independen, dan tidak mencerminkan kebijakan atau sikap resmi dari perusahaan, klien, atau organisasi tempat saya pernah atau sedang terafiliasi.
-            </p>
+                <h3>Opini Pribadi</h3>
+                <p>
+                    Seluruh opini, artikel teknologi, tutorial, dan evaluasi teknis yang dimuat pada blog ini merupakan pandangan pribadi saya dan tidak mewakili entitas atau institusi lain manapun.
+                </p>
 
-            <h3>Ketepatan Informasi</h3>
-            <p>
-                Meskipun saya berusaha sekuat tenaga untuk menyajikan data, kode sumber, dan dokumentasi yang akurat pada saat penulisan, perkembangan teknologi web bergerak sangat pesat. Saya tidak memberikan jaminan apa pun mengenai kelengkapan, keandalan, atau keakuratan informasi ini untuk setiap situasi penerapan nyata Anda.
-            </p>
+                <h3>Ketepatan Informasi</h3>
+                <p>
+                    Meskipun saya berupaya memastikan akurasi data dan kode tutorial pada saat penulisan, perkembangan teknologi software bergerak cepat. Pembaca disarankan melakukan penyesuaian dan pengujian mandiri sebelum menerapkannya di lingkungan produksi.
+                </p>
 
-            <h3>Tautan Eksternal</h3>
-            <p>
-                Situs ini mungkin berisi tautan ke situs web pihak ketiga. Saya tidak memiliki kendali atas isi, kebijakan privasi, atau praktik situs web pihak ketiga tersebut dan tidak bertanggung jawab atas kerugian apa pun yang mungkin timbul dari penggunaannya.
-            </p>
+                <h3>Tautan Eksternal</h3>
+                <p>
+                    Situs ini mungkin memuat tautan ke situs luar. Saya tidak bertanggung jawab atas isi, kebijakan privasi, atau perubahan informasi pada situs pihak ketiga tersebut.
+                </p>
             @endif
         </article>
-
     </main>
 </x-layout>

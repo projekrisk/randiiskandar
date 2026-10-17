@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\PostView;
 use App\Models\Setting;
 use App\Models\User;
+use Database\Seeders\DemoPostSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
@@ -22,6 +23,7 @@ class BlogFeatureTest extends TestCase
     {
         parent::setUp();
         $this->seed();
+        $this->seed(DemoPostSeeder::class);
     }
 
     public function test_homepage_loads_successfully_with_author_and_posts(): void
@@ -116,7 +118,6 @@ class BlogFeatureTest extends TestCase
     {
         $post = Post::published()->first();
 
-        // Valid comment submission
         $response = $this->post('/baca/'.$post->slug.'/komentar', [
             'name' => 'Komentator Baru',
             'email' => 'baru@example.com',
@@ -203,12 +204,10 @@ class BlogFeatureTest extends TestCase
             'is_approved' => false,
         ]);
 
-        // Approve
         $this->actingAs($admin)->post("/admin/comments/{$pendingComment->id}/approve")
             ->assertRedirect();
         $this->assertTrue($pendingComment->fresh()->is_approved);
 
-        // Delete
         $this->actingAs($admin)->delete("/admin/comments/{$pendingComment->id}")
             ->assertRedirect();
         $this->assertDatabaseMissing('comments', ['id' => $pendingComment->id]);
@@ -240,7 +239,6 @@ class BlogFeatureTest extends TestCase
         $this->assertEquals(['Tipografi', 'Desain Web', 'Laravel'], $post->tags_list);
         $this->assertNotNull($post->featured_image);
 
-        // Verifikasi pada halaman detail publik
         $detailResponse = $this->get(route('post.show', $post->slug));
         $detailResponse->assertStatus(200);
         $detailResponse->assertSee('#Tipografi');
@@ -309,7 +307,6 @@ class BlogFeatureTest extends TestCase
         $response->assertSee($category->name);
         $response->assertDontSee('Direktori & Keterangan Kategori');
 
-        // Deskripsi kategori tetap tampil di halaman arsip per kategori
         $responseCategory = $this->get('/kategori/'.$category->slug);
         $responseCategory->assertStatus(200);
         $responseCategory->assertSee($category->description);
@@ -360,7 +357,6 @@ class BlogFeatureTest extends TestCase
         $admin = User::first();
         $category = Category::first();
 
-        // Buat artikel dengan tag baru
         Post::create([
             'user_id' => $admin->id,
             'category_id' => $category->id,
@@ -377,7 +373,6 @@ class BlogFeatureTest extends TestCase
         $this->assertContains('ReactModern', $allTags);
         $this->assertContains('InovasiDesign', $allTags);
 
-        // Buka halaman tulis artikel baru
         $responseCreate = $this->actingAs($admin)->get('/admin/posts/create');
         $responseCreate->assertStatus(200);
         $responseCreate->assertSee('CustomFramework');
@@ -390,7 +385,6 @@ class BlogFeatureTest extends TestCase
         $admin = User::first();
         $category = Category::first();
 
-        // Pastikan ada lebih dari 10 posts
         while (Post::count() < 12) {
             Post::create([
                 'user_id' => $admin->id,
@@ -407,7 +401,6 @@ class BlogFeatureTest extends TestCase
         $responsePosts->assertStatus(200);
         $this->assertEquals(10, $responsePosts->viewData('posts')->perPage());
 
-        // Pastikan ada lebih dari 10 comments
         $post = Post::first();
         while (Comment::count() < 12) {
             Comment::create([
@@ -429,22 +422,18 @@ class BlogFeatureTest extends TestCase
         $admin = User::first();
         $post = Post::first();
 
-        // Create page
         $this->actingAs($admin)->get('/admin/posts/create')
             ->assertStatus(200)
             ->assertDontSee('max-w-4xl mx-auto');
 
-        // Edit page
         $this->actingAs($admin)->get("/admin/posts/{$post->id}/edit")
             ->assertStatus(200)
             ->assertDontSee('max-w-4xl mx-auto');
 
-        // Comments index
         $this->actingAs($admin)->get('/admin/comments')
             ->assertStatus(200)
             ->assertDontSee('max-w-5xl mx-auto');
 
-        // Categories index
         $this->actingAs($admin)->get('/admin/categories')
             ->assertStatus(200)
             ->assertDontSee('max-w-4xl mx-auto');
@@ -479,7 +468,6 @@ class BlogFeatureTest extends TestCase
             'avatar' => 'https://images.unsplash.com/photo-custom-avatar.jpg',
         ]);
 
-        // Verifikasi pada halaman baca publik
         $post = Post::published()->first();
         $detailResponse = $this->get(route('post.show', $post->slug));
         $detailResponse->assertStatus(200);
@@ -492,7 +480,6 @@ class BlogFeatureTest extends TestCase
         $admin = User::first();
         $post = Post::published()->first();
 
-        // 1. Matikan semua iklan
         $responseDisable = $this->actingAs($admin)->post('/admin/settings/ads', [
             'ad_in_article_enabled' => 0,
             'ad_bottom_enabled' => 0,
@@ -505,13 +492,11 @@ class BlogFeatureTest extends TestCase
         $this->assertEquals('0', Setting::get('ad_bottom_enabled'));
         $this->assertEquals('0', Setting::get('baca_juga_enabled'));
 
-        // Cek halaman baca: Iklan tidak boleh muncul
         $detailResponse = $this->get(route('post.show', $post->slug));
         $detailResponse->assertStatus(200);
         $detailResponse->assertDontSee('adsense-in-article-container');
         $detailResponse->assertDontSee('adsense-bottom-container');
 
-        // 2. Aktifkan iklan dengan kode kustom
         $customInArticle = '<div id="custom-in-article-sponsor">Iklan Sponsor Tengah</div>';
         $customBottom = '<div id="custom-bottom-sponsor">Iklan Sponsor Bawah</div>';
 
@@ -527,7 +512,6 @@ class BlogFeatureTest extends TestCase
         $this->assertEquals('1', Setting::get('ad_bottom_enabled'));
         $this->assertEquals('1', Setting::get('baca_juga_enabled'));
 
-        // Cek halaman baca: Kode kustom harus muncul
         $detailWithAds = $this->get(route('post.show', $post->slug));
         $detailWithAds->assertStatus(200);
         $detailWithAds->assertSee('custom-in-article-sponsor', false);
@@ -556,7 +540,6 @@ class BlogFeatureTest extends TestCase
         ]);
         $admin = User::first();
 
-        // Buat 2 artikel dalam kategori yang sama
         $postA = Post::create([
             'user_id' => $admin->id,
             'category_id' => $category->id,
@@ -583,11 +566,9 @@ class BlogFeatureTest extends TestCase
         $response->assertSee($postB->title);
         $response->assertSee(route('post.show', $postB->slug));
 
-        // Verifikasi bahwa BACA JUGA muncul tepat setelah paragraf 3 dan hanya 1 kali
         $html = $response->getContent();
         $this->assertEquals(1, substr_count($html, 'BACA JUGA'));
 
-        // Pastikan urutan posisi: Paragraf 3 -> BACA JUGA -> Paragraf 4 di dalam konten artikel
         $articleHtml = $postA->body_with_injected_ad;
         $posP3 = strpos($articleHtml, 'Paragraf 3 memaparkan hasil pengujian antarmuka.');
         $posBacaJuga = strpos($articleHtml, 'BACA JUGA');
@@ -605,7 +586,6 @@ class BlogFeatureTest extends TestCase
         Setting::set('baca_juga_enabled', '1');
         $admin = User::first();
 
-        // Kategori terisolasi dengan hanya 1 artikel
         $isolatedCategory = Category::create([
             'name' => 'Kategori Solo '.uniqid(),
             'slug' => 'kategori-solo-'.uniqid(),
@@ -621,7 +601,6 @@ class BlogFeatureTest extends TestCase
             'published_at' => now(),
         ]);
 
-        // Verifikasi fallback: Tetap mendapatkan artikel rekomendasi dari kategori lain secara acak
         $related = $soloPost->getRelatedCategoryPost();
         $this->assertNotNull($related);
         $this->assertNotEquals($soloPost->id, $related->id);
@@ -630,7 +609,6 @@ class BlogFeatureTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('BACA JUGA');
 
-        // Pastikan posisi BACA JUGA berada tepat setelah paragraf 3 di dalam konten artikel
         $articleHtml = $soloPost->body_with_injected_ad;
         $posP3 = strpos($articleHtml, 'Paragraf 3 ulasan mendalam.');
         $posBacaJuga = strpos($articleHtml, 'BACA JUGA');
@@ -683,7 +661,6 @@ class BlogFeatureTest extends TestCase
 
         $initialViews = PostView::where('post_id', $post->id)->where('viewed_date', $date)->value('views') ?? 0;
 
-        // Kunjungi halaman baca
         $this->get(route('post.show', $post->slug))->assertStatus(200);
 
         $newViews = PostView::where('post_id', $post->id)->whereDate('viewed_date', $date)->value('views');
@@ -695,7 +672,6 @@ class BlogFeatureTest extends TestCase
         $admin = User::first();
         $category = Category::first();
 
-        // 1. Buat post yang secara sengaja memiliki blok manual BACA JUGA di DB
         $post = Post::create([
             'user_id' => $admin->id,
             'category_id' => $category->id,
@@ -705,14 +681,12 @@ class BlogFeatureTest extends TestCase
             'status' => 'draft',
         ]);
 
-        // Pastikan saat admin membuka halaman edit, blok BACA JUGA tidak dimuat ke dalam editor
         $response = $this->actingAs($admin)->get(route('admin.posts.edit', $post->id));
         $response->assertStatus(200);
         $response->assertDontSee('BACA JUGA');
         $response->assertSee('Paragraf awal.');
         $response->assertSee('Paragraf akhir.');
 
-        // 2. Simulasikan jika pengguna mencoba menyimpan post dengan teks/blok BACA JUGA
         $updateResponse = $this->actingAs($admin)->put(route('admin.posts.update', $post->id), [
             'title' => $post->title,
             'slug' => $post->slug,
@@ -723,18 +697,15 @@ class BlogFeatureTest extends TestCase
 
         $updateResponse->assertRedirect(route('admin.posts.index'));
 
-        // Cek bahwa di database konten tersimpan bersih tanpa BACA JUGA
         $post->refresh();
         $this->assertStringNotContainsString('BACA JUGA', $post->body);
         $this->assertStringContainsString('Konten baru paragraf 1.', $post->body);
         $this->assertStringContainsString('Konten baru paragraf 2.', $post->body);
 
-        // 3. Pastikan halaman buat artikel baru juga bersih dari BACA JUGA
         $createResponse = $this->actingAs($admin)->get(route('admin.posts.create'));
         $createResponse->assertStatus(200);
         $createResponse->assertDontSee('BACA JUGA');
 
-        // 4. Buat post baru via store berisi BACA JUGA, harus tetap bersih di database
         $storeResponse = $this->actingAs($admin)->post(route('admin.posts.store'), [
             'title' => 'Artikel Baru Uji Stripping '.uniqid(),
             'category_id' => $category->id,
@@ -753,13 +724,11 @@ class BlogFeatureTest extends TestCase
         $admin = User::first();
         $category = Category::first();
 
-        // 1. Cek opsi pengaturan lebar gambar utama muncul di form tulis artikel
         $createPageResponse = $this->actingAs($admin)->get(route('admin.posts.create'));
         $createPageResponse->assertStatus(200);
         $createPageResponse->assertSee('Lebar Tampilan Gambar Utama di Halaman Baca');
         $createPageResponse->assertSee('name="is_featured_image_wide"', false);
 
-        // 2. Buat post baru dengan opsi lebar penuh (is_featured_image_wide = 1)
         $storeResponse = $this->actingAs($admin)->post(route('admin.posts.store'), [
             'title' => 'Artikel Gambar Penuh '.uniqid(),
             'category_id' => $category->id,
@@ -774,7 +743,6 @@ class BlogFeatureTest extends TestCase
         $postWide = Post::latest('id')->first();
         $this->assertTrue($postWide->is_featured_image_wide);
 
-        // 3. Kunjungi halaman baca: pastikan gambar menggunakan lebar penuh max-w-5xl dan elemen preview modal tersedia
         $detailResponse = $this->get(route('post.show', $postWide->slug));
         $detailResponse->assertStatus(200);
         $detailResponse->assertSee('max-w-5xl', false);
@@ -782,7 +750,6 @@ class BlogFeatureTest extends TestCase
         $detailResponse->assertSee('data-image-preview', false);
         $detailResponse->assertSee('Kamera Analog Minimalis di Atas Meja');
 
-        // 4. Update post menjadi lebar standar (is_featured_image_wide = 0)
         $updateResponse = $this->actingAs($admin)->put(route('admin.posts.update', $postWide->id), [
             'title' => $postWide->title,
             'slug' => $postWide->slug,
@@ -798,7 +765,6 @@ class BlogFeatureTest extends TestCase
         $postWide->refresh();
         $this->assertFalse($postWide->is_featured_image_wide);
 
-        // 5. Kunjungi kembali: pastikan gambar menggunakan lebar standar max-w-3xl
         $detailResponseStandard = $this->get(route('post.show', $postWide->slug));
         $detailResponseStandard->assertStatus(200);
         $detailResponseStandard->assertSee('max-w-3xl', false);
@@ -809,7 +775,6 @@ class BlogFeatureTest extends TestCase
         $admin = User::first();
         $category = Category::first();
 
-        // 1. Simpan artikel yang memiliki tabel dengan atribut class, style, dan pembungkus div overflow-x-auto
         $clutteredBody = '
             <p>Paragraf pembuka artikel tentang analisis data antarmuka pengguna.</p>
             <div class="overflow-x-auto my-8 border border-zinc-200 dark:border-zinc-800 rounded-xs not-prose">
@@ -842,13 +807,11 @@ class BlogFeatureTest extends TestCase
 
         $post = Post::latest('id')->first();
 
-        // 2. Verifikasi di database: tidak ada atribut class="", style="", dan tidak ada div pembungkus overflow-x-auto
         $this->assertStringNotContainsString('class="overflow-x-auto', $post->body);
         $this->assertStringNotContainsString('style="background-color', $post->body);
         $this->assertStringNotContainsString('class="w-full text-left', $post->body);
         $this->assertStringNotContainsString('style="padding: 10px;"', $post->body);
 
-        // 3. Verifikasi tag tabel murni tersimpan dengan benar (beserta atribut struktural colspan)
         $this->assertStringContainsString('<table>', $post->body);
         $this->assertStringContainsString('<thead>', $post->body);
         $this->assertStringContainsString('<tr>', $post->body);
@@ -857,7 +820,6 @@ class BlogFeatureTest extends TestCase
         $this->assertStringContainsString('<tbody>', $post->body);
         $this->assertStringContainsString('<td>Data Baris 1</td>', $post->body);
 
-        // 4. Verifikasi di halaman detail artikel
         $detailResponse = $this->get(route('post.show', $post->slug));
         $detailResponse->assertStatus(200);
         $detailResponse->assertSee('<table>', false);
@@ -870,7 +832,6 @@ class BlogFeatureTest extends TestCase
         $admin = User::first();
         $category = Category::first();
 
-        // 1. Buat artikel baru
         $storeResponse = $this->actingAs($admin)->post(route('admin.posts.store'), [
             'title' => 'Artikel Baru Apresiasi Realtime '.uniqid(),
             'category_id' => $category->id,
@@ -881,16 +842,13 @@ class BlogFeatureTest extends TestCase
 
         $post = Post::latest('id')->first();
 
-        // 2. Pastikan di database claps_count bernilai 0 (bukan 142)
         $this->assertSame(0, (int) $post->claps_count);
 
-        // 3. Pastikan di halaman baca tampil angka 0 pada tombol apresiasi
         $detailResponse = $this->get(route('post.show', $post->slug));
         $detailResponse->assertStatus(200);
         $detailResponse->assertSee('<span class="clap-count font-semibold text-xs sm:text-sm text-zinc-900 dark:text-white">0</span>', false);
         $detailResponse->assertSee('<span class="clap-count font-bold text-sm md:text-base text-zinc-900 dark:text-white">0</span>', false);
 
-        // 4. Pastikan endpoint GET /baca/{slug}/apresiasi mengembalikan 0
         $getClapsResponse = $this->getJson(route('post.claps', $post->slug));
         $getClapsResponse->assertStatus(200)
             ->assertJson([
@@ -898,7 +856,6 @@ class BlogFeatureTest extends TestCase
                 'claps_count' => 0,
             ]);
 
-        // 5. Berikan apresiasi via POST /baca/{slug}/apresiasi
         $postClapResponse = $this->postJson(route('post.clap', $post->slug));
         $postClapResponse->assertStatus(200)
             ->assertJson([
@@ -909,7 +866,6 @@ class BlogFeatureTest extends TestCase
         $post->refresh();
         $this->assertSame(1, (int) $post->claps_count);
 
-        // 6. Endpoint GET sekarang mengembalikan 1
         $getClapsResponse2 = $this->getJson(route('post.claps', $post->slug));
         $getClapsResponse2->assertStatus(200)
             ->assertJson([
@@ -959,7 +915,6 @@ class BlogFeatureTest extends TestCase
         $user = User::first();
         $category = Category::first();
 
-        // 1. Article with NO featured image falls back to default og-image banner
         $postWithoutImage = Post::create([
             'user_id' => $user->id,
             'category_id' => $category->id,
@@ -977,7 +932,6 @@ class BlogFeatureTest extends TestCase
         $responseNoImg->assertSee('<meta property="og:image" content="'.asset('og-image.jpg').'">', false);
         $responseNoImg->assertSee('<meta name="twitter:image" content="'.asset('og-image.jpg').'">', false);
 
-        // 2. Article WITH featured image uses the custom featured image
         $customImageUrl = 'https://images.unsplash.com/photo-custom-post-image';
         $postWithImage = Post::create([
             'user_id' => $user->id,
@@ -1002,7 +956,6 @@ class BlogFeatureTest extends TestCase
         $category = Category::first();
         $user = User::first();
 
-        // Tambah posts agar homepage memiliki lebih dari 5 terbitan terbaru
         while (Post::published()->where('is_featured', false)->count() < 6) {
             Post::create([
                 'user_id' => $user->id,
@@ -1017,7 +970,6 @@ class BlogFeatureTest extends TestCase
             ]);
         }
 
-        // 1. Homepage paginates 5 posts and displays Muat Lainnya
         $responseHome = $this->get('/');
         $responseHome->assertStatus(200);
         $this->assertEquals(5, $responseHome->viewData('latestPosts')->perPage());
@@ -1025,14 +977,12 @@ class BlogFeatureTest extends TestCase
         $responseHome->assertSee('Muat Lainnya');
         $responseHome->assertDontSee('Jelajahi Arsip Lengkap');
 
-        // 2. Archive (/arsip) paginates 5 posts and displays Muat Lainnya
         $responseArchive = $this->get('/arsip');
         $responseArchive->assertStatus(200);
         $this->assertEquals(5, $responseArchive->viewData('posts')->perPage());
         $responseArchive->assertSee('id="btn-load-more"', false);
         $responseArchive->assertSee('Muat Lainnya');
 
-        // 3. Category Archive (/kategori/{slug}) with more than 5 posts paginates 5 and displays Muat Lainnya
         $category = Category::first();
         $user = User::first();
         while ($category->posts()->published()->count() < 6) {
@@ -1061,13 +1011,13 @@ class BlogFeatureTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee('Randi Iskandar');
-        $response->assertSee('Penulis & Desainer', false);
+        $response->assertSee('Pengembang & Penulis', false);
         $response->assertSee('ph-github-logo');
         $response->assertSee('ph-instagram-logo');
         $response->assertSee('GitHub');
         $response->assertSee('Instagram');
         $response->assertSee('https://github.com/randiiskandar');
-        $response->assertSee('https://instagram.com/randi.iskandar');
+        $response->assertSee('https://instagram.com/r.and.i');
     }
 
     public function test_admin_can_update_social_links(): void

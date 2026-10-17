@@ -1,5 +1,4 @@
-<x-admin-layout title="Ikhtisar Dasbor - Randi Iskandar Workspace">
-    
+<x-admin-layout title="Ikhtisar Dasbor - Randi Iskandar">
     <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4 font-sans">
         <div>
             <h1 class="font-bold text-2xl md:text-3xl text-zinc-900 dark:text-white mb-1">Ikhtisar Dasbor</h1>
@@ -15,10 +14,7 @@
         </div>
     </div>
 
-    <!-- Stats Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-8 font-sans">
-        
-        <!-- Total Artikel -->
         <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-5 rounded-xs flex items-start gap-4">
             <div class="p-3 bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white rounded-xs">
                 <i class="ph ph-file-text text-2xl"></i>
@@ -30,7 +26,6 @@
             </div>
         </div>
         
-        <!-- Total Tampilan -->
         <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-5 rounded-xs flex items-start gap-4">
             <div class="p-3 bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white rounded-xs">
                 <i class="ph ph-eye text-2xl"></i>
@@ -47,7 +42,6 @@
             </div>
         </div>
 
-        <!-- Komentar Menunggu Moderasi -->
         <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-5 rounded-xs flex items-start gap-4">
             <div class="p-3 bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white rounded-xs">
                 <i class="ph ph-chats-circle text-2xl"></i>
@@ -65,7 +59,6 @@
             </div>
         </div>
 
-        <!-- Total Seluruh Komentar -->
         <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-5 rounded-xs flex items-start gap-4">
             <div class="p-3 bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white rounded-xs">
                 <i class="ph ph-chat-circle-dots text-2xl"></i>
@@ -78,7 +71,6 @@
         </div>
     </div>
 
-    <!-- Main Content Section: Tulisan Terbaru -->
     <div class="w-full font-sans">
         <div>
             <div class="flex items-center justify-between mb-4 border-b border-zinc-200 dark:border-zinc-800 pb-3">

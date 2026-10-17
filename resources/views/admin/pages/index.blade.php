@@ -1,7 +1,7 @@
 <x-admin-layout title="Kelola Halaman Statis - Randi Iskandar Workspace">
     <div class="w-full font-sans pb-16">
         
-        <!-- Header Halaman -->
+        
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
             <div>
                 <h1 class="font-bold text-2xl text-zinc-900 dark:text-white">Kelola Halaman Statis</h1>
@@ -14,10 +14,10 @@
             </a>
         </div>
 
-        <!-- Filter & Pencarian -->
+        
         <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xs p-4 mb-6 shadow-xs flex flex-col md:flex-row items-center justify-between gap-4">
             
-            <!-- Status Tabs -->
+            
             <div class="flex items-center gap-2 w-full md:w-auto overflow-x-auto pb-2 md:pb-0 text-xs font-medium">
                 <a 
                     href="{{ route('admin.pages.index', array_merge(request()->query(), ['status' => null])) }}"
@@ -39,7 +39,7 @@
                 </a>
             </div>
 
-            <!-- Input Pencarian -->
+            
             <form action="{{ route('admin.pages.index') }}" method="GET" class="w-full md:w-72 flex items-center relative">
                 @if(request()->filled('status'))
                     <input type="hidden" name="status" value="{{ request('status') }}">
@@ -55,7 +55,7 @@
             </form>
         </div>
 
-        <!-- Tabel Daftar Halaman -->
+        
         <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xs overflow-hidden shadow-xs">
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-sm whitespace-nowrap">
@@ -181,7 +181,7 @@
                 </table>
             </div>
 
-            <!-- Pagination -->
+            
             @if($pages->hasPages())
                 <div class="p-4 border-t border-zinc-200 dark:border-zinc-800">
                     {{ $pages->links() }}

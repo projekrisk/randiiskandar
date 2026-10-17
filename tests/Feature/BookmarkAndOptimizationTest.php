@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Post;
 use App\Models\Setting;
+use Database\Seeders\DemoPostSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Cache;
 use Tests\TestCase;
@@ -16,6 +17,7 @@ class BookmarkAndOptimizationTest extends TestCase
     {
         parent::setUp();
         $this->seed();
+        $this->seed(DemoPostSeeder::class);
     }
 
     public function test_bookmark_popover_is_rendered_like_table_of_contents_and_drawer_is_removed(): void
@@ -23,12 +25,10 @@ class BookmarkAndOptimizationTest extends TestCase
         $response = $this->get('/');
 
         $response->assertStatus(200);
-        // Memastikan popover bookmark hadir
         $response->assertSee('id="bookmark-popover"', false);
         $response->assertSee('Daftar Baca Nanti');
         $response->assertSee('id="close-bookmark-popover"', false);
         $response->assertSee('id="bookmark-header-trigger"', false);
-        // Memastikan drawer samping lama sudah tidak ada
         $response->assertDontSee('id="bookmark-drawer"', false);
     }
 
@@ -36,7 +36,7 @@ class BookmarkAndOptimizationTest extends TestCase
     {
         $response = $this->get('/');
         $response->assertStatus(200);
-        $response->assertSee('Esai');
+        $response->assertSee('Beranda');
         $response->assertSee('Arsip');
     }
 
@@ -50,7 +50,6 @@ class BookmarkAndOptimizationTest extends TestCase
         $this->assertEquals('initial_value', $value);
         $this->assertTrue(Cache::has('setting_test_key'));
 
-        // Update nilai dan pastikan cache diperbarui
         Setting::set('test_key', 'updated_value');
         $this->assertEquals('updated_value', Setting::get('test_key'));
     }
@@ -71,10 +70,8 @@ class BookmarkAndOptimizationTest extends TestCase
     {
         $response = $this->get('/');
         $response->assertStatus(200);
-        // Hero image di homepage memiliki fetchpriority high & loading eager
         $response->assertSee('fetchpriority="high"', false);
         $response->assertSee('loading="eager"', false);
-        // Post card image memiliki lazy load & decoding async
         $response->assertSee('loading="lazy"', false);
         $response->assertSee('decoding="async"', false);
 
@@ -87,14 +84,25 @@ class BookmarkAndOptimizationTest extends TestCase
         }
     }
 
-    public function test_sitemap_xml_returns_valid_xml(): void
+    public function test_sitemap_xml_returns_valid_xml_with_images_and_headers(): void
     {
         $response = $this->get('/sitemap.xml');
 
         $response->assertStatus(200);
-        $response->assertHeader('Content-Type', 'application/xml');
+        $this->assertStringContainsString('application/xml', $response->headers->get('Content-Type'));
         $response->assertSee('<urlset', false);
+        $response->assertSee('xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"', false);
         $response->assertSee(url('/'), false);
+    }
+
+    public function test_feed_rss_returns_valid_rss_xml(): void
+    {
+        $response = $this->get('/feed');
+
+        $response->assertStatus(200);
+        $this->assertStringContainsString('application/rss+xml', $response->headers->get('Content-Type'));
+        $response->assertSee('<rss version="2.0"', false);
+        $response->assertSee('<channel>', false);
     }
 
     public function test_public_filesystem_disk_points_to_public_storage(): void

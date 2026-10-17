@@ -1,6 +1,5 @@
-<x-admin-layout title="Moderasi Komentar - Randi Iskandar Workspace">
+<x-admin-layout title="Moderasi Komentar - Randi Iskandar">
     <div class="w-full font-sans pb-16">
-        
         <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
             <div>
                 <h1 class="font-bold text-2xl text-zinc-900 dark:text-white">Moderasi Komentar</h1>
@@ -15,7 +14,6 @@
             @endif
         </div>
 
-        <!-- Filter Tab Utama -->
         <div class="flex items-center gap-2 mb-6 border-b border-zinc-200 dark:border-zinc-800 pb-3 text-xs font-medium overflow-x-auto">
             <a 
                 href="{{ route('admin.comments.index', ['tab' => 'comments', 'status' => 'all']) }}" 
@@ -38,7 +36,6 @@
                 <i class="ph ph-check-circle mr-1"></i> Disetujui
             </a>
 
-            <!-- Tab Menu Filter Kata Terlarang -->
             <a 
                 href="{{ route('admin.comments.index', ['tab' => 'filter']) }}" 
                 class="px-3.5 py-1.5 rounded-xs transition-colors whitespace-nowrap flex items-center gap-1.5 {{ $currentTab === 'filter' ? 'bg-red-600 text-white font-bold shadow-xs' : 'text-red-600/80 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300' }}"
@@ -48,11 +45,7 @@
         </div>
 
         @if($currentTab === 'filter')
-            <!-- ==========================================
-                 TAB PENGATURAN FILTER KATA TERLARANG
-                 ========================================== -->
             <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xs p-6 sm:p-8 space-y-6 shadow-xs w-full">
-                
                 <div class="flex items-start gap-4 pb-6 border-b border-zinc-100 dark:border-zinc-800">
                     <div class="w-12 h-12 rounded-full bg-red-100 dark:bg-red-950/60 text-red-600 dark:text-red-400 flex items-center justify-center text-2xl shrink-0">
                         <i class="ph ph-shield-check"></i>
@@ -92,7 +85,6 @@
                         @error('banned_words') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                     </div>
 
-                    <!-- Rekomendasi Kata Terlarang Populer -->
                     <div class="pt-2">
                         <span class="text-[11px] font-bold uppercase tracking-wider text-zinc-400 block mb-2">
                             Tambahkan Rekomendasi Kata Cepat:
@@ -121,9 +113,7 @@
                             <i class="ph ph-floppy-disk text-sm"></i> Simpan Filter Kata Terlarang
                         </button>
                     </div>
-
                 </form>
-
             </div>
 
             <script>
@@ -152,11 +142,7 @@
                 });
             });
             </script>
-
         @else
-            <!-- ==========================================
-                 TAB TABEL KOMENTAR
-                 ========================================== -->
             <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xs overflow-x-auto shadow-xs">
                 <table class="w-full text-left text-sm whitespace-nowrap">
                     <thead class="border-b border-zinc-200 dark:border-zinc-800 text-zinc-500 text-xs bg-zinc-50/50 dark:bg-zinc-800/40">
@@ -250,6 +236,5 @@
                 </div>
             @endif
         @endif
-
     </div>
 </x-admin-layout>

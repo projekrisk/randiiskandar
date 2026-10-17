@@ -1,7 +1,5 @@
-<x-admin-layout title="Kelola Kategori - Randi Iskandar Workspace">
+<x-admin-layout title="Kelola Kategori - Randi Iskandar">
     <div class="w-full font-sans pb-16">
-        
-        <!-- Header dengan Tombol Tambah Modal -->
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
             <div>
                 <h1 class="font-bold text-2xl text-zinc-900 dark:text-white">Kelola Kategori</h1>
@@ -19,7 +17,6 @@
             </div>
         </div>
 
-        <!-- Daftar Kategori (Tabel Lebar Penuh) -->
         <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xs overflow-hidden shadow-xs">
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-sm whitespace-nowrap">
@@ -57,7 +54,6 @@
                                 </td>
                                 <td class="px-5 py-4 text-right">
                                     <div class="flex items-center justify-end gap-2">
-                                        <!-- Tombol Edit Kategori -->
                                         <button 
                                             type="button" 
                                             class="btn-edit-category text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors cursor-pointer p-1.5" 
@@ -71,7 +67,6 @@
                                             <i class="ph ph-pencil-simple text-base"></i>
                                         </button>
 
-                                        <!-- Tombol Hapus Kategori -->
                                         @if($cat->posts_count === 0)
                                             <button 
                                                 type="button" 
@@ -105,10 +100,8 @@
                 </table>
             </div>
         </div>
-
     </div>
 
-    <!-- MODAL TAMBAH KATEGORI BARU -->
     <div 
         id="create-category-modal" 
         class="fixed inset-0 bg-zinc-950/75 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-200"
@@ -201,7 +194,6 @@
         </div>
     </div>
 
-    <!-- MODAL EDIT KATEGORI -->
     <div 
         id="edit-category-modal" 
         class="fixed inset-0 bg-zinc-950/75 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-200"
@@ -287,10 +279,8 @@
         </div>
     </div>
 
-    <!-- Script Pengendali Modal Kategori -->
     <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Modal Tambah Kategori
         const createModal = document.getElementById('create-category-modal');
         const createCard = document.getElementById('create-category-card');
         const btnOpenCreate = document.getElementById('btn-open-create-category');
@@ -338,7 +328,6 @@
             }
         });
 
-        // Modal Edit Kategori
         const editModal = document.getElementById('edit-category-modal');
         const editCard = document.getElementById('edit-category-card');
         const editForm = document.getElementById('edit-category-form');
@@ -386,7 +375,6 @@
         btnCloseEdit.addEventListener('click', closeEditModal);
         btnCancelEdit.addEventListener('click', closeEditModal);
 
-        // Backdrop click to close modals
         createModal?.addEventListener('click', function (e) {
             if (e.target === createModal) closeCreateModal();
         });
@@ -395,7 +383,6 @@
             if (e.target === editModal) closeEditModal();
         });
 
-        // Escape key to close any open modal
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape') {
                 if (!createModal.classList.contains('hidden')) closeCreateModal();

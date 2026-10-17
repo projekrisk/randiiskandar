@@ -9,9 +9,6 @@ use Illuminate\Contracts\View\View;
 
 class DashboardController extends Controller
 {
-    /**
-     * Tampilkan Dasbor Utama Admin (/admin)
-     */
     public function index(): View
     {
         $totalPosts = Post::count();

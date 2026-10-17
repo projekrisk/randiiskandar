@@ -15,7 +15,7 @@
                 @csrf
                 @method('PUT')
 
-                <!-- Shortcut Selector -->
+                
                 <div>
                     <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">
                         Pilih dari Halaman atau Rute Sistem <span class="text-zinc-400 font-normal">(Opsional)</span>

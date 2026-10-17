@@ -1,10 +1,9 @@
 <x-layout 
-    :title="$page->title . ' - Randi Iskandar Workspace'"
-    :description="$page->meta_description ?: 'Halaman ' . $page->title . ' pada blog editorial Randi Iskandar Workspace.'"
+    :title="$page->title . ' - Randi Iskandar'"
+    :description="$page->meta_description ?: 'Halaman ' . $page->title . ' pada situs Randi Iskandar.'"
     :image="$page->featured_image"
 >
     <main class="w-full max-w-3xl mx-auto px-5 sm:px-8 flex-grow pt-32 pb-20">
-        
         <header class="mb-12 border-b border-zinc-200 dark:border-zinc-800 pb-10">
             <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 mb-4 font-sans">
                 <i class="ph ph-file-text text-base"></i> Informasi & Kebijakan
@@ -39,6 +38,5 @@
         <article class="prose prose-lg dark:prose-invert prose-zinc max-w-none font-sans text-zinc-700 dark:text-zinc-300 leading-relaxed">
             {!! $page->parsed_body ?: $page->body !!}
         </article>
-
     </main>
 </x-layout>

@@ -1,11 +1,11 @@
 <x-layout :post="$post" type="article">
     
-    <!-- Floating Table of Contents (TOC) -->
+    
     <x-table-of-contents :toc="$post->table_of_contents" />
 
     <main class="w-full flex-grow pt-32 pb-20">
         
-        <!-- Header Artikel (Centered Title & Category) -->
+        
         <header class="mb-10 text-center w-full max-w-3xl mx-auto px-5 sm:px-8">
             
             @if($post->category)
@@ -26,9 +26,9 @@
                 </p>
             @endif
 
-            <!-- Info Penulis (Kiri) & Ikon Apresiasi + Komentar (Kanan) -->
+            
             <div class="flex items-center justify-between gap-3 sm:gap-4 py-4 border-y border-zinc-200/90 dark:border-zinc-800/90 my-8 font-sans">
-                <!-- Kiri: Info Penulis -->
+                
                 <div class="flex items-center gap-2.5 sm:gap-3 text-left min-w-0 flex-1">
                     <img 
                         src="{{ $post->author?->avatar ?: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150' }}" 
@@ -47,21 +47,21 @@
                     </div>
                 </div>
 
-                <!-- Kanan: Fitur Dengarkan, Ikon Apresiasi & Komentar -->
+                
                 <div class="flex items-center gap-2.5 sm:gap-4 md:gap-5 shrink-0 text-zinc-600 dark:text-zinc-400">
-                    <!-- Tombol Dengarkan Artikel -->
+                    
                     <button type="button" id="listen-article-btn" class="inline-flex items-center justify-center gap-1.5 w-8 h-8 sm:w-auto sm:h-auto sm:px-3 sm:py-1.5 rounded-full bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800/90 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 text-xs font-semibold transition-all cursor-pointer shadow-2xs group shrink-0" title="Dengarkan pembacaan artikel full" aria-label="Dengarkan pembacaan artikel">
                         <i class="ph ph-speaker-high text-base text-zinc-900 dark:text-white group-hover:scale-110 transition-transform" id="listen-btn-icon"></i>
                         <span id="listen-btn-text" class="hidden sm:inline">Dengarkan</span>
                     </button>
 
-                    <!-- Tombol Apresiasi Top -->
+                    
                     <button type="button" class="clap-trigger flex items-center gap-1 sm:gap-1.5 hover:text-zinc-900 dark:hover:text-white transition-colors cursor-pointer group" title="Beri Apresiasi">
                         <i class="ph ph-hands-clapping text-lg sm:text-xl group-hover:scale-125 transition-transform text-zinc-700 dark:text-zinc-300"></i>
                         <span class="clap-count font-semibold text-xs sm:text-sm text-zinc-900 dark:text-white">{{ (int) $post->claps_count }}</span>
                     </button>
 
-                    <!-- Tombol Komentar Top -->
+                    
                     <a href="#komentar" class="flex items-center gap-1 sm:gap-1.5 hover:text-zinc-900 dark:hover:text-white transition-colors group cursor-pointer" title="Lihat Komentar">
                         <i class="ph ph-chat-circle-dots text-lg sm:text-xl group-hover:scale-110 transition-transform text-zinc-700 dark:text-zinc-300"></i>
                         <span class="font-semibold text-xs sm:text-sm text-zinc-900 dark:text-white">{{ $comments->count() }}</span>
@@ -71,10 +71,10 @@
 
         </header>
 
-        <!-- Indikator Suara & Pemutar Audio Melayang (Floating Audio Indicator) -->
+        
         <div id="audio-player-bar" class="hidden floating-audio-bar bg-white/95 dark:bg-zinc-900/95 backdrop-blur-md border border-zinc-200/90 dark:border-zinc-800/90 rounded-2xl p-2.5 sm:p-3.5 font-sans transition-all duration-300">
             <div class="flex items-center justify-between gap-2.5 sm:gap-3">
-                <!-- Sisi Kiri: Tombol Play/Pause & Info Status + Equalizer Melayang -->
+                
                 <div class="flex items-center gap-2 sm:gap-3 min-w-0">
                     <button type="button" id="tts-play-pause-btn" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 flex items-center justify-center shrink-0 hover:scale-105 active:scale-95 transition-all shadow-md cursor-pointer" title="Putar / Jeda Narasi">
                         <i class="ph-fill ph-pause text-sm sm:text-base" id="tts-play-icon"></i>
@@ -84,7 +84,7 @@
                             <span class="text-xs sm:text-sm font-bold text-zinc-900 dark:text-white truncate" id="tts-status">
                                 Membacakan artikel...
                             </span>
-                            <!-- Equalizer Gelombang Suara Melayang -->
+                            
                             <div class="audio-equalizer text-zinc-900 dark:text-white shrink-0" id="tts-equalizer" title="Indikator suara aktif">
                                 <span class="eq-bar eq-1"></span>
                                 <span class="eq-bar eq-2"></span>
@@ -97,9 +97,9 @@
                     </div>
                 </div>
 
-                <!-- Sisi Kanan: Navigasi Bagian, Kecepatan Suara, & Tombol Tutup -->
+                
                 <div class="flex items-center gap-1 sm:gap-1.5 shrink-0">
-                    <!-- Navigasi Mundur / Maju Bagian -->
+                    
                     <button type="button" id="tts-prev-btn" class="p-1 sm:p-1.5 text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors cursor-pointer rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800" title="Bagian Sebelumnya">
                         <i class="ph ph-skip-back text-xs sm:text-sm"></i>
                     </button>
@@ -107,28 +107,28 @@
                         <i class="ph ph-skip-forward text-xs sm:text-sm"></i>
                     </button>
 
-                    <!-- Pengatur Kecepatan Suara -->
+                    
                     <button type="button" id="tts-speed-btn" class="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[11px] sm:text-xs font-bold bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors cursor-pointer border border-zinc-200 dark:border-zinc-700" title="Ubah Kecepatan Suara">
                         <span id="tts-speed-text">1.0x</span>
                     </button>
 
-                    <!-- Tombol Stop / Tutup -->
+                    
                     <button type="button" id="tts-stop-btn" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-zinc-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors cursor-pointer" title="Tutup Pemutar Audio">
                         <i class="ph ph-x text-sm sm:text-base"></i>
                     </button>
                 </div>
             </div>
 
-            <!-- Progress Bar Pembacaan di Bawah Bar Melayang -->
+            
             <div class="w-full bg-zinc-200/80 dark:bg-zinc-800/80 h-1 rounded-full mt-2 sm:mt-2.5 overflow-hidden">
                 <div id="tts-progress-bar" class="bg-zinc-900 dark:bg-white h-full w-0 transition-all duration-300"></div>
             </div>
         </div>
 
-        <!-- Featured Image & Caption (Standar atau Lebar Penuh Sejajar Header) -->
+        
         @if($post->featured_image)
-            <figure class="mb-14 w-full {{ $post->is_featured_image_wide ? 'max-w-5xl' : 'max-w-3xl' }} mx-auto px-5 sm:px-8 transition-all duration-300">
-                <div class="rounded-xs overflow-hidden bg-zinc-100 dark:bg-zinc-900 group relative cursor-zoom-in">
+            <figure class="mb-14 w-full {{ $post->is_featured_image_wide ? 'max-w-5xl' : 'max-w-3xl' }} mx-auto px-0 sm:px-8 transition-all duration-300">
+                <div class="rounded-none sm:rounded-xs overflow-hidden bg-zinc-100 dark:bg-zinc-900 group relative cursor-zoom-in">
                     <img 
                         src="{{ $post->featured_image }}" 
                         alt="{{ $post->title }}" 
@@ -145,25 +145,25 @@
                     </div>
                 </div>
                 @if(!empty($post->featured_image_caption))
-                    <figcaption class="text-[13px] md:text-sm text-zinc-400 text-center mt-3 italic font-serif">
+                    <figcaption class="text-[13px] md:text-sm text-zinc-400 text-center mt-3 px-5 sm:px-0 italic font-serif">
                         {{ $post->featured_image_caption }}
                     </figcaption>
                 @endif
             </figure>
         @endif
 
-        <!-- Area Kolom Baca Teks Artikel -->
+        
         <div class="w-full max-w-3xl mx-auto px-5 sm:px-8">
-            <!-- Isi Artikel (Tipografi Mobile 18px, Desktop 20px / Min 14px, Judul Inter, In-article Ad) -->
+            
             <article class="prose prose-zinc dark:prose-invert w-full font-serif text-zinc-800 dark:text-zinc-200 selection:bg-zinc-900 selection:text-white dark:selection:bg-white dark:selection:text-zinc-900 article-editorial">
                 {!! $post->body_with_injected_ad !!}
             </article>
 
-        <!-- Slot Iklan di Akhir Artikel (Google AdSense Auto Responsive) -->
+        
         <x-ad-bottom />
 
         @if(!empty($post->tags_list))
-            <!-- Tag & Label Artikel -->
+            
             <div class="w-full flex flex-wrap items-center gap-2 my-6 pt-2 font-sans">
                 <span class="text-xs font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mr-1 flex items-center gap-1.5">
                     <i class="ph ph-tag text-sm"></i> Tag:
@@ -176,7 +176,7 @@
             </div>
         @endif
 
-        <!-- Apresiasi (Claps) & Share Bar -->
+        
         <div class="w-full flex flex-col sm:flex-row items-center justify-between gap-4 py-6 my-10 border-y border-zinc-200 dark:border-zinc-800 font-sans text-xs md:text-sm">
             <div class="flex items-center gap-5 w-full sm:w-auto justify-between sm:justify-start">
                 <button type="button" class="clap-trigger flex items-center gap-2 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors group cursor-pointer" title="Beri Apresiasi">
@@ -199,11 +199,11 @@
                 </button>
             </div>
             
-            <!-- Share Media Sosial: WhatsApp, Facebook, Instagram, X -->
+            
             <div class="flex items-center gap-3 text-zinc-400 w-full sm:w-auto justify-center sm:justify-end">
                 <span class="text-xs text-zinc-400 font-medium hidden sm:inline mr-1">Bagikan:</span>
                 
-                <!-- WhatsApp -->
+                
                 <a 
                     href="https://api.whatsapp.com/send?text={{ urlencode($post->title . ' - ' . route('post.show', $post->slug)) }}" 
                     target="_blank" 
@@ -214,7 +214,7 @@
                     <i class="ph ph-whatsapp-logo text-xl"></i>
                 </a>
 
-                <!-- Facebook -->
+                
                 <a 
                     href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('post.show', $post->slug)) }}" 
                     target="_blank" 
@@ -225,7 +225,7 @@
                     <i class="ph ph-facebook-logo text-xl"></i>
                 </a>
 
-                <!-- Instagram -->
+                
                 <button 
                     type="button" 
                     id="share-instagram-btn" 
@@ -235,7 +235,7 @@
                     <i class="ph ph-instagram-logo text-xl"></i>
                 </button>
 
-                <!-- X (Twitter) -->
+                
                 <a 
                     href="https://twitter.com/intent/tweet?text={{ urlencode($post->title) }}&url={{ urlencode(route('post.show', $post->slug)) }}" 
                     target="_blank" 
@@ -246,7 +246,7 @@
                     <i class="ph ph-x-logo text-xl"></i>
                 </a>
 
-                <!-- Salin Tautan (Icon link) -->
+                
                 <button 
                     type="button" 
                     id="copy-link-btn" 
@@ -258,9 +258,7 @@
             </div>
         </div>
 
-        <!-- Kartu Profil Penulis (Author Box - Foto di Atas pada Layar Kecil) -->
         <div class="w-full p-6 sm:p-8 rounded-sm border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-5 sm:gap-6 my-10 font-sans">
-            <!-- Foto Tentang Penulis (Di layar kecil tampil di atas, di layar besar di samping) -->
             <img 
                 src="{{ $post->author?->avatar ?: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200' }}" 
                 alt="{{ $post->author?->name }}" 
@@ -273,7 +271,7 @@
                     {{ $post->author?->name ?: 'Randi Iskandar' }}
                 </h4>
                 <p class="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-3">
-                    {{ $post->author?->bio ?: 'Desainer produk dan pengembang antarmuka yang menulis esai tentang kesederhanaan, tipografi, dan pengalaman pengguna digital di Jakarta.' }}
+                    {{ $post->author?->bio ?: 'Pengembang web dan penulis lepas. Membagikan portofolio, opini seputar teknologi, tutorial pemrograman, dan catatan eksplorasi digital.' }}
                 </p>
                 <a href="{{ route('about') }}" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-zinc-900 dark:text-white hover:underline group">
                     <span>Tentang Penulis</span>
@@ -282,7 +280,7 @@
             </div>
         </div>
 
-        <!-- Blok Artikel Terkait (2 Horizontal Cards Sesuai Lampiran) -->
+        
         @if($relatedPosts->isNotEmpty())
             <section class="w-full my-14 font-sans">
                 <h3 class="font-bold text-lg md:text-xl text-zinc-900 dark:text-white mb-4">
@@ -322,7 +320,7 @@
             </section>
         @endif
 
-        <!-- Bagian Komentar & Balasan (Sesuai Lampiran & Lebih Rapi) -->
+        
         <section id="komentar" class="w-full my-14 font-sans scroll-mt-24">
             
             <div class="flex items-center justify-between mb-8 pb-3 border-b border-zinc-200 dark:border-zinc-800">
@@ -334,7 +332,7 @@
                 </h3>
             </div>
 
-            <!-- Pesan Notifikasi Flash -->
+            
             @if(session('success'))
                 <div class="p-4 mb-6 rounded-xs bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 text-xs sm:text-sm flex items-center justify-between">
                     <div class="flex items-center gap-2">
@@ -352,10 +350,10 @@
                 </div>
             @endif
 
-            <!-- Slot Default Formulir Komentar Utama -->
+            
             <div id="main-comment-form-slot" class="mb-10">
                 
-                <!-- Wrapper Form Komentar yang Bisa Berpindah Ketika Balas Komentar -->
+                
                 <div id="comment-form-wrapper" class="bg-zinc-50/80 dark:bg-zinc-900/50 border border-zinc-200/90 dark:border-zinc-800/90 rounded-sm p-5 sm:p-6 transition-all duration-300">
                     
                     <div class="flex items-center justify-between mb-4">
@@ -367,7 +365,7 @@
                         </span>
                     </div>
 
-                    <!-- Indikator Sedang Membalas Komentar -->
+                    
                     <div id="reply-indicator" class="hidden mb-4 p-3 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-xs flex items-center justify-between text-xs sm:text-sm">
                         <div class="flex items-center gap-2 text-zinc-700 dark:text-zinc-300">
                             <i class="ph ph-arrow-bend-down-right text-base text-zinc-400"></i>
@@ -379,20 +377,20 @@
                         </button>
                     </div>
 
-                    <!-- Formulir Komentar Minimalis & Rapi -->
+                    
                     <form action="{{ route('comment.store', $post->slug) }}" method="POST" id="comment-form">
                         @csrf
                         
-                        <!-- Anti-Spam: Honeypot input -->
+                        
                         <div class="hidden" aria-hidden="true">
                             <label for="hp_company_name">Leave this empty</label>
                             <input type="text" name="hp_company_name" id="hp_company_name" tabindex="-1" autocomplete="off">
                         </div>
 
-                        <!-- Input Hidden untuk Nested Reply -->
+                        
                         <input type="hidden" name="parent_id" id="reply_parent_id" value="">
 
-                        <!-- Form Fields Guest -->
+                        
                         @guest
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-2.5">
                                 <div>
@@ -440,7 +438,7 @@
                             </div>
                         @endguest
 
-                        <!-- Textarea Komentar -->
+                        
                         <div class="mb-4">
                             <label for="comment" class="block text-xs font-semibold text-zinc-600 dark:text-zinc-400 uppercase tracking-wider mb-1.5">
                                 Tanggapan Anda <span class="text-red-500">*</span>
@@ -461,7 +459,7 @@
                             @enderror
                         </div>
 
-                        <!-- Footer Form -->
+                        
                         <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-1">
                             <span class="text-[11px] sm:text-xs text-zinc-400 text-center sm:text-left">
                                 Alamat email Anda tidak akan dipublikasikan ke publik.
@@ -480,13 +478,13 @@
                 </div>
             </div>
 
-            <!-- Daftar Komentar (Sesuai Lampiran) -->
+            
             <div class="space-y-6">
                 @forelse($comments as $comment)
                     <div class="pt-6 border-t border-zinc-100 dark:border-zinc-800/60" id="comment-{{ $comment->id }}">
                         
                         <div class="flex items-start gap-3.5 mb-2">
-                            <!-- Avatar Komentator: Admin pakai foto asli tanpa tanda, pembaca cukup inisial 1 huruf -->
+                            
                             <div class="shrink-0">
                                 @if($comment->is_author_reply)
                                     <img 
@@ -529,12 +527,12 @@
                             </div>
                         </div>
 
-                        <!-- Balasan Bersarang (Nested Author Replies) -->
+                        
                         @if($comment->replies->isNotEmpty())
                             <div class="ml-10 sm:ml-12 mt-4 pt-4 border-t border-zinc-100 dark:border-zinc-800/40 space-y-4">
                                 @foreach($comment->replies as $reply)
                                     <div class="flex items-start gap-3" id="reply-{{ $reply->id }}">
-                                        <!-- Avatar Balasan: Admin pakai foto asli tanpa tanda, pembaca cukup inisial 1 huruf -->
+                                        
                                         <div class="shrink-0">
                                             @if($reply->is_author_reply)
                                                 <img 
@@ -580,7 +578,7 @@
                             </div>
                         @endif
 
-                        <!-- Slot Wadah Form Balas di Bawah Komentar Ini -->
+                        
                         <div id="reply-slot-{{ $comment->id }}" class="mt-4 empty:hidden transition-all duration-300"></div>
 
                     </div>
@@ -591,11 +589,11 @@
 
         </section>
 
-        </div> <!-- /.w-full max-w-3xl mx-auto px-5 sm:px-8 -->
+        </div> 
 
     </main>
 
-    <!-- Modal Preview Gambar Interaktif (Lightbox) -->
+    
     <div 
         id="image-preview-modal" 
         class="fixed inset-0 z-50 bg-black/90 dark:bg-zinc-950/95 backdrop-blur-md flex flex-col items-center justify-between p-4 sm:p-6 md:p-8 opacity-0 pointer-events-none transition-all duration-300 ease-out"
@@ -603,7 +601,7 @@
         aria-modal="true"
         aria-label="Pratinjau Gambar"
     >
-        <!-- Top Toolbar Modal -->
+        
         <div class="w-full max-w-6xl flex items-center justify-between text-white shrink-0 py-2 z-10 font-sans">
             <div class="flex items-center gap-3 min-w-0">
                 <span class="text-xs uppercase font-bold tracking-widest text-zinc-400 flex items-center gap-1.5">
@@ -613,7 +611,7 @@
             </div>
 
             <div class="flex items-center gap-2">
-                <!-- Tombol Buka Gambar di Tab Baru -->
+                
                 <a 
                     id="preview-open-external" 
                     href="#" 
@@ -625,7 +623,7 @@
                 >
                     <i class="ph ph-arrow-square-out text-xl"></i>
                 </a>
-                <!-- Tombol Tutup Modal -->
+                
                 <button 
                     type="button" 
                     id="close-image-preview" 
@@ -638,7 +636,7 @@
             </div>
         </div>
 
-        <!-- Main Image Stage (Klik backdrop untuk menutup) -->
+        
         <div id="preview-stage" class="flex-grow flex items-center justify-center w-full max-w-6xl min-h-0 py-2 sm:py-4 overflow-hidden relative cursor-zoom-out">
             <img 
                 id="preview-target-img" 
@@ -648,7 +646,7 @@
             >
         </div>
 
-        <!-- Bottom Caption Bar -->
+        
         <div class="w-full max-w-3xl shrink-0 pt-2 pb-1 text-center z-10 font-sans">
             <p id="preview-image-caption" class="text-xs sm:text-sm text-zinc-300 font-serif italic max-w-2xl mx-auto leading-relaxed empty:hidden"></p>
             <span class="text-[11px] text-zinc-500 block mt-1">
@@ -657,16 +655,15 @@
         </div>
     </div>
 
-    <!-- Floating Toast Notification -->
+    
     <div id="editorial-toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-xs sm:text-sm font-medium shadow-xl opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-2">
         <i class="ph ph-check-circle text-emerald-400 dark:text-emerald-600 text-base"></i>
         <span id="editorial-toast-msg">Notifikasi</span>
     </div>
 
-    <!-- Script Interaktif untuk Halaman Detail -->
+    
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Toast Helper
             const toast = document.getElementById('editorial-toast');
             const toastMsg = document.getElementById('editorial-toast-msg');
             let toastTimer = null;
@@ -683,14 +680,12 @@
                 }, 2800);
             }
 
-            // 1. Apresiasi (Claps) Realtime Synchronizer & Persistensi ke Database + LocalStorage (1 User = 1 Apresiasi)
             const postSlug = '{{ $post->slug }}';
             const clapTriggers = document.querySelectorAll('.clap-trigger');
             const clapCounts = document.querySelectorAll('.clap-count');
 
             let hasClapped = localStorage.getItem('editorial_clapped_' + postSlug) === 'true';
 
-            // Tandai tombol jika pengunjung sudah pernah memberikan apresiasi di peramban ini
             function updateClapButtonActiveState() {
                 if (hasClapped) {
                     clapTriggers.forEach(b => {
@@ -701,7 +696,6 @@
             }
             updateClapButtonActiveState();
 
-            // Fungsi Sinkronisasi Realtime dari Server
             let isSendingClap = false;
             async function syncRealtimeClaps() {
                 if (isSendingClap) return;
@@ -718,17 +712,14 @@
                         }
                     }
                 } catch (e) {
-                    // Abaikan error jaringan saat sinkronisasi pasif
                 }
             }
 
-            // Jalankan polling sinkronisasi realtime tiap 8 detik dan saat tab aktif kembali
             setInterval(syncRealtimeClaps, 8000);
             document.addEventListener('visibilitychange', () => {
                 if (!document.hidden) syncRealtimeClaps();
             });
 
-            // Klik Tombol Beri Apresiasi (Hanya 1 Kali per Pengguna)
             clapTriggers.forEach(btn => {
                 btn.addEventListener('click', async () => {
                     if (hasClapped) {
@@ -740,7 +731,6 @@
                     localStorage.setItem('editorial_clapped_' + postSlug, 'true');
                     updateClapButtonActiveState();
 
-                    // Pembaruan Optimistik Realtime pada UI
                     clapCounts.forEach(el => {
                         let current = parseInt(el.textContent) || 0;
                         el.textContent = current + 1;
@@ -751,7 +741,6 @@
                     });
                     showToast('Terima kasih atas apresiasi Anda!');
 
-                    // Simpan permanen ke MySQL via API Endpoint Realtime
                     isSendingClap = true;
                     try {
                         const response = await fetch('{{ route('post.clap', $post->slug) }}', {
@@ -776,7 +765,6 @@
                 });
             });
 
-            // 1.1 Fitur Dengarkan Artikel (Full Text-to-Speech Engine dengan Indikator Melayang)
             const listenBtn = document.getElementById('listen-article-btn');
             const listenBtnIcon = document.getElementById('listen-btn-icon');
             const listenBtnText = document.getElementById('listen-btn-text');
@@ -813,33 +801,27 @@
                     window.speechSynthesis.onvoiceschanged = loadVoices;
                 }
 
-                // Ekstraksi teks bersih dari artikel (termasuk judul, paragraf, kutipan, bullets & numbering)
                 function getArticleCleanText() {
                     const articleElem = document.querySelector('article.article-editorial');
                     if (!articleElem) return [];
                     const clone = articleElem.cloneNode(true);
                     
-                    // Bersihkan elemen yang tidak perlu dibacakan (gambar, kode, tabel, iklan, tombol, script)
                     clone.querySelectorAll('figure, figcaption, pre, code, table, .not-prose, ins, .adsbygoogle, button, script').forEach(el => el.remove());
 
                     const chunks = [];
-                    // Ambil seluruh elemen narasi editorial: headings, paragraphs, blockquotes, dan list items (bullets & numbering)
                     clone.querySelectorAll('h1, h2, h3, h4, h5, h6, p, blockquote, li').forEach(el => {
                         const tag = el.tagName.toLowerCase();
 
-                        // Hindari duplikasi jika p berada di dalam li
                         if (tag === 'p' && el.closest('li')) {
                             return;
                         }
 
                         let text = '';
                         if (tag === 'li') {
-                            // Ambil teks li langsung tanpa teks dari nested sub-list di dalamnya agar tidak terbaca ganda
                             const liClone = el.cloneNode(true);
                             liClone.querySelectorAll('ul, ol').forEach(nested => nested.remove());
                             text = (liClone.innerText ? liClone.innerText.trim() : liClone.textContent.trim());
 
-                            // Untuk ordered list (numbering), sebutkan nomor urut jika belum tertulis
                             const parentOl = el.closest('ol');
                             if (parentOl && text.length > 0 && !/^\d+[\.\)]\s*/.test(text)) {
                                 const directLis = Array.from(parentOl.children).filter(child => child.tagName && child.tagName.toLowerCase() === 'li');
@@ -852,11 +834,9 @@
                             text = (el.innerText ? el.innerText.trim() : el.textContent.trim());
                         }
 
-                        // Bersihkan spasi berlebih
                         text = text.replace(/\s+/g, ' ').trim();
 
                         if (text.length > 1) {
-                            // Pastikan diakhiri tanda baca agar intonasi TTS memiliki jeda alami antar bagian
                             if (!/[.!?:;,]$/.test(text)) {
                                 text += '.';
                             }
@@ -1020,7 +1000,6 @@
                 listenBtn?.classList.add('hidden');
             }
 
-            // 1.2 Responsif Tabel: Memastikan semua tabel di artikel memiliki pembungkus scroll horizontal
             document.querySelectorAll('.article-editorial table').forEach(table => {
                 if (!table.parentElement.classList.contains('article-table-wrapper') && !table.parentElement.classList.contains('overflow-x-auto')) {
                     const wrapper = document.createElement('div');
@@ -1030,7 +1009,6 @@
                 }
             });
 
-            // 1.3 Perbarui Style & Interaksi Syntax Highlighter (Code Blocks macOS Window + Salin Kode)
             document.querySelectorAll('.article-editorial pre').forEach(pre => {
                 if (pre.parentElement.classList.contains('code-block-wrapper')) return;
 
@@ -1079,7 +1057,6 @@
                 window.Prism.highlightAll();
             }
 
-            // 2. Tombol Salin Tautan
             const copyBtn = document.getElementById('copy-link-btn');
             copyBtn?.addEventListener('click', () => {
                 navigator.clipboard.writeText(window.location.href).then(() => {
@@ -1094,7 +1071,6 @@
                 });
             });
 
-            // 3. Tombol Instagram
             const instagramBtn = document.getElementById('share-instagram-btn');
             instagramBtn?.addEventListener('click', async () => {
                 const shareData = {
@@ -1108,7 +1084,6 @@
                         await navigator.share(shareData);
                         return;
                     } catch (err) {
-                        // fallback clipboard
                     }
                 }
 
@@ -1124,7 +1099,6 @@
                 });
             });
 
-            // 4. Logika Balas Komentar Dinamis (Pindah ke Bawah Komentar yang Dibalas)
             const replyTriggers = document.querySelectorAll('.reply-trigger');
             const commentFormWrapper = document.getElementById('comment-form-wrapper');
             const mainSlot = document.getElementById('main-comment-form-slot');
@@ -1142,16 +1116,13 @@
                     const targetSlot = document.getElementById('reply-slot-' + commentId);
 
                     if (targetSlot && commentFormWrapper) {
-                        // Pindahkan elemen form ke bawah komentar yang dibalas
                         targetSlot.appendChild(commentFormWrapper);
 
-                        // Atur input dan indikator
                         if (parentIdInput) parentIdInput.value = commentId;
                         if (replyTargetName) replyTargetName.textContent = authorName;
                         if (formHeading) formHeading.textContent = 'Balas Komentar';
                         if (replyIndicator) replyIndicator.classList.remove('hidden');
 
-                        // Scroll halus dan fokus
                         commentFormWrapper.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                         setTimeout(() => commentInput?.focus(), 250);
                     }
@@ -1160,10 +1131,8 @@
 
             cancelReplyBtn?.addEventListener('click', () => {
                 if (mainSlot && commentFormWrapper) {
-                    // Kembalikan form ke slot utama
                     mainSlot.appendChild(commentFormWrapper);
 
-                    // Reset status
                     if (parentIdInput) parentIdInput.value = '';
                     if (replyIndicator) replyIndicator.classList.add('hidden');
                     if (formHeading) formHeading.textContent = 'Tinggalkan Tanggapan';
@@ -1172,7 +1141,6 @@
                 }
             });
 
-            // 5. Simpan & Muat Identitas Komentator (Tidak Anonim & Otomatis)
             const nameInput = document.getElementById('name');
             const emailInput = document.getElementById('email');
             const saveIdentityCheckbox = document.getElementById('save_identity');
@@ -1195,7 +1163,6 @@
                 });
             }
 
-            // 6. Fitur Preview Gambar Interaktif (Lightbox Modal)
             const previewModal = document.getElementById('image-preview-modal');
             const previewImg = document.getElementById('preview-target-img');
             const previewCaption = document.getElementById('preview-image-caption');
@@ -1217,7 +1184,6 @@
                     previewDim.textContent = '';
                 }
 
-                // Ambil dimensi asli gambar setelah dimuat
                 previewImg.onload = () => {
                     if (previewDim && previewImg.naturalWidth && previewImg.naturalHeight) {
                         previewDim.textContent = `• ${previewImg.naturalWidth} × ${previewImg.naturalHeight} px`;
@@ -1241,7 +1207,6 @@
                 document.body.classList.remove('overflow-hidden');
             }
 
-            // Pasang event listener pada Gambar Utama
             const featuredImg = document.querySelector('[data-image-preview]');
             if (featuredImg) {
                 featuredImg.closest('.cursor-zoom-in')?.addEventListener('click', () => {
@@ -1253,7 +1218,6 @@
                 });
             }
 
-            // Pasang event listener pada semua gambar di dalam konten artikel
             const articleImages = document.querySelectorAll('article.article-editorial img');
             articleImages.forEach(img => {
                 img.classList.add('cursor-zoom-in');
@@ -1280,12 +1244,10 @@
                 }
             });
 
-            // 7. Pengendali Tautan di dalam Konten Artikel (Pastikan Dapat Diklik & Aman)
             document.querySelectorAll('article.article-editorial a').forEach(link => {
                 const href = link.getAttribute('href');
                 if (!href) return;
 
-                // Tautan eksternal otomatis dibuka di tab baru dengan rel yang aman
                 if (!href.startsWith('#') && !href.startsWith('javascript:')) {
                     if (!link.hasAttribute('target') && (href.startsWith('http://') || href.startsWith('https://') || href.startsWith('//'))) {
                         link.setAttribute('target', '_blank');

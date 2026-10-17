@@ -1,4 +1,3 @@
-<!-- Modal Konfirmasi Hapus Universal (Artikel, Kategori, Komentar) -->
 <div 
     id="universal-delete-modal" 
     class="fixed inset-0 bg-zinc-950/75 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-200"
@@ -32,13 +31,11 @@
             </button>
         </div>
 
-        <!-- Pratinjau Item yang Dihapus -->
         <div id="confirm-delete-item-box" class="p-3 bg-zinc-50 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700/80 rounded-xs">
             <span class="text-[10px] uppercase font-bold tracking-widest text-zinc-400 block mb-0.5">Item Terpilih:</span>
             <p id="confirm-delete-item-name" class="text-xs font-semibold text-zinc-900 dark:text-zinc-100 truncate"></p>
         </div>
 
-        <!-- Tombol Aksi -->
         <div class="flex items-center justify-end gap-3 pt-2">
             <button 
                 type="button" 
@@ -87,7 +84,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         modal.classList.remove('hidden');
-        // trigger animation
         requestAnimationFrame(() => {
             modal.classList.remove('opacity-0');
             card.classList.remove('scale-95');
@@ -105,7 +101,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 200);
     }
 
-    // Event delegation untuk tombol hapus
     document.addEventListener('click', function (e) {
         const trigger = e.target.closest('.btn-delete-trigger');
         if (trigger) {

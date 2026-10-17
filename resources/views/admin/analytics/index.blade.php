@@ -1,7 +1,7 @@
 <x-admin-layout title="Laporan & Analitik Performa - Randi Iskandar Workspace">
     <div class="w-full font-sans pb-16">
         
-        <!-- Header Laporan & Analitik -->
+        
         <div class="flex flex-col lg:flex-row lg:items-center justify-between mb-8 gap-4 border-b border-zinc-200 dark:border-zinc-800 pb-6 print:border-b-2 print:border-zinc-900">
             <div>
                 <div class="flex items-center gap-2 mb-1">
@@ -21,7 +21,7 @@
                 </p>
             </div>
 
-            <!-- Tombol Aksi Laporan (Cetak & Ekspor CSV) -->
+            
             <div class="flex items-center gap-2.5 print:hidden shrink-0">
                 <a 
                     href="{{ route('admin.analytics.export', ['year' => $selectedYear]) }}" 
@@ -44,12 +44,12 @@
             </div>
         </div>
 
-        <!-- Filter Bar Interaktif (Tahun, Bulan, Kategori) -->
+        
         <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xs p-5 mb-8 shadow-xs print:hidden">
             <form action="{{ route('admin.analytics.index') }}" method="GET" class="flex flex-col md:flex-row md:items-end justify-between gap-4">
                 
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 flex-grow">
-                    <!-- Filter Tahun -->
+                    
                     <div>
                         <label for="year" class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
                             Tahun
@@ -67,7 +67,7 @@
                         </select>
                     </div>
 
-                    <!-- Filter Bulan -->
+                    
                     <div>
                         <label for="month" class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
                             Bulan
@@ -86,7 +86,7 @@
                         </select>
                     </div>
 
-                    <!-- Filter Kategori -->
+                    
                     <div>
                         <label for="category_id" class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
                             Kategori Artikel
@@ -106,7 +106,7 @@
                     </div>
                 </div>
 
-                <!-- Tombol Terapkan & Reset -->
+                
                 <div class="flex items-center gap-2 shrink-0">
                     <button 
                         type="submit" 
@@ -128,12 +128,10 @@
             </form>
         </div>
 
-        <!-- ==========================================
-             SEKSI 1: METRIK UTAMA (KPI CARDS)
-             ========================================== -->
+        
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-8">
             
-            <!-- 1. Total Tayangan -->
+            
             <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-5 rounded-xs shadow-xs">
                 <div class="flex items-center justify-between mb-2">
                     <span class="text-[10px] font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400">Total Tayangan</span>
@@ -149,7 +147,7 @@
                 </p>
             </div>
 
-            <!-- 2. Total Komentar -->
+            
             <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-5 rounded-xs shadow-xs">
                 <div class="flex items-center justify-between mb-2">
                     <span class="text-[10px] font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400">Total Komentar</span>
@@ -165,7 +163,7 @@
                 </p>
             </div>
 
-            <!-- 3. Total Apresiasi (Claps) -->
+            
             <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-5 rounded-xs shadow-xs">
                 <div class="flex items-center justify-between mb-2">
                     <span class="text-[10px] font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400">Apresiasi (Claps)</span>
@@ -179,7 +177,7 @@
                 <p class="text-[11px] text-zinc-500 mt-1">Tepuk tangan pembaca</p>
             </div>
 
-            <!-- 4. Artikel Diterbitkan -->
+            
             <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-5 rounded-xs shadow-xs">
                 <div class="flex items-center justify-between mb-2">
                     <span class="text-[10px] font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400">Artikel Terbit</span>
@@ -193,7 +191,7 @@
                 <p class="text-[11px] text-zinc-500 mt-1">Tulisan publikasi</p>
             </div>
 
-            <!-- 5. Rata-rata Tayangan/Artikel -->
+            
             <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-5 rounded-xs shadow-xs">
                 <div class="flex items-center justify-between mb-2">
                     <span class="text-[10px] font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400">Rerata Tayangan</span>
@@ -207,7 +205,7 @@
                 <p class="text-[11px] text-zinc-500 mt-1">Per artikel terbit</p>
             </div>
 
-            <!-- 6. Rasio Interaksi -->
+            
             <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-5 rounded-xs shadow-xs">
                 <div class="flex items-center justify-between mb-2">
                     <span class="text-[10px] font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400">Rasio Interaksi</span>
@@ -223,12 +221,10 @@
 
         </div>
 
-        <!-- ==========================================
-             SEKSI 2: GRAFIK PENDUKUNG ANALITIK
-             ========================================== -->
+        
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8 print:hidden">
             
-            <!-- Grafik 1: Tren Tayangan & Komentar Tiap Bulan (2 Kolom) -->
+            
             <div class="lg:col-span-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-6 rounded-xs shadow-xs">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
                     <div>
@@ -254,7 +250,7 @@
                 </div>
             </div>
 
-            <!-- Grafik 2: Distribusi Tayangan per Kategori (1 Kolom) -->
+            
             <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-6 rounded-xs shadow-xs flex flex-col">
                 <div class="mb-4">
                     <h2 class="font-bold text-base sm:text-lg text-zinc-900 dark:text-white">
@@ -281,9 +277,7 @@
 
         </div>
 
-        <!-- ==========================================
-             SEKSI 3: TABEL REKAPITULASI TIAP BULAN
-             ========================================== -->
+        
         <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xs overflow-hidden shadow-xs mb-8">
             <div class="p-5 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
                 <div>
@@ -382,12 +376,10 @@
             </div>
         </div>
 
-        <!-- ==========================================
-             SEKSI 4: TOP ARTIKEL & KINERJA KATEGORI
-             ========================================== -->
+        
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
-            <!-- Daftar 10 Tulisan dengan Tayangan Tertinggi (2 Kolom) -->
+            
             <div class="lg:col-span-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xs overflow-hidden shadow-xs">
                 <div class="p-5 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
                     <div>
@@ -467,7 +459,7 @@
                 </div>
             </div>
 
-            <!-- Rincian Performa Kategori (1 Kolom) -->
+            
             <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xs overflow-hidden shadow-xs flex flex-col">
                 <div class="p-5 border-b border-zinc-200 dark:border-zinc-800">
                     <h2 class="font-bold text-base sm:text-lg text-zinc-900 dark:text-white">
@@ -518,17 +510,16 @@
 
     </div>
 
-    <!-- Chart.js Engine CDN -->
+    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- Inisialisasi Grafik Analitik -->
+    
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         const isDark = document.documentElement.classList.contains('dark');
         const textColor = isDark ? '#a1a1aa' : '#71717a';
         const gridColor = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.06)';
 
-        // 1. Grafik Tren Tayangan & Komentar
         const trendCtx = document.getElementById('monthlyTrendChart')?.getContext('2d');
         if (trendCtx) {
             new Chart(trendCtx, {
@@ -617,7 +608,6 @@
             });
         }
 
-        // 2. Grafik Distribusi Kategori (Doughnut)
         const catCtx = document.getElementById('categoryDistributionChart')?.getContext('2d');
         if (catCtx) {
             new Chart(catCtx, {

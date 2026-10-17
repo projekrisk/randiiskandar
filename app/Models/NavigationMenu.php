@@ -12,9 +12,6 @@ class NavigationMenu extends Model
     /** @use HasFactory<NavigationMenuFactory> */
     use HasFactory;
 
-    /**
-     * @var array<int, string>
-     */
     protected $fillable = [
         'label',
         'url',
@@ -24,43 +21,25 @@ class NavigationMenu extends Model
         'is_active',
     ];
 
-    /**
-     * @var array<string, string>
-     */
     protected $casts = [
         'is_active' => 'boolean',
         'order' => 'integer',
     ];
 
-    /**
-     * Scope query for header navigation menus.
-     *
-     * @param  Builder<NavigationMenu>  $query
-     * @return Builder<NavigationMenu>
-     */
-    public function scopeHeader($query)
+    public function scopeHeader(Builder $query): Builder
     {
         return $query->whereIn('location', ['header', 'both'])
             ->where('is_active', true)
             ->orderBy('order', 'asc');
     }
 
-    /**
-     * Scope query for footer navigation menus.
-     *
-     * @param  Builder<NavigationMenu>  $query
-     * @return Builder<NavigationMenu>
-     */
-    public function scopeFooter($query)
+    public function scopeFooter(Builder $query): Builder
     {
         return $query->whereIn('location', ['footer', 'both'])
             ->where('is_active', true)
             ->orderBy('order', 'asc');
     }
 
-    /**
-     * Determine if this menu item matches the current request route or path.
-     */
     public function isCurrent(): bool
     {
         $path = trim($this->url, '/');

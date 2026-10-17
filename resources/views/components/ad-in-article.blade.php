@@ -19,7 +19,6 @@
                 </span>
             </div>
 
-            <!-- Placeholder Slot AdSense saat belum ada kode kustom -->
             <div class="w-full min-h-[120px] sm:min-h-[180px] flex flex-col items-center justify-center p-4">
                 <div class="adsense-fallback flex flex-col items-center justify-center py-4 text-zinc-400 dark:text-zinc-500 font-sans">
                     <i class="ph ph-google-logo text-2xl mb-1 text-zinc-400"></i>

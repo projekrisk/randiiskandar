@@ -26,19 +26,12 @@ class Comment extends Model
         'user_agent',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
             'is_approved' => 'boolean',
         ];
     }
-
-    // --- RELATIONSHIPS ---
 
     public function post(): BelongsTo
     {
@@ -60,8 +53,6 @@ class Comment extends Model
         return $this->hasMany(Comment::class, 'parent_id')->orderBy('created_at', 'asc');
     }
 
-    // --- SCOPES ---
-
     public function scopeApproved(Builder $query): Builder
     {
         return $query->where('is_approved', true);
@@ -76,8 +67,6 @@ class Comment extends Model
     {
         return $query->whereNull('parent_id');
     }
-
-    // --- ACCESSORS ---
 
     protected function isAuthorReply(): Attribute
     {

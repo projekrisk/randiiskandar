@@ -7,20 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title }}</title>
     
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('icon.png') }}">
     <link rel="apple-touch-icon" href="{{ asset('icon.png') }}">
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Phosphor Icons -->
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
     <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
 
-    <!-- Styles: Vite jika tersedia, atau Static CSS untuk Shared Hosting tanpa NPM/Build -->
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @else
@@ -41,13 +37,10 @@
 </head>
 <body class="bg-base-light text-zinc-900 dark:bg-base-dark dark:text-zinc-100 theme-transition font-sans h-screen flex overflow-hidden selection:bg-zinc-900 selection:text-white dark:selection:bg-white dark:selection:text-zinc-900">
 
-    <!-- Overlay Mobile Sidebar -->
     <div id="admin-sidebar-overlay" class="fixed inset-0 bg-zinc-900/60 dark:bg-black/80 backdrop-blur-sm z-40 opacity-0 pointer-events-none transition-opacity duration-300 lg:hidden"></div>
 
-    <!-- Sidebar Admin -->
     <aside id="admin-sidebar" class="fixed inset-y-0 left-0 w-64 bg-white dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-800 z-50 transform -translate-x-full lg:translate-x-0 lg:static transition-all duration-300 flex flex-col">
         
-        <!-- Sidebar Header (Logo & Toggle) -->
         <div class="h-16 flex items-center justify-between px-5 border-b border-zinc-200 dark:border-zinc-800 overflow-hidden shrink-0">
             <a href="{{ route('admin.dashboard') }}" class="font-sans italic font-bold text-xl tracking-wide text-zinc-900 dark:text-white flex items-center gap-2 overflow-hidden">
                 <span class="sidebar-expanded flex items-center gap-2">
@@ -56,13 +49,11 @@
                 <span class="sidebar-collapsed-only hidden font-serif italic text-2xl font-bold">R.</span>
             </a>
 
-            <!-- Mobile Close Button -->
             <button id="close-admin-sidebar" class="lg:hidden text-zinc-500 hover:text-zinc-900 dark:hover:text-white p-1" aria-label="Tutup Sidebar">
                 <i class="ph ph-x text-xl"></i>
             </button>
         </div>
 
-        <!-- Sidebar Navigation -->
         <div class="flex-grow overflow-y-auto py-6 px-3 flex flex-col gap-1">
             <p class="sidebar-expanded px-3 text-xs font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-2 font-sans">Menu Utama</p>
             
@@ -141,7 +132,6 @@
             <p class="sidebar-expanded px-3 text-xs font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-2 font-sans">Aksi Cepat</p>
         </div>
 
-        <!-- Sidebar Footer -->
         <div class="p-3 border-t border-zinc-200 dark:border-zinc-800 flex flex-col gap-1.5 shrink-0">
             <a href="{{ route('home') }}" target="_blank" class="sidebar-link flex items-center gap-3 px-3 py-2 text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors font-medium text-sm rounded-xs relative group" title="Lihat Situs Publik">
                 <i class="ph ph-arrow-square-out text-lg shrink-0"></i>
@@ -162,15 +152,12 @@
 
     <main class="flex-1 flex flex-col min-w-0 bg-base-light dark:bg-base-dark">
         
-        <!-- Top Header Admin -->
         <header class="h-16 flex items-center justify-between px-6 border-b border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md z-30 sticky top-0">
             <div class="flex items-center gap-3">
-                <!-- Mobile Trigger -->
                 <button id="admin-mobile-trigger" class="lg:hidden text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors p-1" aria-label="Buka Menu">
                     <i class="ph ph-list text-2xl"></i>
                 </button>
 
-                <!-- Desktop Sidebar Collapse Toggle in Topbar -->
                 <button id="topbar-sidebar-toggle" class="hidden lg:flex items-center justify-center w-8 h-8 rounded text-zinc-500 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer" title="Ciutkan / Rentangkan Sidebar" aria-label="Ciutkan Sidebar">
                     <i class="ph ph-sidebar-simple text-xl"></i>
                 </button>
@@ -193,7 +180,6 @@
             </div>
         </header>
 
-        <!-- Flash Messages -->
         <div class="px-6 lg:px-8 pt-4">
             @if(session('success'))
                 <div class="p-4 mb-4 rounded-xs bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 text-sm flex items-center justify-between">
@@ -213,7 +199,6 @@
             @endif
         </div>
 
-        <!-- Scrollable Content -->
         <div class="flex-1 overflow-y-auto p-6 lg:p-8">
             {{ $slot }}
         </div>
@@ -221,14 +206,12 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Theme toggle
             const themeBtn = document.getElementById('theme-toggle');
             themeBtn?.addEventListener('click', () => {
                 document.documentElement.classList.toggle('dark');
                 localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
             });
 
-            // Desktop Sidebar Collapse logic
             const toggleSidebar = () => {
                 const isCollapsed = document.documentElement.classList.toggle('sidebar-collapsed');
                 localStorage.setItem('admin_sidebar_collapsed', isCollapsed ? 'true' : 'false');
@@ -236,7 +219,6 @@
             document.getElementById('sidebar-collapse-toggle')?.addEventListener('click', toggleSidebar);
             document.getElementById('topbar-sidebar-toggle')?.addEventListener('click', toggleSidebar);
 
-            // Mobile sidebar logic
             const sidebar = document.getElementById('admin-sidebar');
             const overlay = document.getElementById('admin-sidebar-overlay');
             const openBtn = document.getElementById('admin-mobile-trigger');
@@ -258,7 +240,6 @@
         });
     </script>
 
-    <!-- Modal Konfirmasi Hapus Universal -->
     <x-confirm-delete-modal />
 </body>
 </html>

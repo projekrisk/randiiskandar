@@ -75,7 +75,6 @@ class PostController extends Controller
             ? Str::slug($validated['slug'])
             : Str::slug($validated['title']);
 
-        // Pastikan slug unik
         $originalSlug = $slug;
         $counter = 1;
         while (Post::where('slug', $slug)->exists()) {
@@ -166,9 +165,6 @@ class PostController extends Controller
         return redirect()->route('admin.posts.index')->with('success', 'Artikel berhasil diperbarui.');
     }
 
-    /**
-     * Upload gambar inline untuk disisipkan ke dalam konten artikel.
-     */
     public function uploadImage(Request $request): JsonResponse
     {
         $request->validate([

@@ -1,6 +1,6 @@
 <x-layout 
-    title="Arsip Lengkap Tulisan - Randi Iskandar Workspace"
-    description="Indeks kronologis lengkap dari seluruh esai, studi kasus, dan catatan yang telah diterbitkan."
+    title="Arsip Lengkap Tulisan - Randi Iskandar"
+    description="Indeks kronologis lengkap dari seluruh tulisan opini, teknologi, tutorial, dan portofolio."
 >
     <main class="w-full max-w-5xl mx-auto px-5 sm:px-8 flex-grow pt-32 pb-20">
         
@@ -12,10 +12,9 @@
                 Arsip Tulisan
             </h1>
             <p class="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl leading-relaxed font-sans">
-                Eksplorasi kronologis pemikiran, desain antarmuka, tipografi digital, dan arsitektur web modern.
+                Kumpulan tulisan seputar portofolio proyek, opini teknologi, tutorial pemrograman, dan catatan eksplorasi digital.
             </p>
 
-            <!-- Filter Kategori Cepat -->
             <div class="flex flex-wrap gap-2 mt-8">
                 <a href="{{ route('archive.index') }}" class="px-3.5 py-1.5 rounded-full text-xs font-bold font-sans bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow-xs">
                     Semua ({{ $allPostsCount ?? $posts->total() }})
@@ -37,7 +36,6 @@
             @endforelse
         </div>
 
-        <!-- Muat Lainnya -->
         @if($posts->hasMorePages())
             <div id="load-more-container" class="mt-12 text-center">
                 <button 

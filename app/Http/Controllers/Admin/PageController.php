@@ -72,7 +72,6 @@ class PageController extends Controller
             $slug .= '-page';
         }
 
-        // Pastikan slug unik
         $originalSlug = $slug;
         $counter = 1;
         while (Page::where('slug', $slug)->exists()) {
@@ -130,7 +129,6 @@ class PageController extends Controller
             $slug .= '-page';
         }
 
-        // Pastikan slug unik jika diubah
         $originalSlug = $slug;
         $counter = 1;
         while (Page::where('slug', $slug)->where('id', '!=', $page->id)->exists()) {

@@ -9,12 +9,6 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Tampilkan Halaman Utama (Homepage):
-     * - Profil Penulis
-     * - Featured Post (Sorotan)
-     * - Terbitan Terbaru (dengan Pagination & Eager Loading untuk mencegah N+1)
-     */
     public function __invoke(Request $request): View
     {
         $author = User::first();
@@ -25,7 +19,6 @@ class HomeController extends Controller
             ->featured()
             ->first();
 
-        // Ambil terbitan terbaru kecuali artikel yang sedang disorot (featured)
         $latestPostsQuery = Post::query()
             ->with(['author', 'category'])
             ->withCount(['comments' => fn ($q) => $q->where('is_approved', true)])

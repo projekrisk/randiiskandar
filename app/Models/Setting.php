@@ -12,9 +12,6 @@ class Setting extends Model
         'value',
     ];
 
-    /**
-     * Ambil nilai pengaturan berdasarkan key dengan caching.
-     */
     public static function get(string $key, ?string $default = null): ?string
     {
         try {
@@ -28,9 +25,6 @@ class Setting extends Model
         }
     }
 
-    /**
-     * Simpan atau perbarui nilai pengaturan dan bersihkan cache.
-     */
     public static function set(string $key, ?string $value): void
     {
         static::updateOrCreate(

@@ -164,7 +164,7 @@ body {
 }
 
 /* Styling Link Tautan di dalam Konten Editorial & Editor */
-.article-editorial a {
+.article-editorial a:not(.not-prose a):not([class*="bg-"]):not([class*="btn"]) {
     color: #1d4ed8;
     text-decoration: underline;
     text-decoration-thickness: 1.5px;
@@ -174,19 +174,39 @@ body {
     cursor: pointer;
 }
 
-.dark .article-editorial a {
+.dark .article-editorial a:not(.not-prose a):not([class*="bg-"]):not([class*="btn"]) {
     color: #60a5fa;
 }
 
-.article-editorial a:hover {
+.article-editorial a:not(.not-prose a):not([class*="bg-"]):not([class*="btn"]):hover {
     color: #1e40af;
     text-decoration-color: #1e40af;
     opacity: 0.9;
 }
 
-.dark .article-editorial a:hover {
+.dark .article-editorial a:not(.not-prose a):not([class*="bg-"]):not([class*="btn"]):hover {
     color: #93c5fd;
     text-decoration-color: #93c5fd;
+}
+
+/* Reset Khusus untuk Tombol Unduh, Tombol Aksi, & Elemen .not-prose */
+.article-editorial .not-prose a,
+.article-editorial a[class*="bg-"] {
+    text-decoration: none !important;
+}
+
+.article-editorial a.text-white,
+.article-editorial a[class*="text-white"],
+.article-editorial a.bg-zinc-900,
+.article-editorial .not-prose a.text-white {
+    color: #ffffff !important;
+}
+
+.dark .article-editorial a.dark\:text-zinc-900,
+.dark .article-editorial a[class*="dark:text-zinc-900"],
+.dark .article-editorial a.dark\:bg-white,
+.dark .article-editorial .not-prose a.dark\:text-zinc-900 {
+    color: #18181b !important;
 }
 
 /* Blockquote */
@@ -503,6 +523,41 @@ body {
 .dark .article-editorial figcaption,
 .dark #editor-compose figcaption {
     color: #a1a1aa; /* zinc-400 */
+}
+
+/* Lebar Penuh Menempel ke Sisi Layar pada Perangkat Mobile */
+@media (max-width: 639px) {
+    .article-editorial figure,
+    #editor-compose figure {
+        margin-left: -1.25rem !important; /* -20px membatalkan padding px-5 */
+        margin-right: -1.25rem !important;
+        width: calc(100% + 2.5rem) !important;
+        max-width: none !important;
+    }
+
+    .article-editorial figure img,
+    #editor-compose figure img,
+    .article-editorial > img,
+    .article-editorial p > img {
+        border-radius: 0 !important;
+        margin-left: -1.25rem !important;
+        margin-right: -1.25rem !important;
+        width: calc(100% + 2.5rem) !important;
+        max-width: none !important;
+    }
+
+    .article-editorial figure img,
+    #editor-compose figure img {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 100% !important;
+    }
+
+    .article-editorial figcaption,
+    #editor-compose figcaption {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
 }
 
 #editor-compose figcaption {

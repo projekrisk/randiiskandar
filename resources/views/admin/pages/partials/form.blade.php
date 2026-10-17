@@ -16,10 +16,10 @@
         @method('PUT')
     @endif
 
-    <!-- BAGIAN 1: INFORMASI UTAMA (JUDUL & SLUG) -->
+    
     <div class="space-y-6">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Judul Halaman -->
+            
             <div class="md:col-span-2">
                 <label for="title" class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
                     Judul Halaman <span class="text-red-500">*</span>
@@ -36,7 +36,7 @@
                 @error('title') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
             </div>
 
-            <!-- Status Publikasi -->
+            
             <div>
                 <label for="is_published" class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
                     Status Publikasi
@@ -57,7 +57,7 @@
             </div>
         </div>
 
-        <!-- Slug URL -->
+        
         <div>
             <div class="flex items-center justify-between mb-1.5">
                 <label for="slug" class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400">
@@ -82,7 +82,7 @@
             @error('slug') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
         </div>
 
-        <!-- Meta Deskripsi SEO -->
+        
         <div>
             <label for="meta_description" class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
                 Deskripsi Meta SEO (Opsional)
@@ -98,7 +98,7 @@
         </div>
     </div>
 
-    <!-- BAGIAN 2: GAMBAR UTAMA HALAMAN (FEATURED IMAGE) -->
+    
     <div class="space-y-4 pt-6 border-t border-zinc-200/80 dark:border-zinc-800">
         <div class="flex items-center justify-between">
             <div>
@@ -110,7 +110,7 @@
                 </p>
             </div>
 
-            <!-- Mode Switch: Unggah Berkas vs Tautan URL -->
+            
             <div class="flex items-center bg-zinc-200 dark:bg-zinc-800 p-0.5 rounded-xs text-xs font-medium">
                 <button type="button" id="page-tab-feat-upload" class="px-3 py-1 rounded-xs transition-colors bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white font-bold shadow-xs cursor-pointer">
                     <i class="ph ph-upload-simple mr-1"></i> Unggah File
@@ -121,7 +121,7 @@
             </div>
         </div>
 
-        <!-- Mode 1: Upload File -->
+        
         <div id="page-feat-upload-box" class="space-y-3">
             <div 
                 id="page-feat-dropzone" 
@@ -144,7 +144,7 @@
             </div>
         </div>
 
-        <!-- Mode 2: Input URL -->
+        
         <div id="page-feat-url-box" class="hidden">
             <input 
                 type="text" 
@@ -156,10 +156,10 @@
             >
         </div>
 
-        <!-- Hidden input for deleting image -->
+        
         <input type="hidden" name="remove_featured_image" id="page_remove_featured_image" value="0">
 
-        <!-- Live Preview Card -->
+        
         <div id="page-feat-preview-wrapper" class="{{ !empty(old('featured_image', $page?->featured_image)) ? '' : 'hidden' }} mt-3">
             <div class="flex items-center gap-4 p-3 bg-zinc-50 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700 rounded-xs">
                 <img 
@@ -186,7 +186,7 @@
             </div>
         </div>
 
-        <!-- Keterangan Gambar Utama (Caption) -->
+        
         <div class="pt-2">
             <label for="featured_image_caption" class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">
                 Keterangan Gambar (Caption) <span class="font-normal text-zinc-400 lowercase">(Opsional, tampil di bawah gambar)</span>
@@ -206,14 +206,14 @@
         @error('featured_image_file') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
     </div>
 
-    <!-- BAGIAN 3: EDITOR KONTEN HALAMAN -->
+    
     <div class="space-y-2 pt-6 border-t border-zinc-200/80 dark:border-zinc-800">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
             <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400">
                 Isi Konten Halaman <span class="text-red-500">*</span>
             </label>
 
-            <!-- Mode Switcher: Visual Compose vs Raw HTML -->
+            
             <div class="flex items-center border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800 p-0.5 rounded-xs text-xs font-medium self-end sm:self-auto">
                 <button 
                     type="button" 
@@ -234,10 +234,10 @@
             </div>
         </div>
 
-        <!-- Editor Container -->
+        
         <div class="border border-zinc-200 dark:border-zinc-700 rounded-xs overflow-hidden shadow-xs focus-within:border-zinc-900 dark:focus-within:border-zinc-400 transition-colors">
             
-            <!-- Toolbar -->
+            
             <div id="page-editor-toolbar" class="bg-zinc-100/90 dark:bg-zinc-800/90 border-b border-zinc-200 dark:border-zinc-700 p-2 flex flex-wrap items-center gap-1 text-zinc-700 dark:text-zinc-300">
                 <button type="button" data-cmd="formatBlock" data-val="<h2>" class="page-tb-btn px-2.5 py-1 text-xs font-bold rounded-xs hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 transition-colors" title="Judul Utama Bagian H2">
                     H2
@@ -286,7 +286,7 @@
                 </button>
             </div>
 
-            <!-- Area Teks Visual Compose (WYSIWYG) -->
+            
             <div 
                 id="page-editor-compose" 
                 contenteditable="true" 
@@ -294,7 +294,7 @@
                 placeholder="Tuliskan isi halaman di sini..."
             >{!! old('body', $page?->body) !!}</div>
 
-            <!-- Area Teks Raw HTML (Hidden secara default) -->
+            
             <textarea 
                 name="body" 
                 id="page-editor-html" 
@@ -306,7 +306,7 @@
 
         </div>
 
-        <!-- Counter & Info Footer Editor -->
+        
         <div class="flex items-center justify-between text-xs text-zinc-400 px-1 pt-1 font-mono">
             <div class="flex items-center gap-4">
                 <span>Kata: <strong id="page-word-count" class="text-zinc-700 dark:text-zinc-300">0</strong></span>
@@ -319,7 +319,7 @@
         @error('body') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
     </div>
 
-    <!-- Tombol Aksi Simpan -->
+    
     <div class="flex items-center justify-between pt-6 border-t border-zinc-200 dark:border-zinc-800">
         <a 
             href="{{ route('admin.pages.index') }}" 
@@ -339,7 +339,6 @@
     </div>
 </form>
 
-<!-- Skrip Interaktif Editor Halaman -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
     const titleInput = document.getElementById('title');
@@ -357,7 +356,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentMode = 'compose';
     let isSlugManual = {{ $page ? 'true' : 'false' }};
 
-    // 1. Auto-Slug dari Judul
     titleInput?.addEventListener('input', () => {
         if (!isSlugManual && slugInput) {
             slugInput.value = titleInput.value
@@ -372,7 +370,6 @@ document.addEventListener('DOMContentLoaded', () => {
         isSlugManual = slugInput.value.trim().length > 0;
     });
 
-    // 2. Toolbar Commands
     document.querySelectorAll('.page-tb-btn[data-cmd]').forEach(btn => {
         btn.addEventListener('click', () => {
             const cmd = btn.getAttribute('data-cmd');
@@ -383,7 +380,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Link inserter
     document.getElementById('page-btn-link')?.addEventListener('click', () => {
         const url = prompt('Masukkan URL tautan (contoh: https://domain.com atau /kontak):');
         if (url) {
@@ -393,7 +389,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 3. Sinkronisasi Konten & Counter
     function updateCounters(text) {
         const words = text.trim() ? text.trim().split(/\s+/).length : 0;
         const chars = text.length;
@@ -415,10 +410,8 @@ document.addEventListener('DOMContentLoaded', () => {
     composeArea?.addEventListener('input', syncContent);
     htmlArea?.addEventListener('input', syncContent);
 
-    // Initial counter update
     syncContent();
 
-    // 4. Mode Switcher
     btnCompose?.addEventListener('click', () => {
         if (currentMode === 'compose') return;
         currentMode = 'compose';
@@ -445,7 +438,6 @@ document.addEventListener('DOMContentLoaded', () => {
         syncContent();
     });
 
-    // Featured Image Uploader & Preview Handler
     const tabFeatUpload = document.getElementById('page-tab-feat-upload');
     const tabFeatUrl = document.getElementById('page-tab-feat-url');
     const featUploadBox = document.getElementById('page-feat-upload-box');
@@ -512,7 +504,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (removeFeatHidden) removeFeatHidden.value = "1";
     });
 
-    // 5. Submit Form Sync
     pageForm?.addEventListener('submit', () => {
         syncContent();
     });

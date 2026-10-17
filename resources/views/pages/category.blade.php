@@ -1,10 +1,8 @@
 <x-layout 
-    :title="'Kategori: ' . $category->name . ' - Randi Iskandar Workspace'"
-    :description="$category->description ?: 'Arsip esai dan tulisan seputar ' . $category->name"
+    :title="'Kategori: ' . $category->name . ' - Randi Iskandar'"
+    :description="$category->description ?: 'Arsip tulisan dan artikel seputar ' . $category->name"
 >
     <main class="w-full max-w-3xl mx-auto px-5 sm:px-8 flex-grow pt-32 pb-20">
-        
-        <!-- Header Kategori -->
         <header class="mb-14 border-b border-zinc-200 dark:border-zinc-800 pb-10">
             <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 mb-3 font-sans">
                 <i class="ph ph-folder-open text-base"></i> Arsip Kategori
@@ -19,7 +17,6 @@
             @endif
         </header>
 
-        <!-- Daftar Artikel Kategori -->
         <div class="flex flex-col gap-10 sm:gap-12" id="posts-container">
             @forelse($posts as $post)
                 <x-post-card :post="$post" />
@@ -33,7 +30,6 @@
             @endforelse
         </div>
 
-        <!-- Muat Lainnya -->
         @if($posts->hasMorePages())
             <div id="load-more-container" class="mt-12 text-center">
                 <button 
@@ -55,6 +51,5 @@
                 </div>
             @endif
         </noscript>
-
     </main>
 </x-layout>

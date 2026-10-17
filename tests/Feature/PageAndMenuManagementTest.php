@@ -6,6 +6,7 @@ use App\Models\NavigationMenu;
 use App\Models\Page;
 use App\Models\Post;
 use App\Models\User;
+use Database\Seeders\DemoPostSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -17,6 +18,7 @@ class PageAndMenuManagementTest extends TestCase
     {
         parent::setUp();
         $this->seed();
+        $this->seed(DemoPostSeeder::class);
     }
 
     public function test_public_static_pages_load_successfully(): void
@@ -33,7 +35,6 @@ class PageAndMenuManagementTest extends TestCase
         $responsePrivacy->assertStatus(200);
         $responsePrivacy->assertSee('Kebijakan Privasi');
 
-        // Test custom dynamic page
         $customPage = Page::create([
             'title' => 'Pedoman Komunitas Pengembang',
             'slug' => 'pedoman-komunitas',
@@ -47,11 +48,9 @@ class PageAndMenuManagementTest extends TestCase
         $responseCustom->assertSee('Pedoman Komunitas Pengembang');
         $responseCustom->assertSee('Konten pedoman etika berkomentar');
 
-        // Test legacy /halaman/{slug} redirects to direct /{slug}
         $responseLegacy = $this->get('/halaman/'.$customPage->slug);
         $responseLegacy->assertRedirect('/'.$customPage->slug);
 
-        // Test /term loads terms
         $responseTerm = $this->get('/term');
         $responseTerm->assertStatus(200);
         $responseTerm->assertSee('Penggunaan Layanan');
@@ -62,12 +61,10 @@ class PageAndMenuManagementTest extends TestCase
         $response = $this->get('/');
         $response->assertStatus(200);
 
-        // Header menus
-        $response->assertSee('Esai');
+        $response->assertSee('Beranda');
         $response->assertSee('Arsip');
         $response->assertSee('Tentang');
 
-        // Footer menus
         $response->assertSee('Layanan');
         $response->assertSee('Privasi');
         $response->assertSee('Sanggahan');
@@ -95,7 +92,6 @@ class PageAndMenuManagementTest extends TestCase
     {
         $admin = User::first();
 
-        // 1. Create
         $responseCreate = $this->actingAs($admin)->post('/admin/pages', [
             'title' => 'Kerja Sama & Kemitraan',
             'slug' => 'kerja-sama',
@@ -113,12 +109,10 @@ class PageAndMenuManagementTest extends TestCase
 
         $page = Page::where('slug', 'kerja-sama')->firstOrFail();
 
-        // 2. Edit View
         $responseEdit = $this->actingAs($admin)->get("/admin/pages/{$page->id}/edit");
         $responseEdit->assertStatus(200);
         $responseEdit->assertSee('Edit Halaman: Kerja Sama & Kemitraan');
 
-        // 3. Update
         $responseUpdate = $this->actingAs($admin)->put("/admin/pages/{$page->id}", [
             'title' => 'Kerja Sama dan Kemitraan Editorial',
             'slug' => 'kerja-sama-updated',
@@ -134,7 +128,6 @@ class PageAndMenuManagementTest extends TestCase
             'title' => 'Kerja Sama dan Kemitraan Editorial',
         ]);
 
-        // 4. Delete
         $responseDelete = $this->actingAs($admin)->delete("/admin/pages/{$page->id}");
         $responseDelete->assertRedirect('/admin/pages');
         $this->assertDatabaseMissing('pages', [
@@ -146,7 +139,6 @@ class PageAndMenuManagementTest extends TestCase
     {
         $admin = User::first();
 
-        // 1. Create Menu
         $responseCreate = $this->actingAs($admin)->post('/admin/menus', [
             'label' => 'Newsletter',
             'url' => '/newsletter',
@@ -167,12 +159,10 @@ class PageAndMenuManagementTest extends TestCase
 
         $menu = NavigationMenu::where('label', 'Newsletter')->firstOrFail();
 
-        // 2. Edit View
         $responseEdit = $this->actingAs($admin)->get("/admin/menus/{$menu->id}/edit");
         $responseEdit->assertStatus(200);
         $responseEdit->assertSee('Edit Item Menu: Newsletter');
 
-        // 3. Update Menu
         $responseUpdate = $this->actingAs($admin)->put("/admin/menus/{$menu->id}", [
             'label' => 'Berlangganan Newsletter',
             'url' => '/newsletter-pro',
@@ -189,7 +179,6 @@ class PageAndMenuManagementTest extends TestCase
             'location' => 'footer',
         ]);
 
-        // 4. Reorder
         $menu1 = NavigationMenu::where('location', 'header')->where('order', 1)->first();
         $menu2 = NavigationMenu::where('location', 'header')->where('order', 2)->first();
 
@@ -205,7 +194,6 @@ class PageAndMenuManagementTest extends TestCase
             $this->assertEquals(1, $menu2->order);
         }
 
-        // 5. Delete Menu
         $responseDelete = $this->actingAs($admin)->delete("/admin/menus/{$menu->id}");
         $responseDelete->assertRedirect('/admin/menus?tab=footer');
         $this->assertDatabaseMissing('navigation_menus', [
@@ -217,7 +205,6 @@ class PageAndMenuManagementTest extends TestCase
     {
         $admin = User::first();
 
-        // Create page with featured image and caption
         $responseCreate = $this->actingAs($admin)->post('/admin/pages', [
             'title' => 'Panduan Redaksi dan Kurasi Konten',
             'slug' => 'panduan-redaksi',
@@ -234,13 +221,11 @@ class PageAndMenuManagementTest extends TestCase
             'featured_image_caption' => 'Ilustrasi panduan kurasi konten editorial',
         ]);
 
-        // Public page renders featured image and caption via direct slug
         $responsePublic = $this->get('/panduan-redaksi');
         $responsePublic->assertStatus(200);
         $responsePublic->assertSee('https://images.unsplash.com/photo-editorial-guide');
         $responsePublic->assertSee('Ilustrasi panduan kurasi konten editorial');
 
-        // Admin page table contains thumbnail image
         $responseIndex = $this->actingAs($admin)->get('/admin/pages');
         $responseIndex->assertStatus(200);
         $responseIndex->assertSee('https://images.unsplash.com/photo-editorial-guide');
@@ -251,7 +236,6 @@ class PageAndMenuManagementTest extends TestCase
     {
         $admin = User::first();
 
-        // 1. Categories index has create modal and delete triggers
         $responseCat = $this->actingAs($admin)->get('/admin/categories');
         $responseCat->assertStatus(200);
         $responseCat->assertSee('id="btn-open-create-category"', false);
@@ -259,7 +243,6 @@ class PageAndMenuManagementTest extends TestCase
         $responseCat->assertSee('id="edit-category-modal"', false);
         $responseCat->assertSee('btn-delete-trigger');
 
-        // 2. Menus index has create modal, edit modal, and delete triggers
         $responseMenu = $this->actingAs($admin)->get('/admin/menus');
         $responseMenu->assertStatus(200);
         $responseMenu->assertSee('id="btn-open-create-menu"', false);
@@ -270,13 +253,11 @@ class PageAndMenuManagementTest extends TestCase
 
     public function test_social_share_og_image_uses_default_banner_when_no_featured_image(): void
     {
-        // 1. Homepage uses default og-image banner
         $responseHome = $this->get('/');
         $responseHome->assertStatus(200);
         $responseHome->assertSee('<meta property="og:image" content="'.asset('og-image.jpg').'">', false);
         $responseHome->assertSee('<meta name="twitter:image" content="'.asset('og-image.jpg').'">', false);
 
-        // 2. Static page without featured image uses default og-image banner
         $pageWithoutImg = Page::create([
             'title' => 'Ketentuan Berkomentar',
             'slug' => 'ketentuan-berkomentar',
@@ -291,7 +272,6 @@ class PageAndMenuManagementTest extends TestCase
         $responsePageWithout->assertSee('<meta property="og:image" content="'.asset('og-image.jpg').'">', false);
         $responsePageWithout->assertSee('<meta name="twitter:image" content="'.asset('og-image.jpg').'">', false);
 
-        // 3. Static page WITH featured image uses the featured image as og:image
         $pageWithImg = Page::create([
             'title' => 'Panduan Komunitas Visual',
             'slug' => 'panduan-visual',
@@ -312,7 +292,6 @@ class PageAndMenuManagementTest extends TestCase
         $response = $this->get('/');
         $response->assertStatus(200);
 
-        // Sidebar contains redesigned navigation elements
         $response->assertSee('id="mobile-sidebar"', false);
         $response->assertSee('id="mobile-search-trigger"', false);
         $response->assertSee('Navigasi Utama');
@@ -322,7 +301,6 @@ class PageAndMenuManagementTest extends TestCase
         $response->assertSee('id="mobile-theme-toggle"', false);
         $response->assertSee('id="mobile-bookmark-trigger"', false);
 
-        // Workspace Admin is removed from public sidebar
         $response->assertDontSee('Workspace Admin');
     }
 
@@ -330,22 +308,18 @@ class PageAndMenuManagementTest extends TestCase
     {
         $post = Post::published()->firstOrFail();
 
-        // 1. route('post.show') generates direct /{slug} without /baca/
         $expectedUrl = url($post->slug);
         $this->assertEquals($expectedUrl, route('post.show', $post->slug));
         $this->assertStringNotContainsString('/baca/', route('post.show', $post->slug));
 
-        // 2. Direct /{slug} returns 200 with article content
         $directResponse = $this->get('/'.$post->slug);
         $directResponse->assertStatus(200);
         $directResponse->assertSee($post->title);
 
-        // 3. Legacy /baca/{slug} returns 301 Permanent Redirect to /{slug}
         $legacyResponse = $this->get('/baca/'.$post->slug);
         $legacyResponse->assertStatus(301);
         $legacyResponse->assertRedirect('/'.$post->slug);
 
-        // 4. Claps and comments routes use direct /{slug}
         $this->assertStringNotContainsString('/baca/', route('post.claps', $post->slug));
         $this->assertStringNotContainsString('/baca/', route('post.clap', $post->slug));
         $this->assertStringNotContainsString('/baca/', route('comment.store', $post->slug));
@@ -353,7 +327,6 @@ class PageAndMenuManagementTest extends TestCase
         $this->get(route('post.claps', $post->slug))->assertStatus(200)->assertJson(['success' => true]);
         $this->postJson(route('post.clap', $post->slug))->assertStatus(200)->assertJson(['success' => true]);
 
-        // 5. Static page continues to load at /{slug}
         $customPage = Page::create([
             'title' => 'Halaman Pengujian Slug',
             'slug' => 'halaman-pengujian-slug',
@@ -362,7 +335,6 @@ class PageAndMenuManagementTest extends TestCase
         ]);
         $this->get('/'.$customPage->slug)->assertStatus(200)->assertSee('Halaman Pengujian Slug');
 
-        // 6. Unknown slug returns 404
         $this->get('/slug-yang-tidak-ada-sama-sekali-12345')->assertStatus(404);
     }
 }

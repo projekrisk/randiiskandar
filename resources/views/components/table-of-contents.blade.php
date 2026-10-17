@@ -2,7 +2,6 @@
 
 @if(!empty($toc))
 <div id="toc-container" class="fixed bottom-24 right-6 sm:bottom-28 sm:right-8 z-30 transition-all duration-300">
-    <!-- Tombol Trigger TOC -->
     <button 
         id="toc-toggle-btn"
         type="button"
@@ -13,7 +12,6 @@
         <span class="hidden sm:inline">Daftar Isi</span>
     </button>
 
-    <!-- Modal / Dropdown Floating TOC -->
     <div 
         id="toc-menu" 
         class="hidden absolute bottom-12 right-0 w-[calc(100vw-3rem)] max-w-xs sm:w-80 max-h-[55vh] sm:max-h-96 overflow-y-auto bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg shadow-2xl p-5 mb-2 font-sans transition-all duration-200 z-50"

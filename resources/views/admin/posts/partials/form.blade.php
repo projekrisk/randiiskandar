@@ -22,10 +22,10 @@
         @method('PUT')
     @endif
 
-    <!-- BAGIAN 1: INFORMASI UTAMA (JUDUL, KATEGORI, SLUG) -->
+    
     <div class="space-y-6">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Judul Artikel -->
+            
             <div class="md:col-span-2">
                 <label for="title" class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
                     Judul Artikel <span class="text-red-500">*</span>
@@ -42,7 +42,7 @@
                 @error('title') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
             </div>
 
-            <!-- Kategori -->
+            
             <div>
                 <label for="category_id" class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
                     Kategori <span class="text-red-500">*</span>
@@ -64,7 +64,7 @@
             </div>
         </div>
 
-        <!-- Slug URL -->
+        
         <div>
             <div class="flex items-center justify-between mb-1.5">
                 <label for="slug" class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400">
@@ -87,7 +87,7 @@
         </div>
     </div>
 
-    <!-- BAGIAN 2: GAMBAR UTAMA (FEATURED IMAGE) -->
+    
     <div class="p-5 border border-zinc-200 dark:border-zinc-800 rounded-xs bg-zinc-50/50 dark:bg-zinc-950/30 space-y-4">
         <div class="flex items-center justify-between">
             <div>
@@ -96,7 +96,7 @@
                 </label>
                 <p class="text-xs text-zinc-400 mt-0.5">Unggah berkas foto dari komputer Anda atau sematkan URL gambar eksternal.</p>
             </div>
-            <!-- Tab Switcher -->
+            
             <div class="flex items-center bg-zinc-200 dark:bg-zinc-800 p-0.5 rounded-xs text-xs font-medium">
                 <button type="button" id="tab-feat-upload" class="px-3 py-1 rounded-xs transition-colors bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white font-bold shadow-xs">
                     <i class="ph ph-upload-simple mr-1"></i> Unggah File
@@ -107,7 +107,7 @@
             </div>
         </div>
 
-        <!-- Mode 1: Upload File -->
+        
         <div id="feat-upload-box" class="space-y-3">
             <div 
                 id="feat-dropzone" 
@@ -130,7 +130,7 @@
             </div>
         </div>
 
-        <!-- Mode 2: Input URL -->
+        
         <div id="feat-url-box" class="hidden">
             <input 
                 type="text" 
@@ -142,10 +142,10 @@
             >
         </div>
 
-        <!-- Hidden input for deleting image -->
+        
         <input type="hidden" name="remove_featured_image" id="remove_featured_image" value="0">
 
-        <!-- Live Preview Card -->
+        
         <div id="feat-preview-wrapper" class="{{ !empty(old('featured_image', $post?->featured_image)) ? '' : 'hidden' }} mt-3">
             <div class="flex items-center gap-4 p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xs">
                 <img 
@@ -171,7 +171,7 @@
                 </button>
             </div>
         </div>
-        <!-- Keterangan Gambar Utama (Caption) -->
+        
         <div class="pt-2 border-t border-zinc-200/60 dark:border-zinc-800">
             <label for="featured_image_caption" class="block text-xs font-semibold text-zinc-600 dark:text-zinc-400 mb-1">
                 Keterangan Gambar Utama (Caption) <span class="font-normal text-zinc-400">(Opsional, muncul di bawah thumbnail di halaman baca)</span>
@@ -187,7 +187,7 @@
             @error('featured_image_caption') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
         </div>
 
-        <!-- Pengaturan Lebar Tampilan Gambar Utama (Standar vs Lebar Penuh/Header) -->
+        
         <div class="pt-3 border-t border-zinc-200/60 dark:border-zinc-800 space-y-2">
             <div class="flex items-center justify-between">
                 <div>
@@ -201,7 +201,7 @@
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-                <!-- Opsi 1: Standar (Normal) -->
+                
                 <label class="relative flex items-start gap-3 p-3 rounded-xs border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 cursor-pointer hover:border-zinc-400 dark:hover:border-zinc-500 has-[:checked]:border-zinc-900 dark:has-[:checked]:border-white has-[:checked]:ring-1 has-[:checked]:ring-zinc-900 dark:has-[:checked]:ring-white transition-all group">
                     <input 
                         type="radio" 
@@ -221,7 +221,7 @@
                     </div>
                 </label>
 
-                <!-- Opsi 2: Lebar Penuh (Header) -->
+                
                 <label class="relative flex items-start gap-3 p-3 rounded-xs border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 cursor-pointer hover:border-zinc-400 dark:hover:border-zinc-500 has-[:checked]:border-zinc-900 dark:has-[:checked]:border-white has-[:checked]:ring-1 has-[:checked]:ring-zinc-900 dark:has-[:checked]:ring-white transition-all group">
                     <input 
                         type="radio" 
@@ -248,18 +248,18 @@
         @error('featured_image_file') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
     </div>
 
-    <!-- BAGIAN 3: TAG & TOPIK ARTIKEL (TAGS) -->
+    
     <div class="space-y-2">
         <label for="tag-input" class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400">
             Tag & Topik Artikel <span class="text-zinc-400 font-normal">(Tekan Enter atau tanda koma untuk menambah)</span>
         </label>
         
-        <!-- Tag Chip Container -->
+        
         <div 
             id="tag-container" 
             class="min-h-[46px] p-2 bg-zinc-50 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700 rounded-xs flex flex-wrap items-center gap-1.5 focus-within:border-zinc-900 dark:focus-within:border-white transition-colors"
         >
-            <!-- Chips inserted via JS -->
+            
             <input 
                 type="text" 
                 id="tag-input" 
@@ -268,7 +268,7 @@
             >
         </div>
 
-        <!-- Hidden input holding comma-separated tags -->
+        
         <input 
             type="hidden" 
             name="tags" 
@@ -276,7 +276,7 @@
             value="{{ old('tags', is_array($post?->tags_list) ? implode(', ', $post->tags_list) : ($post?->tags ?? '')) }}"
         >
 
-        <!-- Rekomendasi Tag Cepat (Tag yang pernah dibuat tersimpan) -->
+        
         <div class="flex flex-wrap items-center gap-1.5 pt-1 text-xs">
             <span class="text-zinc-400 text-[11px] font-medium mr-1 flex items-center gap-1">
                 <i class="ph ph-tag text-xs"></i> Saran Tag Tersimpan:
@@ -294,7 +294,7 @@
         @error('tags') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
     </div>
 
-    <!-- BAGIAN 4: RINGKASAN / EXCERPT -->
+    
     <div>
         <label for="excerpt" class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
             Ringkasan / Excerpt (Opsional)
@@ -309,14 +309,14 @@
         @error('excerpt') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
     </div>
 
-    <!-- BAGIAN 5: EDITOR TEKS LENGKAP (MODE COMPOSE & MODE HTML & UPLOAD GAMBAR INLINE) -->
+    
     <div class="space-y-2">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
             <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400">
                 Isi Konten Artikel <span class="text-red-500">*</span>
             </label>
 
-            <!-- Mode Switcher: Compose vs HTML -->
+            
             <div class="flex items-center border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800 p-0.5 rounded-xs text-xs font-medium self-end sm:self-auto">
                 <button 
                     type="button" 
@@ -337,13 +337,13 @@
             </div>
         </div>
 
-        <!-- Editor Outer Box -->
+        
         <div class="border border-zinc-200 dark:border-zinc-700 rounded-xs overflow-hidden shadow-xs focus-within:border-zinc-900 dark:focus-within:border-zinc-400 transition-colors">
             
-            <!-- Toolbar (Aktif pada Mode Compose) -->
+            
             <div id="editor-toolbar" class="bg-zinc-100/90 dark:bg-zinc-800/90 border-b border-zinc-200 dark:border-zinc-700 p-2 flex flex-wrap items-center gap-1 text-zinc-700 dark:text-zinc-300">
                 
-                <!-- Format Heading -->
+                
                 <button type="button" data-cmd="formatBlock" data-val="<h2>" class="toolbar-btn px-2.5 py-1 text-xs font-bold rounded-xs hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 transition-colors" title="Judul Bagian H2 (Otomatis masuk TOC)">
                     H2
                 </button>
@@ -356,7 +356,7 @@
 
                 <div class="w-px h-5 bg-zinc-300 dark:bg-zinc-700 mx-1"></div>
 
-                <!-- Basic Inline Styles -->
+                
                 <button type="button" data-cmd="bold" class="toolbar-btn p-1.5 rounded-xs hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors" title="Tebal (Ctrl+B)">
                     <i class="ph ph-text-b font-bold text-base"></i>
                 </button>
@@ -372,7 +372,7 @@
 
                 <div class="w-px h-5 bg-zinc-300 dark:bg-zinc-700 mx-1"></div>
 
-                <!-- Lists & Quote -->
+                
                 <button type="button" data-cmd="insertUnorderedList" class="toolbar-btn p-1.5 rounded-xs hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors" title="Daftar Poin (Bullet List)">
                     <i class="ph ph-list-bullets text-base"></i>
                 </button>
@@ -388,7 +388,7 @@
 
                 <div class="w-px h-5 bg-zinc-300 dark:bg-zinc-700 mx-1"></div>
 
-                <!-- Elements: Link, Table, Horizontal Rule -->
+                
                 <button type="button" id="btn-insert-link" class="toolbar-btn p-1.5 rounded-xs hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors" title="Sisipkan Tautan Link">
                     <i class="ph ph-link text-base"></i>
                 </button>
@@ -401,7 +401,7 @@
 
                 <div class="w-px h-5 bg-zinc-300 dark:bg-zinc-700 mx-1"></div>
 
-                <!-- INLINE IMAGE UPLOAD & CAPTION BUTTON -->
+                
                 <button 
                     type="button" 
                     id="btn-open-image-modal" 
@@ -419,7 +419,7 @@
                     <i class="ph ph-chat-text text-sm"></i> Caption Gambar
                 </button>
 
-                <!-- Clear format -->
+                
                 <button type="button" data-cmd="removeFormat" class="toolbar-btn p-1.5 rounded-xs hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-500 transition-colors ml-auto" title="Bersihkan Format Teks">
                     <i class="ph ph-paint-brush text-base"></i>
                 </button>
@@ -429,7 +429,7 @@
                 $editorBody = \App\Models\Post::cleanTableHtml(\App\Models\Post::stripBacaJuga(old('body', $post?->body ?? '<p>Tulis paragraf pembuka artikel di sini...</p><h2>Judul Bagian</h2><p>Lanjutkan pembahasan materi secara mendalam...</p>')));
             @endphp
 
-            <!-- Area Mode Compose (Visual Editorial WYSIWYG) -->
+            
             <div 
                 id="editor-compose" 
                 contenteditable="true" 
@@ -437,7 +437,7 @@
                 spellcheck="false"
             >{!! $editorBody !!}</div>
 
-            <!-- Area Mode HTML (Monospace Code Editor) -->
+            
             <textarea 
                 name="body" 
                 id="editor-html" 
@@ -447,7 +447,7 @@
                 spellcheck="false"
             >{{ $editorBody }}</textarea>
 
-            <!-- Editor Status Footer -->
+            
             <div class="bg-zinc-50 dark:bg-zinc-950 px-4 py-2 border-t border-zinc-200 dark:border-zinc-800 flex items-center justify-between text-xs text-zinc-500 dark:text-zinc-400 font-sans">
                 <div class="flex items-center gap-3">
                     <span id="stat-words" class="font-medium">0 kata</span>
@@ -463,7 +463,7 @@
         @error('body') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
     </div>
 
-    <!-- BAGIAN 6: STATUS PUBLIKASI & SOROTAN -->
+    
     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pt-6 border-t border-zinc-200 dark:border-zinc-800">
         <div class="flex flex-wrap items-center gap-6">
             <div>
@@ -510,7 +510,6 @@
     </div>
 </form>
 
-<!-- MODAL UNGGAH GAMBAR DI DALAM POSTINGAN (IN-ARTICLE IMAGE UPLOAD) -->
 <div 
     id="article-image-modal" 
     class="fixed inset-0 bg-zinc-950/70 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden"
@@ -529,7 +528,7 @@
             </button>
         </div>
 
-        <!-- Dropzone Modal -->
+        
         <div>
             <div 
                 id="modal-img-dropzone" 
@@ -545,7 +544,7 @@
                 </p>
             </div>
             
-            <!-- Modal Image Preview -->
+            
             <div id="modal-img-preview-box" class="hidden mt-3 p-2 bg-zinc-50 dark:bg-zinc-800 rounded-xs flex items-center gap-3">
                 <img id="modal-img-preview" src="" alt="Pratinjau" class="w-16 h-14 object-cover rounded-xs border border-zinc-200 dark:border-zinc-700">
                 <div class="flex-grow min-w-0">
@@ -558,7 +557,7 @@
             </div>
         </div>
 
-        <!-- Input Keterangan & Alt -->
+        
         <div class="space-y-3">
             <div>
                 <label for="modal-img-caption" class="block text-xs font-bold text-zinc-600 dark:text-zinc-400 mb-1">
@@ -585,11 +584,11 @@
             </div>
         </div>
 
-        <!-- Error Alert -->
+        
         <div id="modal-img-error" class="hidden p-2.5 bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 rounded-xs text-xs text-red-600 dark:text-red-400">
         </div>
 
-        <!-- Modal Actions -->
+        
         <div class="flex items-center justify-end gap-3 pt-3 border-t border-zinc-100 dark:border-zinc-800">
             <button 
                 type="button" 
@@ -611,7 +610,6 @@
     </div>
 </div>
 
-<!-- MODAL SISIPKAN / EDIT TAUTAN (LINK MODAL) -->
 <div 
     id="article-link-modal" 
     class="fixed inset-0 bg-zinc-950/70 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden"
@@ -696,7 +694,6 @@
     </div>
 </div>
 
-<!-- FLOATING ACTION BUBBLE PADA EDITOR (KETIKA KLIK LINK) -->
 <div 
     id="editor-link-bubble" 
     class="hidden fixed z-50 bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 px-3 py-1.5 rounded-md shadow-2xl flex items-center gap-2.5 text-xs font-sans border border-zinc-700 dark:border-zinc-300 transition-opacity"
@@ -714,15 +711,11 @@
     </button>
 </div>
 
-<!-- SCRIPT PENGENDALI EDITOR, GAMBAR UTAMA, TAG, & UPLOAD INLINE -->
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const csrfToken = '{{ csrf_token() }}';
     const uploadImageUrl = '{{ route("admin.posts.upload-image") }}';
 
-    // ==========================================
-    // 1. AUTO SLUG DARI JUDUL
-    // ==========================================
     const titleInput = document.getElementById('title');
     const slugInput = document.getElementById('slug');
     let isSlugManual = Boolean(slugInput.value.trim());
@@ -742,9 +735,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // ==========================================
-    // 2. GAMBAR UTAMA (FEATURED IMAGE)
-    // ==========================================
     const tabUpload = document.getElementById('tab-feat-upload');
     const tabUrl = document.getElementById('tab-feat-url');
     const uploadBox = document.getElementById('feat-upload-box');
@@ -759,7 +749,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const btnRemoveFeat = document.getElementById('btn-remove-feat-img');
     const removeFeatHidden = document.getElementById('remove_featured_image');
 
-    // Switch Tab
     tabUpload.addEventListener('click', () => {
         tabUpload.className = "px-3 py-1 rounded-xs transition-colors bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white font-bold shadow-xs";
         tabUrl.className = "px-3 py-1 rounded-xs transition-colors text-zinc-500 hover:text-zinc-900 dark:hover:text-white";
@@ -774,10 +763,8 @@ document.addEventListener('DOMContentLoaded', function () {
         uploadBox.classList.add('hidden');
     });
 
-    // Dropzone Click
     dropzone.addEventListener('click', () => featFileInput.click());
 
-    // File selected
     featFileInput.addEventListener('change', function () {
         if (this.files && this.files[0]) {
             const file = this.files[0];
@@ -793,7 +780,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // URL input changed
     featUrlInput.addEventListener('input', function () {
         const val = this.value.trim();
         if (val) {
@@ -807,7 +793,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Remove Featured Image
     btnRemoveFeat.addEventListener('click', () => {
         featFileInput.value = '';
         featUrlInput.value = '';
@@ -816,7 +801,6 @@ document.addEventListener('DOMContentLoaded', function () {
         removeFeatHidden.value = "1";
     });
 
-    // Drag and drop for featured image
     ['dragenter', 'dragover'].forEach(eventName => {
         dropzone.addEventListener(eventName, (e) => {
             e.preventDefault();
@@ -839,24 +823,18 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // ==========================================
-    // 3. TAG CHIP MANAGER (TAGS)
-    // ==========================================
     const tagContainer = document.getElementById('tag-container');
     const tagInput = document.getElementById('tag-input');
     const tagsHidden = document.getElementById('tags-hidden');
     let tagsList = [];
 
-    // Inisialisasi dari hidden value
     if (tagsHidden.value.trim()) {
         tagsList = tagsHidden.value.split(',').map(t => t.trim()).filter(Boolean);
     }
 
     function renderTags() {
-        // Hapus chip lama
         tagContainer.querySelectorAll('.tag-chip').forEach(el => el.remove());
 
-        // Render setiap chip sebelum input
         tagsList.forEach((tag, idx) => {
             const chip = document.createElement('span');
             chip.className = 'tag-chip inline-flex items-center gap-1.5 px-3 py-1 bg-zinc-200/80 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 text-xs font-semibold rounded-full border border-zinc-300 dark:border-zinc-700 transition-all';
@@ -867,7 +845,6 @@ document.addEventListener('DOMContentLoaded', function () {
             tagContainer.insertBefore(chip, tagInput);
         });
 
-        // Sinkronisasi hidden input
         tagsHidden.value = tagsList.join(', ');
     }
 
@@ -907,7 +884,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Rekomendasi Tag Cepat
     document.querySelectorAll('.quick-tag-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             addTag(btn.dataset.tag);
@@ -916,9 +892,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     renderTags();
 
-    // ==========================================
-    // 4. EDITOR: MODE COMPOSE & MODE HTML
-    // ==========================================
     const btnModeCompose = document.getElementById('btn-mode-compose');
     const btnModeHtml = document.getElementById('btn-mode-html');
     const editorToolbar = document.getElementById('editor-toolbar');
@@ -928,7 +901,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const statTime = document.getElementById('stat-time');
     let currentMode = 'compose'; // 'compose' | 'html'
 
-    // Pembersih & Formatter HTML Sederhana
     function formatHTMLString(html) {
         let formatted = '';
         let indent = '';
@@ -943,13 +915,11 @@ document.addEventListener('DOMContentLoaded', function () {
         return formatted.substring(1, formatted.length - 3);
     }
 
-    // Membersihkan format tabel dari class, style, dan atribut non-semantik
     function sanitizeTableHtml(html) {
         if (!html || !html.includes('<table')) return html;
         const temp = document.createElement('div');
         temp.innerHTML = html;
 
-        // Lepas wrapper jika ada
         temp.querySelectorAll('.overflow-x-auto, .table-scroll-container, .article-table-wrapper').forEach(wrapper => {
             const table = wrapper.querySelector('table');
             if (table && wrapper.children.length === 1) {
@@ -957,7 +927,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-        // Bersihkan atribut class, style, border, dsb dari seluruh tag tabel
         const tableTags = ['table', 'thead', 'tbody', 'tfoot', 'tr', 'th', 'td', 'colgroup', 'col', 'caption'];
         tableTags.forEach(tag => {
             temp.querySelectorAll(tag).forEach(el => {
@@ -980,7 +949,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (newMode === currentMode) return;
 
         if (newMode === 'html') {
-            // Pindah dari Compose ke HTML (bersihkan tabel agar murni semantic HTML)
             editorHtml.value = sanitizeTableHtml(editorCompose.innerHTML.trim());
             editorCompose.classList.add('hidden');
             editorHtml.classList.remove('hidden');
@@ -990,7 +958,6 @@ document.addEventListener('DOMContentLoaded', function () {
             btnModeCompose.className = "flex items-center gap-1.5 px-3 py-1 rounded-xs text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white font-medium transition-all cursor-pointer";
             currentMode = 'html';
         } else {
-            // Pindah dari HTML ke Compose
             editorCompose.innerHTML = editorHtml.value.trim();
             editorHtml.classList.add('hidden');
             editorCompose.classList.remove('hidden');
@@ -1006,7 +973,6 @@ document.addEventListener('DOMContentLoaded', function () {
     btnModeCompose.addEventListener('click', () => switchMode('compose'));
     btnModeHtml.addEventListener('click', () => switchMode('html'));
 
-    // Eksekusi Command Toolbar
     document.querySelectorAll('.toolbar-btn[data-cmd]').forEach(btn => {
         btn.addEventListener('click', function () {
             const cmd = this.dataset.cmd;
@@ -1017,7 +983,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Sisipkan Kutipan (Blockquote)
     document.getElementById('btn-insert-quote').addEventListener('click', () => {
         const quoteHtml = `<blockquote class="border-l-2 border-zinc-900 dark:border-white pl-4 italic my-4"><p>Tulis kutipan menarik di sini...</p><cite class="not-italic text-xs text-zinc-500 font-sans block mt-1">— Nama Tokoh</cite></blockquote><p></p>`;
         document.execCommand('insertHTML', false, quoteHtml);
@@ -1025,7 +990,6 @@ document.addEventListener('DOMContentLoaded', function () {
         updateStats();
     });
 
-    // Sisipkan Blok Kode
     document.getElementById('btn-insert-code').addEventListener('click', () => {
         const codeHtml = `<pre class="bg-zinc-900 text-zinc-100 p-4 rounded-xs my-4 overflow-x-auto font-mono text-sm leading-relaxed"><code class="language-javascript">// Tulis cuplikan kode di sini\nconsole.log("Hello Randi");</code></pre><p></p>`;
         document.execCommand('insertHTML', false, codeHtml);
@@ -1033,7 +997,6 @@ document.addEventListener('DOMContentLoaded', function () {
         updateStats();
     });
 
-    // Sisipkan Tabel
     document.getElementById('btn-insert-table').addEventListener('click', () => {
         const tableHtml = `
 <table>
@@ -1063,9 +1026,6 @@ document.addEventListener('DOMContentLoaded', function () {
         updateStats();
     });
 
-    // ==========================================
-    // SISTEM TAUTAN LINK (MODAL, EDIT, & KLIK DI EDITOR)
-    // ==========================================
     const btnInsertLink = document.getElementById('btn-insert-link');
     const linkModal = document.getElementById('article-link-modal');
     const btnCloseLinkModal = document.getElementById('btn-close-link-modal');
@@ -1099,7 +1059,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 savedLinkRange = null;
             }
 
-            // Jika tidak diberikan elemen link eksplisit, periksa apakah kursor berada di dalam tag <a>
             if (!linkEl && sel && sel.anchorNode) {
                 let node = sel.anchorNode;
                 while (node && node !== editorCompose) {
@@ -1111,7 +1070,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
         } else {
-            // Mode HTML
             const start = editorHtml.selectionStart;
             const end = editorHtml.selectionEnd;
             const selectedText = editorHtml.value.substring(start, end);
@@ -1162,7 +1120,6 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // Otomatis tambahkan https:// jika URL menyerupai domain biasa tanpa skema/protokol
         if (!/^([a-z]+:|\/|#|\?)/i.test(url)) {
             url = 'https://' + url;
         }
@@ -1263,11 +1220,9 @@ document.addEventListener('DOMContentLoaded', function () {
         currentBubbleLink = null;
     }
 
-    // Klik pada tautan link di dalam mode Compose: tampilkan bubble aksi atau Ctrl+Click buka di tab baru
     editorCompose.addEventListener('click', (e) => {
         const linkEl = e.target.closest('a');
         if (linkEl && editorCompose.contains(linkEl)) {
-            // Jika Ctrl atau Meta ditekan saat klik, langsung buka link di tab baru
             if (e.ctrlKey || e.metaKey) {
                 e.preventDefault();
                 const href = linkEl.getAttribute('href');
@@ -1329,7 +1284,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Pintasan Keyboard Ctrl+K / Cmd+K untuk Sisipkan / Edit Link
     document.addEventListener('keydown', (e) => {
         if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) {
             const active = document.activeElement;
@@ -1346,7 +1300,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Hitung Kata & Waktu Baca
     function updateStats() {
         const text = currentMode === 'compose' ? editorCompose.innerText : editorHtml.value.replace(/<[^>]*>/g, ' ');
         const words = text.trim().split(/\s+/).filter(Boolean).length;
@@ -1360,9 +1313,6 @@ document.addEventListener('DOMContentLoaded', function () {
     editorHtml.addEventListener('input', updateStats);
     updateStats();
 
-    // ==========================================
-    // 5. MODAL UNGGAH GAMBAR DI DALAM POSTINGAN
-    // ==========================================
     const imgModal = document.getElementById('article-image-modal');
     const btnOpenImgModal = document.getElementById('btn-open-image-modal');
     const btnCloseImgModal = document.getElementById('btn-close-img-modal');
@@ -1440,7 +1390,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 modalDropzone.classList.add('hidden');
                 modalPreviewBox.classList.remove('hidden');
                 
-                // Set default alt dari nama berkas
                 if (!modalAltInput.value) {
                     modalAltInput.value = file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " ");
                 }
@@ -1455,7 +1404,6 @@ document.addEventListener('DOMContentLoaded', function () {
         modalDropzone.classList.remove('hidden');
     });
 
-    // Upload & Sisipkan via AJAX
     btnModalUpload.addEventListener('click', async () => {
         if (!modalFileInput.files || !modalFileInput.files[0]) {
             modalErrorAlert.textContent = 'Silakan pilih berkas gambar terlebih dahulu.';
@@ -1471,7 +1419,6 @@ document.addEventListener('DOMContentLoaded', function () {
         formData.append('image', file);
         formData.append('_token', csrfToken);
 
-        // Loading state
         btnModalUpload.disabled = true;
         modalSpinner.classList.remove('hidden');
         modalUploadText.textContent = 'Mengunggah...';
@@ -1490,7 +1437,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const data = await res.json();
 
             if (res.ok && data.success) {
-                // Buat tag figure dengan figcaption yang bisa diedit langsung
                 const figureHtml = `
 <figure class="my-8">
     <img src="${data.url}" alt="${altText}" class="w-full rounded-xl object-cover max-h-[500px] shadow-sm">
@@ -1524,9 +1470,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // ==========================================
-    // 5B. DRAG & DROP SERTA PASTE GAMBAR KE COMPOSE
-    // ==========================================
     async function directUploadAndInsert(file) {
         if (!file || !file.type.startsWith('image/')) return;
 
@@ -1599,9 +1542,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // ==========================================
-    // 5C. PENGELOLA CAPTION GAMBAR DALAM ARTIKEL
-    // ==========================================
     let selectedEditorImg = null;
 
     editorCompose.addEventListener('click', (e) => {
@@ -1613,7 +1553,6 @@ document.addEventListener('DOMContentLoaded', function () {
             selectedEditorImg = img;
             img.classList.add('ring-2', 'ring-zinc-900', 'dark:ring-white');
 
-            // Pastikan gambar memiliki pembungkus <figure> dan <figcaption>
             let figure = img.closest('figure');
             if (!figure) {
                 figure = document.createElement('figure');
@@ -1687,12 +1626,8 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // ==========================================
-    // 6. SINKRONISASI AKHIR SEBELUM FORM SUBMIT
-    // ==========================================
     const postForm = document.getElementById('post-form');
     postForm.addEventListener('submit', function (e) {
-        // Jika sedang di mode compose, salin innerHTML yang telah dibersihkan ke textarea body
         if (currentMode === 'compose') {
             const clone = editorCompose.cloneNode(true);
             clone.querySelectorAll('img').forEach(img => {
@@ -1711,7 +1646,6 @@ document.addEventListener('DOMContentLoaded', function () {
             editorHtml.value = sanitizeTableHtml(editorHtml.value);
         }
 
-        // Pastikan konten tidak kosong
         if (!editorHtml.value.trim() || editorHtml.value.trim() === '<p><br></p>') {
             e.preventDefault();
             alert('Konten artikel tidak boleh kosong.');

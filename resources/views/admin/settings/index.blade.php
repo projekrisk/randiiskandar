@@ -8,7 +8,7 @@
 <x-admin-layout title="Pengaturan - Randi Iskandar Workspace">
     <div class="w-full font-sans pb-16">
         
-        <!-- Header Halaman -->
+        
         <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
             <div>
                 <h1 class="font-bold text-2xl text-zinc-900 dark:text-white">Pengaturan Workspace</h1>
@@ -16,7 +16,7 @@
             </div>
         </div>
 
-        <!-- Tab Navigasi Pengaturan -->
+        
         <div class="flex items-center gap-2 mb-8 border-b border-zinc-200 dark:border-zinc-800 pb-3 text-xs font-medium overflow-x-auto">
             <a 
                 href="{{ route('admin.settings.index', ['tab' => 'profile']) }}" 
@@ -41,15 +41,13 @@
         </div>
 
         @if($activeTab === 'profile')
-            <!-- ==========================================
-                 TAB 1: PENGATURAN PROFIL PENULIS & BIO
-                 ========================================== -->
+            
             <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xs p-6 sm:p-8 shadow-xs w-full">
                 
                 <form action="{{ route('admin.settings.profile.update') }}" method="POST" enctype="multipart/form-data" class="space-y-8" id="profile-form">
                     @csrf
 
-                    <!-- Sub-heading Profil -->
+                    
                     <div class="flex items-start gap-4 pb-6 border-b border-zinc-100 dark:border-zinc-800">
                         <div class="w-12 h-12 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white flex items-center justify-center text-2xl shrink-0">
                             <i class="ph ph-user"></i>
@@ -62,14 +60,14 @@
                         </div>
                     </div>
 
-                    <!-- Bagian Foto Profil (Avatar) -->
+                    
                     <div class="space-y-4">
                         <label class="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
                             Foto Profil (Avatar)
                         </label>
 
                         <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-                            <!-- Pratinjau Foto Profil -->
+                            
                             <div class="relative group shrink-0">
                                 <img 
                                     id="avatar-preview-img" 
@@ -80,7 +78,7 @@
                             </div>
 
                             <div class="flex-grow space-y-3 w-full sm:w-auto">
-                                <!-- Mode Selector: Upload File vs Tautan URL -->
+                                
                                 <div class="flex items-center gap-2 border border-zinc-200 dark:border-zinc-700 p-0.5 rounded-xs w-fit bg-zinc-50 dark:bg-zinc-800/80 text-xs font-medium">
                                     <button 
                                         type="button" 
@@ -98,7 +96,7 @@
                                     </button>
                                 </div>
 
-                                <!-- Box 1: Unggah Berkas -->
+                                
                                 <div id="avatar-upload-box" class="space-y-2">
                                     <div 
                                         id="avatar-dropzone" 
@@ -121,7 +119,7 @@
                                     </div>
                                 </div>
 
-                                <!-- Box 2: Input URL -->
+                                
                                 <div id="avatar-url-box" class="hidden">
                                     <input 
                                         type="text" 
@@ -133,7 +131,7 @@
                                     >
                                 </div>
 
-                                <!-- Tombol Reset Avatar -->
+                                
                                 <div class="flex items-center gap-2 pt-1">
                                     <input type="hidden" name="remove_avatar" id="remove_avatar" value="0">
                                     <button 
@@ -151,7 +149,7 @@
                         </div>
                     </div>
 
-                    <!-- Nama Penulis -->
+                    
                     <div>
                         <label for="name" class="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-1.5">
                             Nama Lengkap Penulis <span class="text-red-500">*</span>
@@ -168,7 +166,7 @@
                         @error('name') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                     </div>
 
-                    <!-- Bio Penulis -->
+                    
                     <div>
                         <div class="flex items-center justify-between mb-1.5">
                             <label for="bio" class="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
@@ -190,7 +188,7 @@
                         @error('bio') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                     </div>
 
-                    <!-- Tautan Media Sosial -->
+                    
                     <div class="pt-4 border-t border-zinc-100 dark:border-zinc-800 space-y-4">
                         <label class="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
                             Tautan Media Sosial
@@ -225,7 +223,7 @@
                         </div>
                     </div>
 
-                    <!-- Tombol Aksi Simpan -->
+                    
                     <div class="pt-6 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-end">
                         <button 
                             type="submit" 
@@ -240,15 +238,13 @@
             </div>
 
         @elseif($activeTab === 'ads')
-            <!-- ==========================================
-                 TAB 2: PENGATURAN IKLAN (IN-ARTICLE & BOTTOM)
-                 ========================================== -->
+            
             <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xs p-6 sm:p-8 shadow-xs w-full">
                 
                 <form action="{{ route('admin.settings.ads.update') }}" method="POST" class="space-y-10" id="ads-form">
                     @csrf
 
-                    <!-- Sub-heading Iklan -->
+                    
                     <div class="flex items-start gap-4 pb-6 border-b border-zinc-100 dark:border-zinc-800">
                         <div class="w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 flex items-center justify-center text-2xl shrink-0">
                             <i class="ph ph-megaphone"></i>
@@ -261,7 +257,7 @@
                         </div>
                     </div>
 
-                    <!-- SEKSI 1: IKLAN IN-ARTICLE (DALAM ARTIKEL) -->
+                    
                     <div class="p-5 sm:p-6 rounded-xs border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-950/30 space-y-5">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                             <div class="flex items-center gap-2.5">
@@ -271,7 +267,7 @@
                                 </h3>
                             </div>
 
-                            <!-- Toggle Switch: Tampilkan / Tidak -->
+                            
                             <label class="inline-flex items-center gap-2.5 cursor-pointer">
                                 <input 
                                     type="checkbox" 
@@ -308,7 +304,7 @@
                         </div>
                     </div>
 
-                    <!-- SEKSI 2: IKLAN BAWAH ARTIKEL (AKHIR ARTIKEL) -->
+                    
                     <div class="p-5 sm:p-6 rounded-xs border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-950/30 space-y-5">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                             <div class="flex items-center gap-2.5">
@@ -318,7 +314,7 @@
                                 </h3>
                             </div>
 
-                            <!-- Toggle Switch: Tampilkan / Tidak -->
+                            
                             <label class="inline-flex items-center gap-2.5 cursor-pointer">
                                 <input 
                                     type="checkbox" 
@@ -355,7 +351,7 @@
                         </div>
                     </div>
 
-                    <!-- SEKSI 3: REKOMENDASI BACA JUGA OTOMATIS DALAM ARTIKEL -->
+                    
                     <div class="p-5 sm:p-6 rounded-xs border border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-950/30 space-y-4">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                             <div class="flex items-center gap-2.5">
@@ -365,7 +361,7 @@
                                 </h3>
                             </div>
 
-                            <!-- Toggle Switch: Tampilkan / Tidak -->
+                            
                             <label class="inline-flex items-center gap-2.5 cursor-pointer">
                                 <input 
                                     type="checkbox" 
@@ -385,7 +381,7 @@
                         </p>
                     </div>
 
-                    <!-- Tombol Aksi Simpan -->
+                    
                     <div class="pt-6 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-end">
                         <button 
                             type="submit" 
@@ -400,15 +396,13 @@
             </div>
 
         @elseif($activeTab === 'password')
-            <!-- ==========================================
-                 TAB 3: PENGATURAN GANTI KATA SANDI
-                 ========================================== -->
+            
             <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xs p-6 sm:p-8 shadow-xs w-full max-w-2xl">
                 
                 <form action="{{ route('admin.settings.password.update') }}" method="POST" class="space-y-6" id="password-form">
                     @csrf
 
-                    <!-- Sub-heading Ganti Password -->
+                    
                     <div class="flex items-start gap-4 pb-6 border-b border-zinc-100 dark:border-zinc-800">
                         <div class="w-12 h-12 rounded-full bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center text-2xl shrink-0">
                             <i class="ph ph-shield-check"></i>
@@ -421,7 +415,7 @@
                         </div>
                     </div>
 
-                    <!-- Input 1: Kata Sandi Saat Ini -->
+                    
                     <div class="space-y-2">
                         <label for="current_password" class="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
                             Kata Sandi Saat Ini <span class="text-red-500">*</span>
@@ -452,7 +446,7 @@
                         @enderror
                     </div>
 
-                    <!-- Input 2: Kata Sandi Baru -->
+                    
                     <div class="space-y-2">
                         <label for="password" class="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
                             Kata Sandi Baru <span class="text-red-500">*</span>
@@ -486,7 +480,7 @@
                         @enderror
                     </div>
 
-                    <!-- Input 3: Konfirmasi Kata Sandi Baru -->
+                    
                     <div class="space-y-2">
                         <label for="password_confirmation" class="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300">
                             Konfirmasi Kata Sandi Baru <span class="text-red-500">*</span>
@@ -517,7 +511,7 @@
                         @enderror
                     </div>
 
-                    <!-- Info Box Panduan Keamanan -->
+                    
                     <div class="p-4 rounded-xs bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-800 flex items-start gap-3">
                         <i class="ph ph-info text-lg text-zinc-600 dark:text-zinc-300 shrink-0 mt-0.5"></i>
                         <div class="text-xs text-zinc-600 dark:text-zinc-400 space-y-1">
@@ -526,7 +520,7 @@
                         </div>
                     </div>
 
-                    <!-- Tombol Aksi Simpan -->
+                    
                     <div class="pt-6 border-t border-zinc-100 dark:border-zinc-800 flex items-center justify-end">
                         <button 
                             type="submit" 
@@ -543,10 +537,9 @@
 
     </div>
 
-    <!-- Script Avatar Interaktif & Karakter Counter -->
+    
     <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // 1. Karakter Counter Bio
         const bioTextarea = document.getElementById('bio');
         const bioCounter = document.getElementById('bio-counter');
         if (bioTextarea && bioCounter) {
@@ -557,7 +550,6 @@
             updateCounter();
         }
 
-        // 2. Avatar Switcher & Preview
         const tabUpload = document.getElementById('tab-avatar-upload');
         const tabUrl = document.getElementById('tab-avatar-url');
         const uploadBox = document.getElementById('avatar-upload-box');
@@ -643,7 +635,6 @@
             });
         }
 
-        // 3. Toggle Visibility Password
         document.querySelectorAll('[data-toggle-password]').forEach(button => {
             button.addEventListener('click', () => {
                 const targetId = button.getAttribute('data-toggle-password');

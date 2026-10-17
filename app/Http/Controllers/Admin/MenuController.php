@@ -25,7 +25,7 @@ class MenuController extends Controller
         $pages = Page::published()->select('id', 'title', 'slug')->orderBy('title')->get();
 
         $systemRoutes = [
-            ['label' => 'Beranda (Esai)', 'url' => '/'],
+            ['label' => 'Beranda', 'url' => '/'],
             ['label' => 'Arsip Publikasi', 'url' => '/arsip'],
             ['label' => 'Tentang Penulis', 'url' => '/tentang'],
             ['label' => 'Hubungi Saya (Kontak)', 'url' => '/kontak'],
@@ -81,7 +81,7 @@ class MenuController extends Controller
         $pages = Page::published()->select('id', 'title', 'slug')->orderBy('title')->get();
 
         $systemRoutes = [
-            ['label' => 'Beranda (Esai)', 'url' => '/'],
+            ['label' => 'Beranda', 'url' => '/'],
             ['label' => 'Arsip Publikasi', 'url' => '/arsip'],
             ['label' => 'Tentang Penulis', 'url' => '/tentang'],
             ['label' => 'Hubungi Saya (Kontak)', 'url' => '/kontak'],

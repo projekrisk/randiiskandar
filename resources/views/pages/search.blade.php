@@ -1,9 +1,8 @@
 <x-layout 
-    :title="'Pencarian: ' . ($query ?: 'Artikel') . ' - Randi Iskandar Workspace'"
-    description="Hasil pencarian tulisan dan esai di blog Randi Iskandar Workspace."
+    :title="'Pencarian: ' . ($query ?: 'Artikel') . ' - Randi Iskandar'"
+    description="Hasil pencarian tulisan dan artikel di blog Randi Iskandar."
 >
     <main class="w-full max-w-5xl mx-auto px-5 sm:px-8 flex-grow pt-32 pb-20">
-        
         <header class="mb-12 border-b border-zinc-200 dark:border-zinc-800 pb-8">
             <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400 mb-4 font-sans">
                 <i class="ph ph-magnifying-glass text-base"></i> Hasil Penelusuran
@@ -32,6 +31,5 @@
                 </div>
             @endforelse
         </div>
-
     </main>
 </x-layout>

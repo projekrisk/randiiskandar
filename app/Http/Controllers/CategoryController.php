@@ -10,9 +10,6 @@ use Illuminate\Support\Facades\Cache;
 
 class CategoryController extends Controller
 {
-    /**
-     * Tampilkan Arsip Artikel Berdasarkan Kategori (/kategori/{slug})
-     */
     public function show(Request $request, string $slug): View
     {
         $category = Category::where('slug', $slug)->firstOrFail();
@@ -29,9 +26,6 @@ class CategoryController extends Controller
         ]);
     }
 
-    /**
-     * Tampilkan Semua Arsip Kategori & Tulisan (/arsip)
-     */
     public function index(Request $request): View
     {
         $categories = Category::withCount(['posts' => fn ($q) => $q->published()])->get();

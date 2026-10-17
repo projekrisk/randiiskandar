@@ -1,10 +1,9 @@
 <x-layout 
-    title="Hubungi Saya - Randi Iskandar Workspace"
-    description="Informasi kontak langsung, alamat kerja, dan media sosial Randi Iskandar Workspace."
+    title="Hubungi Saya - Randi Iskandar"
+    description="Informasi kontak langsung, alamat kerja, dan media sosial Randi Iskandar."
 >
     <main class="w-full max-w-2xl mx-auto px-5 sm:px-8 flex-grow pt-32 pb-24 font-sans">
         
-        <!-- Header Halaman Minimalis -->
         <header class="mb-14">
             <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-zinc-400 mb-3">
                 <i class="ph ph-paper-plane-tilt text-base"></i> Kontak
@@ -13,14 +12,12 @@
                 Mari Terhubung.
             </h1>
             <p class="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed font-sans">
-                Saya selalu terbuka untuk mendiskusikan peluang kerja sama baru, konsultasi desain antarmuka, penulisan esai, atau sekadar bertukar sapa.
+                Saya selalu terbuka untuk mendiskusikan peluang kolaborasi proyek, konsultasi teknologi, penulisan artikel, atau sekadar bertukar sapa.
             </p>
         </header>
 
-        <!-- Daftar Kontak Minimalis -->
         <div class="space-y-8 border-t border-zinc-200 dark:border-zinc-800 pt-10">
             
-            <!-- 1. Email -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-6 items-baseline">
                 <span class="text-xs font-bold uppercase tracking-wider text-zinc-400">
                     Surel Elektronik (Email)
@@ -43,7 +40,6 @@
 
             <div class="w-full h-px bg-zinc-100 dark:bg-zinc-800/60"></div>
 
-            <!-- 2. Alamat & Lokasi -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-6 items-baseline">
                 <span class="text-xs font-bold uppercase tracking-wider text-zinc-400">
                     Alamat Kerja
@@ -60,7 +56,6 @@
 
             <div class="w-full h-px bg-zinc-100 dark:bg-zinc-800/60"></div>
 
-            <!-- 3. Media Sosial -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-6 items-baseline">
                 <span class="text-xs font-bold uppercase tracking-wider text-zinc-400">
                     Media Sosial

@@ -1,7 +1,7 @@
 <x-admin-layout title="Kelola Menu Navigasi - Randi Iskandar Workspace">
     <div class="w-full font-sans pb-16">
         
-        <!-- Header dengan Tombol Tambah Modal -->
+        
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
             <div>
                 <h1 class="font-bold text-2xl text-zinc-900 dark:text-white">Kelola Menu Navigasi</h1>
@@ -19,10 +19,10 @@
             </div>
         </div>
 
-        <!-- Konten Utama: Daftar Menu Navigasi (Lebar Penuh) -->
+        
         <div class="w-full space-y-6">
             
-            <!-- Tab Pilihan: Header vs Footer -->
+            
             <div class="flex items-center gap-2 border-b border-zinc-200 dark:border-zinc-800 pb-3">
                 <a 
                     href="{{ route('admin.menus.index', ['tab' => 'header']) }}"
@@ -44,7 +44,7 @@
                 $displayedMenus = $activeTab === 'footer' ? $footerMenus : $headerMenus;
             @endphp
 
-            <!-- Tabel Menu -->
+            
             <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xs overflow-hidden shadow-xs">
                 <div class="p-4 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
                     <div>
@@ -72,7 +72,7 @@
                         <tbody class="divide-y divide-zinc-200 dark:divide-zinc-800 text-xs">
                             @forelse($displayedMenus as $index => $item)
                                 <tr class="hover:bg-zinc-50/80 dark:hover:bg-zinc-800/40 transition-colors">
-                                    <!-- Tombol Urutan Naik / Turun -->
+                                    
                                     <td class="px-4 py-3.5 text-center">
                                         <div class="flex items-center justify-center gap-1">
                                             <form action="{{ route('admin.menus.reorder') }}" method="POST" class="inline">
@@ -107,7 +107,7 @@
                                         </div>
                                     </td>
 
-                                    <!-- Label Menu -->
+                                    
                                     <td class="px-5 py-3.5">
                                         <div class="font-bold text-sm text-zinc-900 dark:text-white flex items-center gap-1.5">
                                             <span>{{ $item->label }}</span>
@@ -119,14 +119,14 @@
                                         </div>
                                     </td>
 
-                                    <!-- URL Tautan -->
+                                    
                                     <td class="px-5 py-3.5 font-mono text-zinc-500 dark:text-zinc-400 max-w-xs truncate">
                                         <a href="{{ $item->url }}" target="_blank" class="hover:underline">
                                             {{ $item->url }}
                                         </a>
                                     </td>
 
-                                    <!-- Lokasi -->
+                                    
                                     <td class="px-4 py-3.5">
                                         @if($item->location === 'both')
                                             <span class="px-2 py-0.5 rounded-xs text-[10px] font-bold bg-purple-100 dark:bg-purple-950/60 text-purple-800 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
@@ -143,7 +143,7 @@
                                         @endif
                                     </td>
 
-                                    <!-- Status -->
+                                    
                                     <td class="px-4 py-3.5">
                                         @if($item->is_active)
                                             <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-400">
@@ -158,10 +158,10 @@
                                         @endif
                                     </td>
 
-                                    <!-- Aksi -->
+                                    
                                     <td class="px-5 py-3.5 text-right">
                                         <div class="flex items-center justify-end gap-2">
-                                            <!-- Tombol Edit Modal -->
+                                            
                                             <button 
                                                 type="button"
                                                 class="btn-edit-menu p-1.5 text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors cursor-pointer"
@@ -178,7 +178,7 @@
                                                 <i class="ph ph-note-pencil text-base"></i>
                                             </button>
 
-                                            <!-- Tombol Hapus dengan Modal Konfirmasi Universal -->
+                                            
                                             <button 
                                                 type="button" 
                                                 class="btn-delete-trigger p-1.5 text-zinc-400 hover:text-red-600 transition-colors cursor-pointer"
@@ -211,7 +211,7 @@
 
     </div>
 
-    <!-- MODAL TAMBAH MENU BARU -->
+    
     <div 
         id="create-menu-modal" 
         class="fixed inset-0 bg-zinc-950/75 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-200"
@@ -237,7 +237,7 @@
                 @csrf
                 <input type="hidden" name="_source" value="modal_create_menu">
                 
-                <!-- Shortcut Dropdown: Pilih dari Halaman Statis / Rute Sistem -->
+                
                 <div>
                     <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">
                         Pilih Tautan Cepat <span class="text-zinc-400 font-normal">(Opsional)</span>
@@ -386,7 +386,7 @@
         </div>
     </div>
 
-    <!-- MODAL EDIT MENU -->
+    
     <div 
         id="edit-menu-modal" 
         class="fixed inset-0 bg-zinc-950/75 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-200"
@@ -412,7 +412,7 @@
                 @csrf
                 @method('PUT')
                 
-                <!-- Preset Dropdown untuk Edit -->
+                
                 <div>
                     <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1">
                         Pilih Tautan Cepat <span class="text-zinc-400 font-normal">(Ubah Cepat)</span>
@@ -553,7 +553,6 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Modal Tambah Menu
     const createModal = document.getElementById('create-menu-modal');
     const createCard = document.getElementById('create-menu-card');
     const btnOpenCreate = document.getElementById('btn-open-create-menu');
@@ -597,7 +596,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 2. Modal Edit Menu
     const editModal = document.getElementById('edit-menu-modal');
     const editCard = document.getElementById('edit-menu-card');
     const editForm = document.getElementById('edit-menu-form');
@@ -667,7 +665,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Backdrop click to close modals
     createModal?.addEventListener('click', function (e) {
         if (e.target === createModal) closeCreateModal();
     });
@@ -676,7 +673,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target === editModal) closeEditModal();
     });
 
-    // Escape key to close any open modal
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') {
             if (!createModal.classList.contains('hidden')) closeCreateModal();

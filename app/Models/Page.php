@@ -6,15 +6,13 @@ use Database\Factories\PageFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Page extends Model
 {
     /** @use HasFactory<PageFactory> */
     use HasFactory;
 
-    /**
-     * @var array<int, string>
-     */
     protected $fillable = [
         'title',
         'slug',
@@ -25,27 +23,26 @@ class Page extends Model
         'is_published',
     ];
 
-    /**
-     * @var array<string, string>
-     */
     protected $casts = [
         'is_published' => 'boolean',
     ];
 
-    /**
-     * Scope query to published pages only.
-     *
-     * @param  Builder<Page>  $query
-     * @return Builder<Page>
-     */
-    public function scopePublished($query)
+    protected static function booted(): void
+    {
+        static::saved(function (self $page) {
+            Cache::forget('sitemap_xml_content');
+        });
+
+        static::deleted(function (self $page) {
+            Cache::forget('sitemap_xml_content');
+        });
+    }
+
+    public function scopePublished(Builder $query): Builder
     {
         return $query->where('is_published', true);
     }
 
-    /**
-     * Get estimated reading time in minutes.
-     */
     public function getReadingTimeAttribute(): int
     {
         $wordCount = str_word_count(strip_tags($this->body));
@@ -53,9 +50,6 @@ class Page extends Model
         return max(1, (int) ceil($wordCount / 200));
     }
 
-    /**
-     * Parse konten body dan sematkan loading="lazy" dan decoding="async" pada semua gambar inline.
-     */
     public function getParsedBodyAttribute(): string
     {
         if (empty($this->body)) {

@@ -30,9 +30,6 @@ class PostView extends Model
         return $this->belongsTo(Post::class);
     }
 
-    /**
-     * Catat atau tambahkan 1 view untuk artikel pada tanggal hari ini
-     */
     public static function recordView(int $postId, ?string $date = null): void
     {
         $viewedDate = $date ?? Carbon::today()->toDateString();

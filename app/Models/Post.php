@@ -33,11 +33,6 @@ class Post extends Model
         'published_at',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
@@ -49,21 +44,20 @@ class Post extends Model
         ];
     }
 
-    /**
-     * Boot the model and clear related caches on create, update, or delete.
-     */
     protected static function booted(): void
     {
         static::saved(function (self $post) {
             Cache::forget('all_published_posts_count');
+            Cache::forget('sitemap_xml_content');
+            Cache::forget('feed_rss_content');
         });
 
         static::deleted(function (self $post) {
             Cache::forget('all_published_posts_count');
+            Cache::forget('sitemap_xml_content');
+            Cache::forget('feed_rss_content');
         });
     }
-
-    // --- RELATIONSHIPS ---
 
     public function author(): BelongsTo
     {
@@ -93,8 +87,6 @@ class Post extends Model
             ->with(['replies' => fn ($q) => $q->where('is_approved', true)->with('author')]);
     }
 
-    // --- SCOPES ---
-
     public function scopePublished(Builder $query): Builder
     {
         return $query->where('status', 'published')
@@ -108,12 +100,6 @@ class Post extends Model
         return $query->published()->where('is_featured', true);
     }
 
-    // --- ACCESSORS & MUTATORS ---
-
-    /**
-     * Memastikan konten body selalu bersih dari blok manual BACA JUGA
-     * dan format tabel selalu semantic murni tanpa parameter class atau style inline.
-     */
     protected function body(): Attribute
     {
         return Attribute::make(
@@ -121,9 +107,6 @@ class Post extends Model
         );
     }
 
-    /**
-     * Otomatis membuat meta description dari excerpt atau 150 karakter pertama body.
-     */
     protected function metaDescription(): Attribute
     {
         return Attribute::make(
@@ -140,9 +123,6 @@ class Post extends Model
         );
     }
 
-    /**
-     * Estimasi waktu baca (rata-rata 200 kata per menit).
-     */
     protected function readingTime(): Attribute
     {
         return Attribute::make(
@@ -155,9 +135,6 @@ class Post extends Model
         );
     }
 
-    /**
-     * Format tanggal Indonesia standar editorial (e.g. 16 Oktober 2026).
-     */
     protected function formattedPublishedAt(): Attribute
     {
         return Attribute::make(
@@ -167,11 +144,6 @@ class Post extends Model
         );
     }
 
-    /**
-     * Generate otomatis Daftar Isi (TOC) dari tag H2 dan H3 pada konten body.
-     *
-     * @return array<int, array{id: string, text: string, level: int}>
-     */
     public function getTableOfContentsAttribute(): array
     {
         $toc = [];
@@ -196,10 +168,6 @@ class Post extends Model
         return $toc;
     }
 
-    /**
-     * Menyisipkan id pada tag H2 dan H3 agar link TOC dapat melakukan scroll smooth,
-     * serta mengoptimalkan tag <img> dengan loading="lazy" dan decoding="async".
-     */
     public function getParsedBodyAttribute(): string
     {
         if (empty($this->body)) {
@@ -208,7 +176,6 @@ class Post extends Model
 
         $cleanedBody = static::cleanTableHtml($this->body);
 
-        // Tambahkan id ke tag H2 dan H3 untuk TOC
         $parsed = preg_replace_callback(
             '/<(h[2-3])([^>]*)>(.*?)<\/\1>/i',
             function ($matches) {
@@ -217,7 +184,6 @@ class Post extends Model
                 $content = $matches[3];
                 $slug = Str::slug(strip_tags($content));
 
-                // Jika sudah ada id, biarkan. Jika belum, tambahkan id.
                 if (! preg_match('/id=[\'"][^\'"]*[\'"]/i', $attrs)) {
                     return "<{$tag}{$attrs} id=\"{$slug}\">{$content}</{$tag}>";
                 }
@@ -227,7 +193,6 @@ class Post extends Model
             $cleanedBody
         );
 
-        // Optimalkan semua gambar inline dalam artikel dengan loading="lazy" dan decoding="async"
         return preg_replace_callback('/<img\b([^>]*)>/i', function ($matches) {
             $attrs = $matches[1];
 
@@ -243,10 +208,6 @@ class Post extends Model
         }, $parsed);
     }
 
-    /**
-     * Mendapatkan 1 artikel rekomendasi acak (Random) untuk disisipkan sebagai "Baca Juga".
-     * Mengutamakan kategori yang sama secara acak, atau fallback ke artikel acak lainnya bila belum ada artikel lain sekategori.
-     */
     public function getRelatedCategoryPost(): ?self
     {
         if ($this->relationLoaded('relatedCategoryPost')) {
@@ -255,7 +216,6 @@ class Post extends Model
 
         $related = null;
 
-        // 1. Coba ambil artikel acak dari kategori yang sama
         if ($this->category_id) {
             $related = self::query()
                 ->published()
@@ -267,7 +227,6 @@ class Post extends Model
                 ->first();
         }
 
-        // 2. Jika tidak ada artikel lain dalam kategori yang sama, ambil artikel acak dari kategori lain
         if (! $related) {
             $related = self::query()
                 ->published()
@@ -283,9 +242,6 @@ class Post extends Model
         return $related;
     }
 
-    /**
-     * Membersihkan blok BACA JUGA dari konten artikel (sehingga tidak muncul di teks editor)
-     */
     public static function stripBacaJuga(?string $content): string
     {
         if (empty($content)) {
@@ -296,13 +252,11 @@ class Post extends Model
             return $content;
         }
 
-        // Pola 1: Div berkelas 'not-prose' yang memuat kartu rekomendasi BACA JUGA beserta seluruh anak elemennya
         $patternNotProse = '/<div\b[^>]*\bnot-prose\b[^>]*>(?:[^<]+|<(?!\/?div\b)|(?<rec1><div\b[^>]*>(?:[^<]+|<(?!\/?div\b)|(?&rec1))*<\/div>))*<\/div>/is';
         $cleaned = preg_replace_callback($patternNotProse, function ($matches) {
             return (stripos($matches[0], 'BACA JUGA') !== false) ? '' : $matches[0];
         }, $content);
 
-        // Pola 2: Div umum yang memuat BACA JUGA (jika tidak menggunakan kelas not-prose)
         if (stripos($cleaned, 'BACA JUGA') !== false) {
             $patternDiv = '/<div\b[^>]*>(?:[^<]+|<(?!\/?div\b)|(?<rec2><div\b[^>]*>(?:[^<]+|<(?!\/?div\b)|(?&rec2))*<\/div>))*<\/div>/is';
             $cleaned = preg_replace_callback($patternDiv, function ($matches) {
@@ -310,7 +264,6 @@ class Post extends Model
             }, $cleaned);
         }
 
-        // Pola 3: Format paragraf manual seperti <p><strong>BACA JUGA:</strong> ...</p>
         if (stripos($cleaned, 'BACA JUGA') !== false) {
             $patternP = '/<p\b[^>]*>\s*(?:<strong>|<b>)?\s*BACA\s+JUGA(?:\s*:)?\s*(?:<\/strong>|<\/b>)?[\s\S]*?<\/p>/i';
             $cleaned = preg_replace($patternP, '', $cleaned);
@@ -319,30 +272,23 @@ class Post extends Model
         return trim((string) $cleaned);
     }
 
-    /**
-     * Membersihkan tabel HTML dari parameter class, style, dan atribut styling inline lainnya
-     * agar tabel tersimpan sebagai HTML murni semantic (table, thead, tbody, tr, th, td).
-     */
     public static function cleanTableHtml(?string $content): string
     {
         if (empty($content) || stripos($content, '<table') === false) {
             return (string) ($content ?? '');
         }
 
-        // 1. Lepas (unwrap) container pembungkus div overflow-x-auto / table-scroll-container / not-prose
         $patternWrapper = '/<div[^>]*class=["\'][^"\']*(?:overflow-x-auto|table-scroll-container|table-responsive|article-table-wrapper)[^"\']*["\'][^>]*>\s*(<table[\s\S]*?<\/table>)\s*<\/div>/i';
         while (preg_match($patternWrapper, $content)) {
             $content = preg_replace($patternWrapper, '$1', $content);
         }
 
-        // 2. Bersihkan atribut class, style, border, dsb dari seluruh tag tabel
         $tags = ['table', 'thead', 'tbody', 'tfoot', 'tr', 'th', 'td', 'colgroup', 'col', 'caption'];
         foreach ($tags as $tag) {
             $content = preg_replace_callback('/<('.$tag.')\b([^>]*)>/i', function ($m) {
                 $tagName = strtolower($m[1]);
                 $attrs = $m[2];
 
-                // Pertahankan hanya atribut struktural esensial jika ada (colspan, rowspan, scope)
                 $kept = '';
                 if (preg_match('/colspan=["\'](\d+)["\']/i', $attrs, $cs)) {
                     $kept .= ' colspan="'.$cs[1].'"';
@@ -361,13 +307,8 @@ class Post extends Model
         return trim((string) $content);
     }
 
-    /**
-     * Menyisipkan slot iklan in-article dan kartu rekomendasi "Baca Juga" otomatis
-     * dari kategori yang sama ke dalam sela paragraf artikel.
-     */
     public function getBodyWithInjectedAdAttribute(): string
     {
-        // Pastikan konten dasar bersih dari blok manual BACA JUGA agar selalu otomatis
         $body = static::stripBacaJuga($this->parsed_body);
 
         $adEnabled = Setting::get('ad_in_article_enabled', '1') !== '0';
@@ -378,12 +319,10 @@ class Post extends Model
             : null;
         $bacaJugaEnabled = ($relatedPost !== null);
 
-        // Jika iklan maupun baca juga tidak aktif, kembalikan body asli
         if (! $adEnabled && ! $bacaJugaEnabled) {
             return $body;
         }
 
-        // Cari semua kemunculan penutup </p>
         $parts = preg_split('/(<\/p>)/i', $body, -1, PREG_SPLIT_DELIM_CAPTURE);
         $pCount = 0;
         foreach ($parts as $part) {
@@ -400,23 +339,16 @@ class Post extends Model
             return $body;
         }
 
-        // Tentukan target nomor paragraf untuk Iklan dan Baca Juga
         $targetAdP = -1;
         $targetBacaJugaP = -1;
 
         if ($bacaJugaEnabled) {
-            // Sesuai permintaan: BACA JUGA muncul setelah paragraf 3
-            // (Jika artikel memiliki kurang dari 3 paragraf, disisipkan di paragraf terakhir)
             $targetBacaJugaP = ($pCount >= 3) ? 3 : $pCount;
         }
 
         if ($adEnabled) {
             if ($bacaJugaEnabled) {
-                if ($pCount >= 3) {
-                    $targetAdP = 1; // Iklan di p1, BACA JUGA setelah p3
-                } else {
-                    $targetAdP = 1;
-                }
+                $targetAdP = 1;
             } else {
                 $targetAdP = ($pCount >= 3) ? 3 : (($pCount >= 2) ? 2 : 1);
             }
@@ -433,13 +365,11 @@ class Post extends Model
             if (strtolower($parts[$i]) === '</p>') {
                 $currentP++;
 
-                // Sisipkan Iklan jika giliran
                 if ($adEnabled && ! $adInjected && $currentP === $targetAdP) {
                     $output .= view('components.ad-in-article')->render();
                     $adInjected = true;
                 }
 
-                // Sisipkan Baca Juga jika giliran
                 if ($bacaJugaEnabled && ! $bacaJugaInjected && $currentP === $targetBacaJugaP) {
                     $output .= view('components.baca-juga', ['post' => $relatedPost])->render();
                     $bacaJugaInjected = true;
@@ -450,11 +380,6 @@ class Post extends Model
         return $output;
     }
 
-    /**
-     * Mendapatkan daftar tags sebagai array string rapi.
-     *
-     * @return array<int, string>
-     */
     public function getTagsListAttribute(): array
     {
         if (empty($this->tags)) {
@@ -473,11 +398,6 @@ class Post extends Model
         return array_values(array_filter(array_map('trim', explode(',', $this->tags))));
     }
 
-    /**
-     * Mengambil seluruh daftar tag unik yang pernah dibuat di seluruh artikel.
-     *
-     * @return array<int, string>
-     */
     public static function getAllUsedTags(): array
     {
         $rawTags = static::query()
@@ -486,7 +406,7 @@ class Post extends Model
             ->pluck('tags');
 
         $tagMap = [];
-        $defaultTags = ['Editorial', 'Tipografi', 'Desain Web', 'Arsitektur Web', 'Tutorial', 'AI', 'UI/UX', 'Minimalisme', 'PHP', 'Laravel'];
+        $defaultTags = ['Opini', 'Teknologi', 'Tutorial', 'Portofolio', 'Laravel', 'PHP', 'JavaScript', 'Web'];
 
         foreach ($defaultTags as $dt) {
             $tagMap[trim($dt)] = true;

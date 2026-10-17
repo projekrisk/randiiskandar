@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
-use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +27,7 @@ class SettingController extends Controller
         $adBottomCode = Setting::get('ad_bottom_code', '');
         $bacaJugaEnabled = Setting::get('baca_juga_enabled', '1');
         $socialGithub = Setting::get('social_github', 'https://github.com/randiiskandar');
-        $socialInstagram = Setting::get('social_instagram', 'https://instagram.com/randi.iskandar');
+        $socialInstagram = Setting::get('social_instagram', 'https://instagram.com/r.and.i');
 
         return view('admin.settings.index', [
             'user' => $user,
@@ -45,7 +44,6 @@ class SettingController extends Controller
 
     public function updateProfile(Request $request): RedirectResponse
     {
-        /** @var User $user */
         $user = Auth::user();
 
         $validated = $request->validate([
@@ -76,7 +74,7 @@ class SettingController extends Controller
             Setting::set('social_github', $validated['social_github'] ?: 'https://github.com/randiiskandar');
         }
         if ($request->has('social_instagram')) {
-            Setting::set('social_instagram', $validated['social_instagram'] ?: 'https://instagram.com/randi.iskandar');
+            Setting::set('social_instagram', $validated['social_instagram'] ?: 'https://instagram.com/r.and.i');
         }
 
         return redirect()->route('admin.settings.index', ['tab' => 'profile'])
@@ -109,7 +107,6 @@ class SettingController extends Controller
 
     public function updatePassword(Request $request): RedirectResponse
     {
-        /** @var User $user */
         $user = Auth::user();
 
         $validated = $request->validate([

@@ -14,20 +14,12 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class AnalyticsController extends Controller
 {
-    /**
-     * Nama-nama bulan dalam bahasa Indonesia
-     *
-     * @var array<int, string>
-     */
     protected array $indonesianMonths = [
         1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',
         5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus',
         9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember',
     ];
 
-    /**
-     * Tampilkan Halaman Laporan & Analitik Tayangan, Komentar, dan Artikel
-     */
     public function index(Request $request): View
     {
         $currentYear = (int) Carbon::now()->year;
@@ -35,7 +27,6 @@ class AnalyticsController extends Controller
         $selectedMonth = $request->filled('month') ? (int) $request->input('month') : null;
         $selectedCategoryId = $request->filled('category_id') ? (int) $request->input('category_id') : null;
 
-        // Dapatkan semua tahun yang tersedia dari data
         $postYears = Post::query()
             ->whereNotNull('published_at')
             ->pluck('published_at')
@@ -52,10 +43,8 @@ class AnalyticsController extends Controller
         $availableYears = array_values(array_unique(array_merge([$currentYear], $postYears, $viewYears)));
         rsort($availableYears);
 
-        // Kategori untuk dropdown filter
         $categories = Category::orderBy('name')->get();
 
-        // Rekapitulasi 12 bulan untuk tahun yang dipilih
         $monthlyBreakdown = [];
         $chartLabels = [];
         $chartViews = [];
@@ -66,7 +55,6 @@ class AnalyticsController extends Controller
             $monthName = $this->indonesianMonths[$m];
             $chartLabels[] = $monthName;
 
-            // Hitung views
             $viewQuery = PostView::query()
                 ->whereYear('viewed_date', $selectedYear)
                 ->whereMonth('viewed_date', $m);
@@ -76,7 +64,6 @@ class AnalyticsController extends Controller
             }
             $views = (int) $viewQuery->sum('views');
 
-            // Hitung komentar
             $commentQuery = Comment::query()
                 ->whereYear('created_at', $selectedYear)
                 ->whereMonth('created_at', $m);
@@ -87,7 +74,6 @@ class AnalyticsController extends Controller
             $commentsCount = (int) $commentQuery->count();
             $approvedCommentsCount = (int) (clone $commentQuery)->where('is_approved', true)->count();
 
-            // Hitung artikel diterbitkan
             $postQuery = Post::query()
                 ->published()
                 ->whereYear('published_at', $selectedYear)
@@ -115,7 +101,6 @@ class AnalyticsController extends Controller
             ];
         }
 
-        // Metrik Ringkasan (KPI Cards) berdasarkan filter
         if ($selectedMonth) {
             $currentSummary = $monthlyBreakdown[$selectedMonth];
             $totalViews = $currentSummary['views'];
@@ -134,7 +119,6 @@ class AnalyticsController extends Controller
         $avgViewsPerPost = $totalPosts > 0 ? (int) round($totalViews / $totalPosts) : 0;
         $engagementRate = $totalViews > 0 ? round((($totalComments + $totalClaps) / $totalViews) * 100, 2) : 0.0;
 
-        // Distribusi Kategori
         $categoryBreakdown = [];
         $categoryChartLabels = [];
         $categoryChartViews = [];
@@ -184,7 +168,6 @@ class AnalyticsController extends Controller
             $categoryChartViews[] = $catViews;
         }
 
-        // Top 10 Tulisan Terpopuler
         $topPostsQuery = Post::query()
             ->published()
             ->with(['category'])
@@ -202,7 +185,6 @@ class AnalyticsController extends Controller
 
         $topPosts = $topPostsQuery->orderByDesc('views_count')->limit(10)->get();
 
-        // Data Top 5 untuk Horizontal Bar Chart
         $topChartLabels = [];
         $topChartViews = [];
         foreach ($topPosts->take(5) as $top) {
@@ -238,9 +220,6 @@ class AnalyticsController extends Controller
         ]);
     }
 
-    /**
-     * Unduh Laporan Rekapitulasi Analitik dalam format CSV
-     */
     public function exportCsv(Request $request): StreamedResponse
     {
         $selectedYear = (int) $request->input('year', Carbon::now()->year);
@@ -259,16 +238,13 @@ class AnalyticsController extends Controller
                 return;
             }
 
-            // Menulis UTF-8 BOM agar Excel menampilkan aksen bahasa dengan benar
             fwrite($file, "\xEF\xBB\xBF");
 
-            // Header Laporan
             fputcsv($file, ['LAPORAN ANALITIK TAYANGAN, KOMENTAR, DAN ARTIKEL - RANDI ISKANDAR']);
             fputcsv($file, ['Tahun Laporan', (string) $selectedYear]);
             fputcsv($file, ['Tanggal Unduh', Carbon::now()->translatedFormat('d F Y H:i')]);
             fputcsv($file, []);
 
-            // Baris Judul Kolom Bulanan
             fputcsv($file, [
                 'No',
                 'Bulan',
@@ -314,7 +290,6 @@ class AnalyticsController extends Controller
                 ]);
             }
 
-            // Baris Total Akumulasi
             fputcsv($file, []);
             fputcsv($file, [
                 'TOTAL',
