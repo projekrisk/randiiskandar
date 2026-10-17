@@ -61,24 +61,51 @@
             @error('slug') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        @php
+            $selectedCategoryIds = old('category_ids');
+            if ($selectedCategoryIds === null) {
+                if ($post && $post->categories->isNotEmpty()) {
+                    $selectedCategoryIds = $post->categories->pluck('id')->all();
+                } elseif ($post && $post->category_id) {
+                    $selectedCategoryIds = [$post->category_id];
+                } elseif (old('category_id')) {
+                    $selectedCategoryIds = [(int) old('category_id')];
+                } else {
+                    $selectedCategoryIds = [];
+                }
+            }
+            $selectedCategoryIds = array_map('intval', (array) $selectedCategoryIds);
+        @endphp
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 items-start">
             <div>
-                <label for="category_id" class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400 mb-1.5">
-                    Kategori <span class="text-red-500">*</span>
-                </label>
-                <select 
-                    name="category_id" 
-                    id="category_id" 
-                    required 
-                    class="w-full bg-zinc-50 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700 rounded-xs px-3.5 py-2 text-xs sm:text-sm text-zinc-900 dark:text-white focus:outline-none focus:border-zinc-900 dark:focus:border-white transition-colors cursor-pointer"
-                >
-                    <option value="">Pilih Kategori</option>
-                    @foreach($categories as $category)
-                        <option value="{{ $category->id }}" {{ old('category_id', $post?->category_id) == $category->id ? 'selected' : '' }}>
-                            {{ $category->name }}
-                        </option>
-                    @endforeach
-                </select>
+                <div class="flex items-center justify-between mb-1.5">
+                    <label class="block text-xs font-bold uppercase tracking-wider text-zinc-600 dark:text-zinc-400">
+                        Kategori <span class="text-red-500">*</span>
+                    </label>
+                    <span class="text-[11px] text-zinc-400 font-normal">Bisa pilih lebih dari satu</span>
+                </div>
+                <div class="flex flex-wrap gap-2 p-2.5 bg-zinc-50 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700 rounded-xs min-h-[44px] items-center">
+                    @forelse($categories as $category)
+                        @php
+                            $isSelected = in_array($category->id, $selectedCategoryIds);
+                        @endphp
+                        <label class="category-chip cursor-pointer select-none inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all duration-150 {{ $isSelected ? 'bg-zinc-900 text-white border-zinc-900 dark:bg-white dark:text-zinc-900 dark:border-white shadow-xs font-semibold' : 'bg-white dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 border-zinc-200 dark:border-zinc-700 hover:border-zinc-400 dark:hover:border-zinc-500' }}">
+                            <input 
+                                type="checkbox" 
+                                name="category_ids[]" 
+                                value="{{ $category->id }}" 
+                                {{ $isSelected ? 'checked' : '' }} 
+                                class="sr-only category-checkbox"
+                            >
+                            <i class="ph {{ $isSelected ? 'ph-check-bold' : 'ph-plus' }} text-[11px] chip-icon"></i>
+                            <span>{{ $category->name }}</span>
+                        </label>
+                    @empty
+                        <span class="text-xs text-zinc-400">Belum ada kategori tersedia.</span>
+                    @endforelse
+                </div>
+                @error('category_ids') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                 @error('category_id') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
             </div>
 
@@ -1616,8 +1643,37 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    document.querySelectorAll('.category-checkbox').forEach(cb => {
+        cb.addEventListener('change', () => {
+            const chip = cb.closest('.category-chip');
+            const icon = chip?.querySelector('.chip-icon');
+            if (cb.checked) {
+                chip?.classList.remove('bg-white', 'dark:bg-zinc-900', 'text-zinc-700', 'dark:text-zinc-300', 'border-zinc-200', 'dark:border-zinc-700', 'hover:border-zinc-400', 'dark:hover:border-zinc-500');
+                chip?.classList.add('bg-zinc-900', 'text-white', 'border-zinc-900', 'dark:bg-white', 'dark:text-zinc-900', 'dark:border-white', 'shadow-xs', 'font-semibold');
+                if (icon) {
+                    icon.classList.remove('ph-plus');
+                    icon.classList.add('ph-check-bold');
+                }
+            } else {
+                chip?.classList.remove('bg-zinc-900', 'text-white', 'border-zinc-900', 'dark:bg-white', 'dark:text-zinc-900', 'dark:border-white', 'shadow-xs', 'font-semibold');
+                chip?.classList.add('bg-white', 'dark:bg-zinc-900', 'text-zinc-700', 'dark:text-zinc-300', 'border-zinc-200', 'dark:border-zinc-700', 'hover:border-zinc-400', 'dark:hover:border-zinc-500');
+                if (icon) {
+                    icon.classList.remove('ph-check-bold');
+                    icon.classList.add('ph-plus');
+                }
+            }
+        });
+    });
+
     const postForm = document.getElementById('post-form');
     postForm.addEventListener('submit', function (e) {
+        const checkedCats = document.querySelectorAll('.category-checkbox:checked');
+        if (checkedCats.length === 0) {
+            e.preventDefault();
+            alert('Silakan pilih minimal satu kategori untuk artikel ini.');
+            return false;
+        }
+
         if (currentMode === 'compose') {
             const clone = editorCompose.cloneNode(true);
             clone.querySelectorAll('img').forEach(img => {

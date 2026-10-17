@@ -82,11 +82,21 @@
                         </a>
                     @endif
                     <div class="{{ $featuredPost->featured_image ? 'w-full md:w-1/2' : 'w-full' }} px-5 sm:px-0 py-2 sm:py-6 flex flex-col justify-center">
-                        <div class="flex items-center gap-3 text-xs font-bold text-zinc-500 dark:text-zinc-400 mb-3 sm:mb-4 uppercase tracking-wider font-sans">
-                            @if($featuredPost->category)
-                                <a href="{{ route('category.show', $featuredPost->category->slug) }}" class="hover:underline">
-                                    {{ $featuredPost->category->name }}
-                                </a>
+                        <div class="flex items-center gap-3 text-xs font-bold text-zinc-500 dark:text-zinc-400 mb-3 sm:mb-4 uppercase tracking-wider font-sans flex-wrap">
+                            @php
+                                $featCats = $featuredPost->categories->isNotEmpty() ? $featuredPost->categories : ($featuredPost->category ? collect([$featuredPost->category]) : collect());
+                            @endphp
+                            @if($featCats->isNotEmpty())
+                                <div class="flex items-center gap-1.5 flex-wrap">
+                                    @foreach($featCats as $fCat)
+                                        <a href="{{ route('category.show', $fCat->slug) }}" class="hover:underline">
+                                            {{ $fCat->name }}
+                                        </a>
+                                        @if(!$loop->last)
+                                            <span class="text-zinc-400">,</span>
+                                        @endif
+                                    @endforeach
+                                </div>
                                 <span>•</span>
                             @endif
                             <span>{{ $featuredPost->formatted_published_at }}</span>

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
@@ -69,6 +70,11 @@ class Post extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(Category::class)->withTimestamps();
+    }
+
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
@@ -89,10 +95,10 @@ class Post extends Model
 
     public function scopePublished(Builder $query): Builder
     {
-        return $query->where('status', 'published')
-            ->whereNotNull('published_at')
-            ->where('published_at', '<=', now())
-            ->orderByDesc('published_at');
+        return $query->where('posts.status', 'published')
+            ->whereNotNull('posts.published_at')
+            ->where('posts.published_at', '<=', now())
+            ->orderByDesc('posts.published_at');
     }
 
     public function scopeFeatured(Builder $query): Builder

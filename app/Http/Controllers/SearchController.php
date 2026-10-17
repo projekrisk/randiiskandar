@@ -18,7 +18,7 @@ class SearchController extends Controller
         if (strlen($query) >= 2) {
             $posts = Post::query()
                 ->published()
-                ->with(['category'])
+                ->with(['category', 'categories'])
                 ->where(function ($q) use ($query) {
                     $q->where('title', 'like', "%{$query}%")
                         ->orWhere('excerpt', 'like', "%{$query}%")
@@ -36,7 +36,7 @@ class SearchController extends Controller
                     'title' => $post->title,
                     'slug' => $post->slug,
                     'url' => route('post.show', $post->slug),
-                    'category' => $post->category?->name,
+                    'category' => $post->categories->isNotEmpty() ? $post->categories->pluck('name')->join(', ') : $post->category?->name,
                     'date' => $post->formatted_published_at,
                     'excerpt' => $post->meta_description,
                 ]),

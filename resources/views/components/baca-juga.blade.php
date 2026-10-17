@@ -6,9 +6,12 @@
             <div class="flex items-center gap-2 mb-1.5 flex-wrap">
                 <span class="inline-block w-2 h-2 rounded-full bg-zinc-900 dark:bg-white shrink-0"></span>
                 <span class="text-xs font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500 font-sans">BACA JUGA</span>
-                @if($post->category)
+                @php
+                    $bjCats = $post->categories->isNotEmpty() ? $post->categories : ($post->category ? collect([$post->category]) : collect());
+                @endphp
+                @if($bjCats->isNotEmpty())
                     <span class="text-zinc-300 dark:text-zinc-700">&bull;</span>
-                    <span class="text-xs font-medium text-zinc-500 dark:text-zinc-400 font-sans truncate">{{ $post->category->name }}</span>
+                    <span class="text-xs font-medium text-zinc-500 dark:text-zinc-400 font-sans truncate">{{ $bjCats->pluck('name')->join(', ') }}</span>
                 @endif
             </div>
             <a href="{{ route('post.show', $post->slug) }}" class="font-sans font-bold text-base sm:text-lg text-zinc-900 dark:text-white group-hover:underline leading-snug line-clamp-2 block">

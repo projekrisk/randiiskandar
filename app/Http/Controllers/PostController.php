@@ -58,15 +58,34 @@ class PostController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
+        $post->load(['categories', 'category']);
+
+        $categoryIds = $post->categories->pluck('id')->all();
+        if ($post->category_id && ! in_array($post->category_id, $categoryIds)) {
+            $categoryIds[] = $post->category_id;
+        }
+
         $relatedQuery = Post::query()
             ->published()
             ->where('id', '!=', $post->id)
-            ->with(['author', 'category'])
+            ->with(['author', 'category', 'categories'])
             ->reorder()
             ->inRandomOrder();
 
-        if ($post->category_id && Post::query()->published()->where('category_id', $post->category_id)->where('id', '!=', $post->id)->exists()) {
-            $relatedQuery->where('category_id', $post->category_id);
+        if (! empty($categoryIds)) {
+            $hasRelated = Post::query()->published()
+                ->where('id', '!=', $post->id)
+                ->where(function ($q) use ($categoryIds) {
+                    $q->whereIn('category_id', $categoryIds)
+                        ->orWhereHas('categories', fn ($sub) => $sub->whereIn('categories.id', $categoryIds));
+                })->exists();
+
+            if ($hasRelated) {
+                $relatedQuery->where(function ($q) use ($categoryIds) {
+                    $q->whereIn('category_id', $categoryIds)
+                        ->orWhereHas('categories', fn ($sub) => $sub->whereIn('categories.id', $categoryIds));
+                });
+            }
         }
 
         $relatedPosts = $relatedQuery->limit(2)->get();
@@ -76,7 +95,7 @@ class PostController extends Controller
             $additionalPosts = Post::query()
                 ->published()
                 ->whereNotIn('id', $excludeIds)
-                ->with(['author', 'category'])
+                ->with(['author', 'category', 'categories'])
                 ->reorder()
                 ->inRandomOrder()
                 ->limit(2 - $relatedPosts->count())

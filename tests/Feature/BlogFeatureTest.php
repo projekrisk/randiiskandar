@@ -1146,4 +1146,41 @@ class BlogFeatureTest extends TestCase
 
         $this->assertEquals('2026-06-15 09:15:00', $post->fresh()->published_at->format('Y-m-d H:i:s'));
     }
+
+    public function test_admin_can_assign_multiple_categories_to_post(): void
+    {
+        $admin = User::first();
+        $cat1 = Category::firstOrCreate(['slug' => 'kategori-satu'], ['name' => 'Kategori Satu']);
+        $cat2 = Category::firstOrCreate(['slug' => 'kategori-dua'], ['name' => 'Kategori Dua']);
+
+        $storeResponse = $this->actingAs($admin)->post(route('admin.posts.store'), [
+            'title' => 'Artikel Multi Kategori '.uniqid(),
+            'category_ids' => [$cat1->id, $cat2->id],
+            'status' => 'published',
+            'body' => '<p>Konten artikel dengan dua kategori.</p>',
+        ]);
+        $storeResponse->assertRedirect(route('admin.posts.index'));
+
+        $post = Post::latest('id')->first();
+        $this->assertEquals(2, $post->categories()->count());
+        $this->assertTrue($post->categories->contains($cat1));
+        $this->assertTrue($post->categories->contains($cat2));
+
+        $detailResponse = $this->get(route('post.show', $post->slug));
+        $detailResponse->assertStatus(200);
+        $detailResponse->assertSee('Kategori Satu');
+        $detailResponse->assertSee('Kategori Dua');
+
+        $updateResponse = $this->actingAs($admin)->put(route('admin.posts.update', $post), [
+            'title' => $post->title,
+            'slug' => $post->slug,
+            'category_ids' => [$cat2->id],
+            'status' => 'published',
+            'body' => '<p>Konten artikel diperbarui.</p>',
+        ]);
+        $updateResponse->assertRedirect(route('admin.posts.index'));
+
+        $this->assertEquals(1, $post->fresh()->categories()->count());
+        $this->assertEquals($cat2->id, $post->fresh()->categories->first()->id);
+    }
 }

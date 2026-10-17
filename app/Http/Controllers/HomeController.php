@@ -14,13 +14,13 @@ class HomeController extends Controller
         $author = User::first();
 
         $featuredPost = Post::query()
-            ->with(['author', 'category'])
+            ->with(['author', 'category', 'categories'])
             ->withCount(['comments' => fn ($q) => $q->where('is_approved', true)])
             ->featured()
             ->first();
 
         $latestPostsQuery = Post::query()
-            ->with(['author', 'category'])
+            ->with(['author', 'category', 'categories'])
             ->withCount(['comments' => fn ($q) => $q->where('is_approved', true)])
             ->published();
 

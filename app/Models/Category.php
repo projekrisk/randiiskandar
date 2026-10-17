@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Category extends Model
 {
@@ -16,13 +16,13 @@ class Category extends Model
         'description',
     ];
 
-    public function posts(): HasMany
+    public function posts(): BelongsToMany
     {
-        return $this->hasMany(Post::class);
+        return $this->belongsToMany(Post::class)->withTimestamps();
     }
 
-    public function publishedPosts(): HasMany
+    public function publishedPosts(): BelongsToMany
     {
-        return $this->hasMany(Post::class)->published();
+        return $this->belongsToMany(Post::class)->published()->withTimestamps();
     }
 }

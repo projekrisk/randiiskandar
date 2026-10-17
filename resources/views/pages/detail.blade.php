@@ -8,11 +8,19 @@
         
         <header class="mb-10 text-center w-full max-w-3xl mx-auto px-5 sm:px-8">
             
-            @if($post->category)
-                <div class="mb-4">
-                    <a href="{{ route('category.show', $post->category->slug) }}" class="text-xs md:text-sm font-bold uppercase tracking-widest text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors font-sans">
-                        {{ $post->category->name }}
-                    </a>
+            @php
+                $detailCats = $post->categories->isNotEmpty() ? $post->categories : ($post->category ? collect([$post->category]) : collect());
+            @endphp
+            @if($detailCats->isNotEmpty())
+                <div class="mb-4 flex items-center justify-center flex-wrap gap-2">
+                    @foreach($detailCats as $cat)
+                        <a href="{{ route('category.show', $cat->slug) }}" class="text-xs md:text-sm font-bold uppercase tracking-widest text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors font-sans">
+                            {{ $cat->name }}
+                        </a>
+                        @if(!$loop->last)
+                            <span class="text-zinc-300 dark:text-zinc-700 text-xs">•</span>
+                        @endif
+                    @endforeach
                 </div>
             @endif
 
@@ -292,7 +300,7 @@
                         <article class="py-5 flex items-center justify-between gap-6 group">
                             <div class="flex-1 min-w-0">
                                 <span class="text-xs md:text-sm font-bold uppercase tracking-widest text-zinc-400 mb-1 block">
-                                    {{ $rel->category?->name ?: 'Artikel' }}
+                                    {{ $rel->categories->isNotEmpty() ? $rel->categories->pluck('name')->join(', ') : ($rel->category?->name ?: 'Artikel') }}
                                 </span>
                                 <h4 class="font-bold text-base md:text-lg text-zinc-900 dark:text-white group-hover:underline leading-snug mb-1.5">
                                     <a href="{{ route('post.show', $rel->slug) }}">

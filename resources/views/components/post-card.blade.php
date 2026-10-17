@@ -3,10 +3,20 @@
 <article class="article-group group flex flex-row gap-4 sm:gap-8 justify-between border-b border-zinc-100 dark:border-zinc-800/50 pb-10" data-post-id="{{ $post->id }}">
     <div class="flex-1 flex flex-col justify-center min-w-0">
         <div class="flex flex-wrap items-center gap-2 sm:gap-3 text-[10px] sm:text-xs font-medium text-zinc-500 dark:text-zinc-400 mb-2 uppercase tracking-wider font-sans">
-            @if($post->category)
-                <a href="{{ route('category.show', $post->category->slug) }}" class="text-zinc-900 dark:text-zinc-200 font-bold hover:underline">
-                    {{ $post->category->name }}
-                </a>
+            @php
+                $cardCats = $post->categories->isNotEmpty() ? $post->categories : ($post->category ? collect([$post->category]) : collect());
+            @endphp
+            @if($cardCats->isNotEmpty())
+                <div class="flex items-center gap-1.5 flex-wrap">
+                    @foreach($cardCats as $cat)
+                        <a href="{{ route('category.show', $cat->slug) }}" class="text-zinc-900 dark:text-zinc-200 font-bold hover:underline">
+                            {{ $cat->name }}
+                        </a>
+                        @if(!$loop->last)
+                            <span class="text-zinc-300 dark:text-zinc-600">,</span>
+                        @endif
+                    @endforeach
+                </div>
                 <span>•</span>
             @endif
             <span>{{ $post->formatted_published_at }}</span>

@@ -16,7 +16,7 @@ class CategoryController extends Controller
 
         $posts = $category->posts()
             ->published()
-            ->with(['author', 'category'])
+            ->with(['author', 'category', 'categories'])
             ->withCount(['comments' => fn ($q) => $q->where('is_approved', true)])
             ->paginate(5);
 
@@ -34,7 +34,7 @@ class CategoryController extends Controller
 
         $posts = Post::query()
             ->published()
-            ->with(['author', 'category'])
+            ->with(['author', 'category', 'categories'])
             ->withCount(['comments' => fn ($q) => $q->where('is_approved', true)])
             ->paginate(5);
 

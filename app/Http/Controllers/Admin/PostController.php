@@ -19,7 +19,7 @@ class PostController extends Controller
 {
     public function index(Request $request): View
     {
-        $query = Post::query()->with('category')->latest();
+        $query = Post::query()->with(['category', 'categories'])->latest();
 
         if ($request->filled('status')) {
             $query->where('status', $request->input('status'));
@@ -53,7 +53,9 @@ class PostController extends Controller
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['nullable', 'string', 'max:255', 'unique:posts,slug', Rule::notIn(['admin', 'login', 'baca', 'kategori', 'arsip', 'cari', 'kontak', 'up', 'tentang', 'about', 'term', 'terms', 'disclaimer', 'privasi'])],
-            'category_id' => ['required', 'exists:categories,id'],
+            'category_id' => ['nullable', 'exists:categories,id'],
+            'category_ids' => ['nullable', 'array', 'min:1'],
+            'category_ids.*' => ['exists:categories,id'],
             'published_at' => ['nullable', 'date'],
             'excerpt' => ['nullable', 'string', 'max:500'],
             'body' => ['required', 'string'],
@@ -65,6 +67,21 @@ class PostController extends Controller
             'is_featured' => ['boolean'],
             'is_featured_image_wide' => ['nullable', 'boolean'],
         ]);
+
+        $categoryIds = collect($validated['category_ids'] ?? [])
+            ->filter()
+            ->map(fn ($id) => (int) $id)
+            ->values();
+
+        if ($categoryIds->isEmpty() && ! empty($validated['category_id'])) {
+            $categoryIds = collect([(int) $validated['category_id']]);
+        }
+
+        if ($categoryIds->isEmpty()) {
+            return back()->withInput()->withErrors(['category_ids' => 'Pilih minimal satu kategori untuk artikel ini.']);
+        }
+
+        $primaryCategoryId = $categoryIds->first();
 
         $featuredImage = $validated['featured_image'] ?? null;
         if ($request->hasFile('featured_image_file')) {
@@ -92,7 +109,7 @@ class PostController extends Controller
 
         $post = Post::create([
             'user_id' => Auth::id(),
-            'category_id' => $validated['category_id'],
+            'category_id' => $primaryCategoryId,
             'title' => $validated['title'],
             'slug' => $slug,
             'excerpt' => $validated['excerpt'] ?? null,
@@ -108,11 +125,14 @@ class PostController extends Controller
             'views_count' => 0,
         ]);
 
+        $post->categories()->sync($categoryIds->all());
+
         return redirect()->route('admin.posts.index')->with('success', 'Artikel berhasil dibuat.');
     }
 
     public function edit(Post $post): View
     {
+        $post->load('categories');
         $categories = Category::orderBy('name')->get();
         $suggestedTags = Post::getAllUsedTags();
 
@@ -128,7 +148,9 @@ class PostController extends Controller
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['required', 'string', 'max:255', 'unique:posts,slug,'.$post->id, Rule::notIn(['admin', 'login', 'baca', 'kategori', 'arsip', 'cari', 'kontak', 'up', 'tentang', 'about', 'term', 'terms', 'disclaimer', 'privasi'])],
-            'category_id' => ['required', 'exists:categories,id'],
+            'category_id' => ['nullable', 'exists:categories,id'],
+            'category_ids' => ['nullable', 'array', 'min:1'],
+            'category_ids.*' => ['exists:categories,id'],
             'published_at' => ['nullable', 'date'],
             'excerpt' => ['nullable', 'string', 'max:500'],
             'body' => ['required', 'string'],
@@ -140,6 +162,21 @@ class PostController extends Controller
             'is_featured' => ['boolean'],
             'is_featured_image_wide' => ['nullable', 'boolean'],
         ]);
+
+        $categoryIds = collect($validated['category_ids'] ?? [])
+            ->filter()
+            ->map(fn ($id) => (int) $id)
+            ->values();
+
+        if ($categoryIds->isEmpty() && ! empty($validated['category_id'])) {
+            $categoryIds = collect([(int) $validated['category_id']]);
+        }
+
+        if ($categoryIds->isEmpty()) {
+            return back()->withInput()->withErrors(['category_ids' => 'Pilih minimal satu kategori untuk artikel ini.']);
+        }
+
+        $primaryCategoryId = $categoryIds->first();
 
         $featuredImage = $validated['featured_image'] ?? $post->featured_image;
         if ($request->hasFile('featured_image_file')) {
@@ -159,7 +196,7 @@ class PostController extends Controller
         }
 
         $post->update([
-            'category_id' => $validated['category_id'],
+            'category_id' => $primaryCategoryId,
             'title' => $validated['title'],
             'slug' => Str::slug($validated['slug']),
             'excerpt' => $validated['excerpt'] ?? null,
@@ -172,6 +209,8 @@ class PostController extends Controller
             'is_featured' => $request->boolean('is_featured'),
             'published_at' => $publishedAt,
         ]);
+
+        $post->categories()->sync($categoryIds->all());
 
         return redirect()->route('admin.posts.index')->with('success', 'Artikel berhasil diperbarui.');
     }

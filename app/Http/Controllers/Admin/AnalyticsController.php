@@ -60,7 +60,7 @@ class AnalyticsController extends Controller
                 ->whereMonth('viewed_date', $m);
 
             if ($selectedCategoryId) {
-                $viewQuery->whereHas('post', fn ($q) => $q->where('category_id', $selectedCategoryId));
+                $viewQuery->whereHas('post', fn ($q) => $q->where(fn ($sub) => $sub->where('category_id', $selectedCategoryId)->orWhereHas('categories', fn ($c) => $c->where('categories.id', $selectedCategoryId))));
             }
             $views = (int) $viewQuery->sum('views');
 
@@ -69,7 +69,7 @@ class AnalyticsController extends Controller
                 ->whereMonth('created_at', $m);
 
             if ($selectedCategoryId) {
-                $commentQuery->whereHas('post', fn ($q) => $q->where('category_id', $selectedCategoryId));
+                $commentQuery->whereHas('post', fn ($q) => $q->where(fn ($sub) => $sub->where('category_id', $selectedCategoryId)->orWhereHas('categories', fn ($c) => $c->where('categories.id', $selectedCategoryId))));
             }
             $commentsCount = (int) $commentQuery->count();
             $approvedCommentsCount = (int) (clone $commentQuery)->where('is_approved', true)->count();
@@ -80,7 +80,7 @@ class AnalyticsController extends Controller
                 ->whereMonth('published_at', $m);
 
             if ($selectedCategoryId) {
-                $postQuery->where('category_id', $selectedCategoryId);
+                $postQuery->where(fn ($q) => $q->where('category_id', $selectedCategoryId)->orWhereHas('categories', fn ($c) => $c->where('categories.id', $selectedCategoryId)));
             }
             $postsCount = (int) $postQuery->count();
             $clapsCount = (int) $postQuery->sum('claps_count');
@@ -127,7 +127,7 @@ class AnalyticsController extends Controller
         foreach ($categories as $index => $cat) {
             $catPostsQuery = Post::query()
                 ->published()
-                ->where('category_id', $cat->id)
+                ->where(fn ($q) => $q->where('category_id', $cat->id)->orWhereHas('categories', fn ($c) => $c->where('categories.id', $cat->id)))
                 ->whereYear('published_at', $selectedYear);
 
             if ($selectedMonth) {
@@ -138,7 +138,7 @@ class AnalyticsController extends Controller
 
             $catViewsQuery = PostView::query()
                 ->whereYear('viewed_date', $selectedYear)
-                ->whereHas('post', fn ($q) => $q->where('category_id', $cat->id));
+                ->whereHas('post', fn ($q) => $q->where(fn ($sub) => $sub->where('category_id', $cat->id)->orWhereHas('categories', fn ($c) => $c->where('categories.id', $cat->id))));
 
             if ($selectedMonth) {
                 $catViewsQuery->whereMonth('viewed_date', $selectedMonth);
@@ -147,7 +147,7 @@ class AnalyticsController extends Controller
 
             $catCommentsQuery = Comment::query()
                 ->whereYear('created_at', $selectedYear)
-                ->whereHas('post', fn ($q) => $q->where('category_id', $cat->id));
+                ->whereHas('post', fn ($q) => $q->where(fn ($sub) => $sub->where('category_id', $cat->id)->orWhereHas('categories', fn ($c) => $c->where('categories.id', $cat->id))));
 
             if ($selectedMonth) {
                 $catCommentsQuery->whereMonth('created_at', $selectedMonth);
@@ -308,7 +308,7 @@ class AnalyticsController extends Controller
 
             $topPosts = Post::published()
                 ->whereYear('published_at', $selectedYear)
-                ->with(['category'])
+                ->with(['category', 'categories'])
                 ->withCount('comments')
                 ->orderByDesc('views_count')
                 ->limit(10)
@@ -318,7 +318,7 @@ class AnalyticsController extends Controller
                 fputcsv($file, [
                     $idx + 1,
                     $p->title,
-                    $p->category?->name ?? 'Tanpa Kategori',
+                    $p->categories->isNotEmpty() ? $p->categories->pluck('name')->join(', ') : ($p->category?->name ?? 'Tanpa Kategori'),
                     $p->published_at ? $p->published_at->format('Y-m-d') : '-',
                     $p->views_count,
                     $p->comments_count,

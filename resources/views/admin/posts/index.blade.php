@@ -68,7 +68,15 @@
                                 @endif
                             </td>
                             <td class="px-4 py-3.5 text-xs text-zinc-500">
-                                {{ $post->category?->name ?: '-' }}
+                                @if($post->categories->isNotEmpty())
+                                    <div class="flex flex-wrap gap-1">
+                                        @foreach($post->categories as $cat)
+                                            <span class="inline-block px-1.5 py-0.5 rounded-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 text-[11px] font-medium">{{ $cat->name }}</span>
+                                        @endforeach
+                                    </div>
+                                @else
+                                    {{ $post->category?->name ?: '-' }}
+                                @endif
                             </td>
                             <td class="px-4 py-3.5 text-center">
                                 @if($post->status === 'published')

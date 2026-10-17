@@ -18,9 +18,12 @@
                 <guid isPermaLink="true">{{ url('/' . $post->slug) }}</guid>
                 <pubDate>{{ $post->published_at ? $post->published_at->toRfc2822String() : $post->created_at->toRfc2822String() }}</pubDate>
                 <dc:creator>{{ htmlspecialchars($post->author?->name ?: 'Randi Iskandar', ENT_XML1, 'UTF-8') }}</dc:creator>
-                @if($post->category)
-                    <category>{{ htmlspecialchars($post->category->name, ENT_XML1, 'UTF-8') }}</category>
-                @endif
+                @php
+                    $feedCats = $post->categories->isNotEmpty() ? $post->categories : ($post->category ? collect([$post->category]) : collect());
+                @endphp
+                @foreach($feedCats as $fCat)
+                    <category>{{ htmlspecialchars($fCat->name, ENT_XML1, 'UTF-8') }}</category>
+                @endforeach
                 <description><![CDATA[{{ $post->excerpt ?: $post->meta_description }}]]></description>
                 @if(!empty($post->featured_image))
                     <enclosure url="{{ str_starts_with($post->featured_image, 'http') ? $post->featured_image : url($post->featured_image) }}" type="image/jpeg" length="0" />

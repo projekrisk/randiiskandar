@@ -213,6 +213,14 @@ HTML,
             'published_at' => null,
         ]);
 
+        $postFeatured->categories()->syncWithoutDetaching([$catUX->id, $catWeb->id]);
+
+        Post::all()->each(function ($p) {
+            if ($p->category_id) {
+                $p->categories()->syncWithoutDetaching([$p->category_id]);
+            }
+        });
+
         if ($postFeatured) {
             $parentComment1 = Comment::firstOrCreate(
                 ['post_id' => $postFeatured->id, 'email' => 'budi@example.com'],
