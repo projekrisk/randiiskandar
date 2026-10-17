@@ -893,10 +893,12 @@ document.addEventListener('DOMContentLoaded', function () {
         let formatted = '';
         let indent = '';
         const tab = '    ';
+        const isCloseTag = /^\/\w/;
+        const isOpenTag = new RegExp('^<{0,1}\\w[^>]*[^/]$');
         html.split(/>\s*</).forEach(node => {
-            if (node.match(/^\/\w/)) indent = indent.substring(tab.length);
+            if (isCloseTag.test(node)) indent = indent.substring(tab.length);
             formatted += indent + '<' + node + '>\r\n';
-            if (node.match(/^<?\w[^>]*[^\/]$/) && !node.startsWith('input') && !node.startsWith('img') && !node.startsWith('hr') && !node.startsWith('br')) {
+            if (isOpenTag.test(node) && !node.startsWith('input') && !node.startsWith('img') && !node.startsWith('hr') && !node.startsWith('br')) {
                 indent += tab;
             }
         });
