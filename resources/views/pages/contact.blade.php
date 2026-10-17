@@ -12,7 +12,7 @@
                 Mari Terhubung.
             </h1>
             <p class="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed font-sans">
-                Saya selalu terbuka untuk mendiskusikan peluang kolaborasi proyek, konsultasi teknologi, penulisan artikel, atau sekadar bertukar sapa.
+                Pintu selalu terbuka kalau kamu mau ngobrol. Entah itu buat diskusi soal kolaborasi proyek, konsultasi, kerja sama penulisan artikel, atau sekadar mau bertukar sapa dan kenalan.
             </p>
         </header>
 
