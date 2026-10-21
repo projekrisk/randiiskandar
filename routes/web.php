@@ -89,4 +89,46 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 });
 
+Route::get('/favicon.ico', function () {
+    $path = file_exists(public_path('favicon.ico')) ? public_path('favicon.ico') : base_path('favicon.ico');
+    if (! file_exists($path)) {
+        abort(404);
+    }
+
+    return response()->file($path, [
+        'Content-Type' => 'image/x-icon',
+        'Cache-Control' => 'public, max-age=604800',
+    ]);
+});
+
+Route::get('/{file}', function (string $file) {
+    $allowed = [
+        'favicon-16x16.png' => 'image/png',
+        'favicon-32x32.png' => 'image/png',
+        'favicon-48x48.png' => 'image/png',
+        'favicon-96x96.png' => 'image/png',
+        'favicon-192x192.png' => 'image/png',
+        'apple-touch-icon.png' => 'image/png',
+        'apple-touch-icon-precomposed.png' => 'image/png',
+        'icon.png' => 'image/png',
+        'site.webmanifest' => 'application/manifest+json',
+    ];
+
+    if (! array_key_exists($file, $allowed)) {
+        abort(404);
+    }
+
+    $targetFile = $file === 'apple-touch-icon-precomposed.png' ? 'apple-touch-icon.png' : $file;
+    $path = file_exists(public_path($targetFile)) ? public_path($targetFile) : base_path($targetFile);
+
+    if (! file_exists($path)) {
+        abort(404);
+    }
+
+    return response()->file($path, [
+        'Content-Type' => $allowed[$file],
+        'Cache-Control' => 'public, max-age=604800',
+    ]);
+})->where('file', 'favicon-[0-9]+x[0-9]+\.png|apple-touch-icon(-precomposed)?\.png|icon\.png|site\.webmanifest');
+
 Route::get('/{slug}', [PostController::class, 'show'])->name('post.show');

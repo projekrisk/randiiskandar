@@ -365,4 +365,35 @@ class PageAndMenuManagementTest extends TestCase
         $responseSitemap->assertSee(url('/privasi'));
         $responseSitemap->assertDontSee(url('/privacy'));
     }
+
+    public function test_favicons_rendered_on_all_pages_and_accessible(): void
+    {
+        $pagesToTest = [
+            '/',
+            '/kontak',
+            '/terms',
+            '/disclaimer',
+            '/tentang',
+            '/privasi',
+            '/admin/login',
+        ];
+
+        foreach ($pagesToTest as $url) {
+            $response = $this->get($url);
+            $response->assertStatus(200);
+            $response->assertSee('rel="icon"', false);
+            $response->assertSee('favicon.ico', false);
+            $response->assertSee('favicon-32x32.png', false);
+            $response->assertSee('favicon-16x16.png', false);
+            $response->assertSee('apple-touch-icon', false);
+        }
+
+        // Test static favicon endpoints
+        $this->get('/favicon.ico')->assertStatus(200);
+        $this->get('/favicon-16x16.png')->assertStatus(200);
+        $this->get('/favicon-32x32.png')->assertStatus(200);
+        $this->get('/favicon-48x48.png')->assertStatus(200);
+        $this->get('/apple-touch-icon.png')->assertStatus(200);
+        $this->get('/site.webmanifest')->assertStatus(200);
+    }
 }
