@@ -196,17 +196,52 @@ body {
 }
 
 .article-editorial a.text-white,
-.article-editorial a[class*="text-white"],
+.article-editorial a.\!text-white,
+.article-editorial a[class~="text-white"],
+.article-editorial a[class~="\!text-white"],
 .article-editorial a.bg-zinc-900,
-.article-editorial .not-prose a.text-white {
+.article-editorial .not-prose a.text-white,
+.article-editorial .not-prose a.\!text-white {
     color: #ffffff !important;
 }
 
 .dark .article-editorial a.dark\:text-zinc-900,
-.dark .article-editorial a[class*="dark:text-zinc-900"],
+.dark .article-editorial a.dark\:\!text-zinc-900,
+.dark .article-editorial a[class~="dark:text-zinc-900"],
+.dark .article-editorial a[class~="dark:\!text-zinc-900"],
 .dark .article-editorial a.dark\:bg-white,
-.dark .article-editorial .not-prose a.dark\:text-zinc-900 {
+.dark .article-editorial .not-prose a.dark\:text-zinc-900,
+.dark .article-editorial .not-prose a.dark\:\!text-zinc-900 {
     color: #18181b !important;
+}
+
+/* Styling Khusus Rekomendasi "Baca Juga" di Dalam Artikel */
+.article-editorial .baca-juga-card a.baca-juga-title,
+.article-editorial .baca-juga-card a[class*="text-zinc-900"] {
+    color: #18181b !important;
+}
+
+.dark .article-editorial .baca-juga-card a.baca-juga-title,
+.dark .article-editorial .baca-juga-card a[class*="dark:text-white"] {
+    color: #ffffff !important;
+}
+
+.article-editorial .baca-juga-card a.baca-juga-arrow {
+    color: #71717a !important;
+}
+
+.article-editorial .baca-juga-card a.baca-juga-arrow:hover,
+.article-editorial .baca-juga-card:hover a.baca-juga-arrow {
+    color: #18181b !important;
+}
+
+.dark .article-editorial .baca-juga-card a.baca-juga-arrow {
+    color: #a1a1aa !important;
+}
+
+.dark .article-editorial .baca-juga-card a.baca-juga-arrow:hover,
+.dark .article-editorial .baca-juga-card:hover a.baca-juga-arrow {
+    color: #ffffff !important;
 }
 
 /* Blockquote */
