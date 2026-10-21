@@ -3,6 +3,44 @@
 ])
 
 @php
+$websiteSchema = [
+    '@context' => 'https://schema.org',
+    '@type' => 'WebSite',
+    'url' => route('home'),
+    'name' => 'Randi Iskandar',
+    'alternateName' => [
+        'Randi Iskandar Workspace',
+        'randiiskandar.com',
+        'www.randiiskandar.com',
+        'RandiIskandar',
+    ],
+    'description' => 'Blog yang berisi tulisan bebas seputar opini, teknologi, tutorial, dan catatan pemrograman.',
+    'potentialAction' => [
+        '@type' => 'SearchAction',
+        'target' => [
+            '@type' => 'EntryPoint',
+            'urlTemplate' => route('search') . '?q={search_term_string}',
+        ],
+        'query-input' => 'required name=search_term_string',
+    ],
+];
+
+$organizationSchema = [
+    '@context' => 'https://schema.org',
+    '@type' => 'Organization',
+    'name' => 'Randi Iskandar',
+    'alternateName' => [
+        'Randi Iskandar Workspace',
+        'randiiskandar.com',
+    ],
+    'url' => route('home'),
+    'logo' => asset('icon.png'),
+    'sameAs' => [
+        'https://twitter.com/randiiskandar',
+        'https://github.com/randiiskandar',
+    ],
+];
+
 if ($post) {
     $articleSchema = [
         '@context' => 'https://schema.org',
@@ -25,11 +63,22 @@ if ($post) {
         ],
         'publisher' => [
             '@type' => 'Organization',
-            'name' => 'Randi Iskandar Workspace',
+            'name' => 'Randi Iskandar',
+            'url' => route('home'),
             'logo' => [
                 '@type' => 'ImageObject',
-                'url' => asset('favicon.ico'),
+                'url' => asset('icon.png'),
             ],
+        ],
+        'isPartOf' => [
+            '@type' => 'WebSite',
+            'name' => 'Randi Iskandar',
+            'alternateName' => [
+                'Randi Iskandar Workspace',
+                'randiiskandar.com',
+                'RandiIskandar',
+            ],
+            'url' => route('home'),
         ],
     ];
 
@@ -57,36 +106,15 @@ if ($post) {
             ],
         ],
     ];
-} else {
-    $websiteSchema = [
-        '@context' => 'https://schema.org',
-        '@type' => 'WebSite',
-        'url' => route('home'),
-        'name' => 'Randi Iskandar Workspace',
-        'description' => 'Blog yang berisi tulisan bebas seputar opini, teknologi, tutorial, dan catatan pemrograman.',
-        'potentialAction' => [
-            '@type' => 'SearchAction',
-            'target' => [
-                '@type' => 'EntryPoint',
-                'urlTemplate' => route('search') . '?q={search_term_string}',
-            ],
-            'query-input' => 'required name=search_term_string',
-        ],
-    ];
-
-    $organizationSchema = [
-        '@context' => 'https://schema.org',
-        '@type' => 'Organization',
-        'name' => 'Randi Iskandar Workspace',
-        'url' => route('home'),
-        'logo' => asset('favicon.ico'),
-        'sameAs' => [
-            'https://twitter.com/randiiskandar',
-            'https://github.com/randiiskandar',
-        ],
-    ];
 }
 @endphp
+
+<script type="application/ld+json">
+    {!! json_encode($websiteSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
+</script>
+<script type="application/ld+json">
+    {!! json_encode($organizationSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
+</script>
 
 @if ($post)
     <script type="application/ld+json">
@@ -94,12 +122,5 @@ if ($post) {
     </script>
     <script type="application/ld+json">
         {!! json_encode($breadcrumbSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
-    </script>
-@else
-    <script type="application/ld+json">
-        {!! json_encode($websiteSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
-    </script>
-    <script type="application/ld+json">
-        {!! json_encode($organizationSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
     </script>
 @endif
