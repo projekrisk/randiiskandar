@@ -22,6 +22,8 @@
 <meta name="author" content="{{ $author }}">
 <link rel="canonical" href="{{ $canonical }}">
 
+<meta name="application-name" content="Randi Iskandar">
+<meta name="apple-mobile-web-app-title" content="Randi Iskandar">
 <meta property="og:type" content="{{ $type }}">
 <meta property="og:url" content="{{ $canonical }}">
 <meta property="og:title" content="{{ $title }}">

@@ -71,8 +71,8 @@
                     <tbody class="divide-y divide-zinc-200 dark:divide-zinc-800 text-xs">
                         @forelse($pages as $page)
                             @php
-                                $publicUrl = in_array($page->slug, ['terms', 'disclaimer', 'privacy', 'about']) 
-                                    ? ($page->slug === 'about' ? route('about') : ($page->slug === 'privacy' ? route('privacy') : ($page->slug === 'terms' ? route('terms') : route('disclaimer'))))
+                                $publicUrl = in_array($page->slug, ['terms', 'term', 'disclaimer', 'privacy', 'privasi', 'about', 'tentang']) 
+                                    ? ($page->slug === 'about' || $page->slug === 'tentang' ? route('about') : (in_array($page->slug, ['privacy', 'privasi']) ? route('privacy') : ($page->slug === 'terms' || $page->slug === 'term' ? route('terms') : route('disclaimer'))))
                                     : url($page->slug);
                             @endphp
                             <tr class="hover:bg-zinc-50/80 dark:hover:bg-zinc-800/40 transition-colors">
@@ -95,7 +95,7 @@
                                             </div>
                                             <div class="text-[11px] text-zinc-400 font-mono mt-0.5 flex items-center gap-1.5 truncate">
                                                 <i class="ph ph-link text-xs"></i>
-                                                <span>/{{ $page->slug === 'about' ? 'tentang' : ($page->slug === 'privacy' ? 'privasi' : $page->slug) }}</span>
+                                                <span>/{{ $page->slug === 'about' || $page->slug === 'tentang' ? 'tentang' : (in_array($page->slug, ['privacy', 'privasi']) ? 'privasi' : $page->slug) }}</span>
                                             </div>
                                             @if($page->meta_description)
                                                 <div class="text-[11px] text-zinc-500 dark:text-zinc-400 mt-1 line-clamp-1 italic max-w-xs whitespace-normal">

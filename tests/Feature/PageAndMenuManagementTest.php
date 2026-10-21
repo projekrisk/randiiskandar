@@ -35,6 +35,10 @@ class PageAndMenuManagementTest extends TestCase
         $responsePrivacy->assertStatus(200);
         $responsePrivacy->assertSee('Kebijakan Privasi');
 
+        $responseLegacyPrivacy = $this->get('/privacy');
+        $responseLegacyPrivacy->assertStatus(301);
+        $responseLegacyPrivacy->assertRedirect('/privasi');
+
         $customPage = Page::create([
             'title' => 'Pedoman Komunitas Pengembang',
             'slug' => 'pedoman-komunitas',
@@ -336,5 +340,29 @@ class PageAndMenuManagementTest extends TestCase
         $this->get('/'.$customPage->slug)->assertStatus(200)->assertSee('Halaman Pengujian Slug');
 
         $this->get('/slug-yang-tidak-ada-sama-sekali-12345')->assertStatus(404);
+    }
+
+    public function test_google_site_name_structured_data_and_sitemap_privacy_url(): void
+    {
+        $responseHome = $this->get('/');
+        $responseHome->assertStatus(200);
+
+        // Site Name in meta tags
+        $responseHome->assertSee('<meta property="og:site_name" content="Randi Iskandar">', false);
+        $responseHome->assertSee('<meta name="application-name" content="Randi Iskandar">', false);
+
+        // WebSite schema must specify name "Randi Iskandar"
+        $responseHome->assertSee('"@type": "WebSite"', false);
+        $responseHome->assertSee('"name": "Randi Iskandar"', false);
+
+        // WebSite schema must NOT pass domain names as alternateName
+        $responseHome->assertDontSee('"randiiskandar.com"', false);
+        $responseHome->assertDontSee('"www.randiiskandar.com"', false);
+
+        // Sitemap must contain /privasi and must not contain /privacy
+        $responseSitemap = $this->get('/sitemap.xml');
+        $responseSitemap->assertStatus(200);
+        $responseSitemap->assertSee(url('/privasi'));
+        $responseSitemap->assertDontSee(url('/privacy'));
     }
 }

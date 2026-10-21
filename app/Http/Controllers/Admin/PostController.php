@@ -52,7 +52,7 @@ class PostController extends Controller
     {
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255', 'unique:posts,slug', Rule::notIn(['admin', 'login', 'baca', 'kategori', 'arsip', 'cari', 'kontak', 'up', 'tentang', 'about', 'term', 'terms', 'disclaimer', 'privasi'])],
+            'slug' => ['nullable', 'string', 'max:255', 'unique:posts,slug', Rule::notIn(['admin', 'login', 'baca', 'kategori', 'arsip', 'cari', 'kontak', 'up', 'tentang', 'about', 'term', 'terms', 'disclaimer', 'privasi', 'privacy'])],
             'category_id' => ['nullable', 'exists:categories,id'],
             'category_ids' => ['nullable', 'array', 'min:1'],
             'category_ids.*' => ['exists:categories,id'],
@@ -147,7 +147,7 @@ class PostController extends Controller
     {
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string', 'max:255', 'unique:posts,slug,'.$post->id, Rule::notIn(['admin', 'login', 'baca', 'kategori', 'arsip', 'cari', 'kontak', 'up', 'tentang', 'about', 'term', 'terms', 'disclaimer', 'privasi'])],
+            'slug' => ['required', 'string', 'max:255', 'unique:posts,slug,'.$post->id, Rule::notIn(['admin', 'login', 'baca', 'kategori', 'arsip', 'cari', 'kontak', 'up', 'tentang', 'about', 'term', 'terms', 'disclaimer', 'privasi', 'privacy'])],
             'category_id' => ['nullable', 'exists:categories,id'],
             'category_ids' => ['nullable', 'array', 'min:1'],
             'category_ids.*' => ['exists:categories,id'],

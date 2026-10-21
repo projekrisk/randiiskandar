@@ -4,7 +4,7 @@
      xmlns:content="http://purl.org/rss/1.0/modules/content/"
      xmlns:dc="http://purl.org/dc/elements/1.1/">
     <channel>
-        <title>{{ config('app.name', 'Randi Iskandar Workspace') }}</title>
+        <title>{{ config('app.name', 'Randi Iskandar') }}</title>
         <link>{{ url('/') }}</link>
         <description>Blog personal berisi tulisan seputar opini, teknologi, tutorial, dan catatan oleh Randi Iskandar.</description>
         <language>id</language>

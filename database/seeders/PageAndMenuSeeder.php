@@ -38,7 +38,7 @@ class PageAndMenuSeeder extends Seeder
             ],
             [
                 'title' => 'Kebijakan Privasi',
-                'slug' => 'privacy',
+                'slug' => 'privasi',
                 'meta_description' => 'Kebijakan privasi dan perlindungan data pengunjung blog Randi Iskandar.',
                 'is_published' => true,
                 'body' => '<p>Privasi Anda sebagai pengunjung situs <strong>Randi Iskandar</strong> adalah hal yang diutamakan. Dokumen ini menjelaskan jenis data yang dicatat serta bagaimana informasi tersebut dikelola.</p>
@@ -103,6 +103,9 @@ class PageAndMenuSeeder extends Seeder
 <p>Semoga ada hal menarik yang bisa Anda temukan di sini. Selamat membaca, dan semoga tulisan-tulisan di blog ini bisa menambah wawasan atau memberikan inspirasi baru.</p>',
             ],
         ];
+
+        // Migrate legacy privacy page slug if exists
+        Page::where('slug', 'privacy')->where('slug', '!=', 'privasi')->update(['slug' => 'privasi']);
 
         foreach ($pages as $p) {
             Page::updateOrCreate(['slug' => $p['slug']], $p);

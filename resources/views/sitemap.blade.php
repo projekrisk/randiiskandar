@@ -58,20 +58,35 @@
         </url>
     @endforeach
 
+    @php
+        $renderedPageUrls = [];
+    @endphp
     @foreach($pages as $page)
         @if(!in_array($page->slug, ['about', 'tentang']))
-            <url>
-                <loc>{{ url('/' . $page->slug) }}</loc>
-                <lastmod>{{ $page->updated_at->toAtomString() }}</lastmod>
-                <changefreq>monthly</changefreq>
-                <priority>0.6</priority>
-                @if(!empty($page->featured_image))
-                    <image:image>
-                        <image:loc>{{ str_starts_with($page->featured_image, 'http') ? $page->featured_image : url($page->featured_image) }}</image:loc>
-                        <image:title>{{ htmlspecialchars($page->title, ENT_XML1, 'UTF-8') }}</image:title>
-                    </image:image>
-                @endif
-            </url>
+            @php
+                $pageUrl = in_array($page->slug, ['privacy', 'privasi']) 
+                    ? route('privacy') 
+                    : (in_array($page->slug, ['terms', 'term']) 
+                        ? route('terms') 
+                        : ($page->slug === 'disclaimer' ? route('disclaimer') : url('/' . $page->slug)));
+            @endphp
+            @if(!in_array($pageUrl, $renderedPageUrls))
+                @php
+                    $renderedPageUrls[] = $pageUrl;
+                @endphp
+                <url>
+                    <loc>{{ $pageUrl }}</loc>
+                    <lastmod>{{ $page->updated_at->toAtomString() }}</lastmod>
+                    <changefreq>monthly</changefreq>
+                    <priority>0.6</priority>
+                    @if(!empty($page->featured_image))
+                        <image:image>
+                            <image:loc>{{ str_starts_with($page->featured_image, 'http') ? $page->featured_image : url($page->featured_image) }}</image:loc>
+                            <image:title>{{ htmlspecialchars($page->title, ENT_XML1, 'UTF-8') }}</image:title>
+                        </image:image>
+                    @endif
+                </url>
+            @endif
         @endif
     @endforeach
 

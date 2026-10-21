@@ -44,6 +44,9 @@ Route::get('/term', [PageController::class, 'terms']);
 Route::get('/terms', [PageController::class, 'terms'])->name('terms');
 Route::get('/disclaimer', [PageController::class, 'disclaimer'])->name('disclaimer');
 Route::get('/privasi', [PageController::class, 'privacy'])->name('privacy');
+Route::get('/privacy', function () {
+    return redirect('/privasi', 301);
+});
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 Route::get('/feed', [FeedController::class, 'index'])->name('feed');
 Route::get('/rss.xml', [FeedController::class, 'index']);

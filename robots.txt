@@ -4,6 +4,4 @@ Disallow: /admin/
 Disallow: /login
 
 Allow: /
-Sitemap: /sitemap.xml
-Sitemap: /feed
 Sitemap: https://www.randiiskandar.com/sitemap.xml

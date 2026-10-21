@@ -6,13 +6,11 @@
 $websiteSchema = [
     '@context' => 'https://schema.org',
     '@type' => 'WebSite',
+    '@id' => route('home') . '#website',
     'url' => route('home'),
     'name' => 'Randi Iskandar',
     'alternateName' => [
         'Randi Iskandar Workspace',
-        'randiiskandar.com',
-        'www.randiiskandar.com',
-        'RandiIskandar',
     ],
     'description' => 'Blog yang berisi tulisan bebas seputar opini, teknologi, tutorial, dan catatan pemrograman.',
     'potentialAction' => [
@@ -28,10 +26,10 @@ $websiteSchema = [
 $organizationSchema = [
     '@context' => 'https://schema.org',
     '@type' => 'Organization',
+    '@id' => route('home') . '#organization',
     'name' => 'Randi Iskandar',
     'alternateName' => [
         'Randi Iskandar Workspace',
-        'randiiskandar.com',
     ],
     'url' => route('home'),
     'logo' => asset('icon.png'),
@@ -72,11 +70,10 @@ if ($post) {
         ],
         'isPartOf' => [
             '@type' => 'WebSite',
+            '@id' => route('home') . '#website',
             'name' => 'Randi Iskandar',
             'alternateName' => [
                 'Randi Iskandar Workspace',
-                'randiiskandar.com',
-                'RandiIskandar',
             ],
             'url' => route('home'),
         ],

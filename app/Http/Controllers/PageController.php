@@ -69,7 +69,17 @@ class PageController extends Controller
 
     public function privacy(): View
     {
-        $page = Page::published()->whereIn('slug', ['privacy', 'privasi'])->firstOrFail();
+        $page = Page::published()->whereIn('slug', ['privasi', 'privacy'])->first();
+
+        if (! $page) {
+            $page = new Page([
+                'title' => 'Kebijakan Privasi',
+                'slug' => 'privasi',
+                'body' => '<p>Privasi Anda sebagai pengunjung situs <strong>Randi Iskandar</strong> adalah hal yang diutamakan. Dokumen ini menjelaskan jenis data yang dicatat serta bagaimana informasi tersebut dikelola.</p>',
+                'meta_description' => 'Kebijakan privasi dan perlindungan data pengunjung blog Randi Iskandar.',
+                'is_published' => true,
+            ]);
+        }
 
         return view('pages.show', [
             'page' => $page,

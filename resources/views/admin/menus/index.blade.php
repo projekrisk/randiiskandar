@@ -250,8 +250,8 @@
                         <optgroup label="Halaman Statis">
                             @foreach($pages as $page)
                                 @php
-                                    $pageUrl = in_array($page->slug, ['terms', 'disclaimer', 'privacy', 'about']) 
-                                        ? ($page->slug === 'about' ? '/tentang' : ($page->slug === 'privacy' ? '/privasi' : ($page->slug === 'terms' ? '/terms' : '/disclaimer')))
+                                    $pageUrl = in_array($page->slug, ['terms', 'term', 'disclaimer', 'privacy', 'privasi', 'about', 'tentang']) 
+                                        ? ($page->slug === 'about' || $page->slug === 'tentang' ? '/tentang' : (in_array($page->slug, ['privacy', 'privasi']) ? '/privasi' : ($page->slug === 'terms' || $page->slug === 'term' ? '/terms' : '/disclaimer')))
                                         : '/' . $page->slug;
                                 @endphp
                                 <option value="{{ $pageUrl }}" data-label="{{ $page->title }}">
@@ -425,8 +425,8 @@
                         <optgroup label="Halaman Statis">
                             @foreach($pages as $page)
                                 @php
-                                    $pageUrl = in_array($page->slug, ['terms', 'disclaimer', 'privacy', 'about']) 
-                                        ? ($page->slug === 'about' ? '/tentang' : ($page->slug === 'privacy' ? '/privasi' : ($page->slug === 'terms' ? '/terms' : '/disclaimer')))
+                                    $pageUrl = in_array($page->slug, ['terms', 'term', 'disclaimer', 'privacy', 'privasi', 'about', 'tentang']) 
+                                        ? ($page->slug === 'about' || $page->slug === 'tentang' ? '/tentang' : (in_array($page->slug, ['privacy', 'privasi']) ? '/privasi' : ($page->slug === 'terms' || $page->slug === 'term' ? '/terms' : '/disclaimer')))
                                         : '/' . $page->slug;
                                 @endphp
                                 <option value="{{ $pageUrl }}" data-label="{{ $page->title }}">
